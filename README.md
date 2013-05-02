@@ -56,7 +56,10 @@ virtual environments directory somewhere in your home folder or some such):
     $ pyvenv {this project} $ pip install {this project}
 
 Alternatively, you can download the package manually from the [downloads
-page][download] and run `python setup.py`.
+page][download] and run:
+
+    :::bash
+    $ python setup.py
 
 ### Configuration
 
