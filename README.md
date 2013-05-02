@@ -37,12 +37,14 @@ when you install the package.)
 The easiest way to install {this project} is using `pip`, which also installs
 all dependencies for using {this project}:
 
+    :::bash
     $ pip install {this project}
 
 I recommend using a virtual environment for this install, to keep it separate
 from your other (system or project) Python setups. If you have
 [virtualenvwrapper][vw] installed:
 
+    :::bash
     $ mkvirtualenv {this project}
     $ setvirtualenvproject /path/where/you/want/to/build/your/site
     $ pip install {this project}
@@ -50,6 +52,7 @@ from your other (system or project) Python setups. If you have
 Otherwise, since we're running Python 3, you can just do (preferably in a
 virtual environments directory somewhere in your home folder or some such):
 
+    :::bash
     $ pyvenv {this project} $ pip install {this project}
 
 Alternatively, you can download the package manually from the [downloads
