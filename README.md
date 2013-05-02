@@ -53,7 +53,8 @@ Otherwise, since we're running Python 3, you can just do (preferably in a
 virtual environments directory somewhere in your home folder or some such):
 
     :::bash
-    $ pyvenv {this project} $ pip install {this project}
+    $ pyvenv {this project}
+    $ pip install {this project}
 
 Alternatively, you can download the package manually from the [downloads
 page][download] and run:
