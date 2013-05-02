@@ -66,5 +66,4 @@ page][download] and run `python setup.py`.
 
 [python]: http://www.python.org/download/ "Download Python 3 for your platform"
 
-[vw]: https://bitbucket.org/dhellmann/virtualenvwrapper "Extensions to Ian
-Bickings virtualenv tool"
+[vw]: https://bitbucket.org/dhellmann/virtualenvwrapper "Extensions to Ian Bickings virtualenv tool"
