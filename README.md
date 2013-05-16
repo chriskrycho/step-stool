@@ -1,20 +1,20 @@
-{this project}
-==============
+Step Stool
+==========
 
 A static website generator (in Python).
 
 Introduction
 ------------
 
-{this project} is a simple static site generator. You write your content in
+Step Stool is a simple static site generator. You write your content in
 [Markdown][md], run a quick command line script, and it gets published to the
 web. No content management system, no database, just simple HTML files.
 
-{this project} supports custom templates (via [Jinja2][jinja]), so you can make
+Step Stool supports custom templates (via [Jinja2][jinja]), so you can make
 your site look pretty much however you want. You can apply different templates
 to different sections of your site, using a single line in a configuration file.
 
-{this project} also allows you to structure your site pretty much however you
+Step Stool also allows you to structure your site pretty much however you
 choose. If you want to have nested categories, go for it. If you want an
 entirely flat structure with an ever-growing list of tags, you can do that, too.
 
@@ -23,7 +23,7 @@ Setup
 ### Installation
 #### Dependencies
 
-To install {this project}, you'll need at least [Python 3.0][python]. If you
+To install Step Stool, you'll need at least [Python 3.0][python]. If you
 don't have it, you'll need to get it:
 
 - [Download it][python] and install it manually.
@@ -34,27 +34,27 @@ when you install the package.)
 
 #### Walkthrough
 
-The easiest way to install {this project} is using `pip`, which also installs
-all dependencies for using {this project}:
+The easiest way to install Step Stool is using `pip`, which also installs
+all dependencies for using Step Stool:
 
     :::bash
-    $ pip install {this project}
+    $ pip install Step Stool
 
 I recommend using a virtual environment for this install, to keep it separate
 from your other (system or project) Python setups. If you have
 [virtualenvwrapper][vw] installed:
 
     :::bash
-    $ mkvirtualenv {this project}
+    $ mkvirtualenv Step Stool
     $ setvirtualenvproject /path/where/you/want/to/build/your/site
-    $ pip install {this project}
+    $ pip install Step Stool
 
 Otherwise, since we're running Python 3, you can just do (preferably in a
 virtual environments directory somewhere in your home folder or some such):
 
     :::bash
-    $ pyvenv {this project}
-    $ pip install {this project}
+    $ pyvenv Step Stool
+    $ pip install Step Stool
 
 Alternatively, you can download the package manually from the [downloads
 page][download] and run:
@@ -63,6 +63,19 @@ page][download] and run:
     $ python setup.py
 
 ### Configuration
+
+Miscellanies
+------------
+
+### Why "Step Stool"?
+
+A step stool helps you get just a little higher. It's not a ladder, and it's
+definitely not a powered lift to do work on street lamps. It just makes a
+process a wee little bit easier. That's what Step Stool does: it automates
+generation of HTML from templates. It doesn't tell you what the templates should
+look like, and it doesn't interact with a database, or generate pages
+dynamically, or do much of anything other than turn Markdown into HTML. It's a
+step stool.
 
 
 [download]: /
