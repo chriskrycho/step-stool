@@ -27,7 +27,8 @@ To install Step Stool, you'll need at least [Python 3.0][python]. If you
 don't have it, you'll need to get it:
 
 - [Download it][python] and install it manually.
-- Use a package manager to install it (e.g. `brew install python`, ``, etc.).
+- Use a package manager to install it (e.g. `brew install python`, `aptitude
+  install python`, etc.).
 
 That's it. (All the Python package dependencies will take care of themselves
 when you install the package.)
