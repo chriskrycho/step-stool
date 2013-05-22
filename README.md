@@ -38,23 +38,23 @@ The easiest way to install Step Stool is using `pip`, which also installs
 all dependencies for using Step Stool:
 
     :::bash
-    $ pip install Step Stool
+    $ pip install step-stool
 
 I recommend using a virtual environment for this install, to keep it separate
 from your other (system or project) Python setups. If you have
 [virtualenvwrapper][vw] installed:
 
     :::bash
-    $ mkvirtualenv Step Stool
+    $ mkvirtualenv step-stool
     $ setvirtualenvproject /path/where/you/want/to/build/your/site
-    $ pip install Step Stool
+    $ pip install step-stool
 
 Otherwise, since we're running Python 3, you can just do (preferably in a
 virtual environments directory somewhere in your home folder or some such):
 
     :::bash
-    $ pyvenv Step Stool
-    $ pip install Step Stool
+    $ pyvenv step-stool
+    $ pip install step-stool
 
 Alternatively, you can download the package manually from the [downloads
 page][download] and run:
