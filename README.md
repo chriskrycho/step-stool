@@ -65,6 +65,12 @@ page][download] and run:
 
 ### Configuration
 
+#### The configuration file
+
+#### Templates
+
+#### Pages and Posts
+
 Miscellanies
 ------------
 
