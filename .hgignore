@@ -35,3 +35,7 @@ __pycache__
 *.eml
 atlassian-ide-plugin.xml
 .idea
+
+# SASS cache
+.sass-cache
+.sass-cache/

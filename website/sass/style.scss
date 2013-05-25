@@ -1,18 +1,4 @@
 // Widths
-$boxWidth: 120px;
-$halfBoxWidth: $boxWidth/2;
-
-$stepHeight: $boxWidth*0.375;
-$stepWidth: $boxWidth*0.85;
-$stepVerticalOffset: $boxWidth/5;
-$stepHorizontalOffset: $boxWidth*.4667;
-
-$shadowHeight: $stepHeight*0.4;
-$shadowVerticalOffset: $boxWidth*0.492;
-$shadowHorizontalOffset: $boxWidth*0.592;
-
-$boxRadius: $boxWidth/10;
-$ladderRadius: $boxWidth/40;
 
 // Colors
 $blue: #3498db;
@@ -21,6 +7,7 @@ $darkGray: #333333;
 $lightGray: #EEEEEE;
 $borderGray: #E4E7E8;
 
+// Mixings
 @mixin vendorize($property, $value) {
     -webkit-#{$property}: $value;
     -moz-#{$property}: $value;
@@ -29,50 +16,3 @@ $borderGray: #E4E7E8;
     #{$property}: $value;
 }
 
-.wrapper {
-    position: relative;
-    margin-top: 20%;
-    margin-left: auto;
-    margin-right: auto;
-    width: $boxWidth * 2;        
-}
-
-.box {
-    height: $boxWidth;
-    width: $boxWidth;
-    background: $lightGray;
-    border: 1px solid $borderGray;
-    border-radius: $boxRadius;
-    margin: 0 auto;
-}
-
-.ladder {
-    height: $stepHeight;
-    width: $stepWidth;
-    border-radius: $ladderRadius;
-    @include vendorize(transform, rotate(32.5deg) skew(-32.5deg));
-    position: absolute;
-}
-
-.upper {
-    top: $stepVerticalOffset;
-    right: $stepHorizontalOffset;
-    background: $darkGray;
-    z-index: 3;
-}
-
-.lower {
-    bottom: $stepVerticalOffset;
-    left: $stepHorizontalOffset;
-    background: $blue;
-    z-index: 1;
-}
-
-.shadow {
-    top: $shadowVerticalOffset;
-    left: $shadowHorizontalOffset;
-    height: $shadowHeight;
-    width: $stepWidth;
-    background: $shadowBlue;
-    z-index: 2;
-}
