@@ -1,5 +1,8 @@
+@import "reset";
+
 // Fonts
-$jockey: '';
+$jockey: 'Jockey One', monospace;
+$open: 'Open Sans', 'Century Gothic', sans-serif;
 
 // Widths
 
@@ -10,7 +13,7 @@ $darkGray: #333333;
 $lightGray: #EEEEEE;
 $borderGray: #E4E7E8;
 
-// Mixings
+// Mixins
 @mixin vendorize($property, $value) {
     -webkit-#{$property}: $value;
     -moz-#{$property}: $value;
@@ -19,3 +22,41 @@ $borderGray: #E4E7E8;
     #{$property}: $value;
 }
 
+/* Body defaults */
+body {
+   font: {
+      family: $open;
+      size: 18px;
+   }
+   line-height: 1.5em;
+}
+
+/* Generic classes */
+.blue {
+   color: $blue;
+}
+
+.gray {
+   color: $darkGray;
+}
+
+.jockey {
+   font-family: $jockey;
+}
+
+/* Layout */
+.logoWrapper {
+   height: 16em;
+
+   h1 {
+      font: {
+         family: $jockey;
+         size: 3em;
+      }
+   }
+
+   img {
+      max-height: 100%;
+      max-width: 100%;
+   }
+}
