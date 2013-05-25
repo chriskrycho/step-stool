@@ -8,6 +8,8 @@ try:
 except ImportError:
     requires.append('argparse')
 
+README = open('README.md').read()
+
 setup(
     name='step-stool',
     version='0.1',
