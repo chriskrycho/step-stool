@@ -55,7 +55,7 @@ body {
 
 a {
    color: $lightGray;
-   border-bottom: 1px solid $darkBlue;
+   border-bottom: 2px solid $darkBlue;
    text-decoration: none;
    @include vendorize(transition, all 0.644s);
 
