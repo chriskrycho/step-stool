@@ -100,6 +100,26 @@ li {
    font-family: $jockey;
 }
 
+.open {
+   font-family: $open;
+}
+
+.italic {
+   font-style: italic;
+}
+
+.w300 {
+   font-weight: 300;
+}
+
+.w400 {
+   font-weight: 400;
+}
+
+.w600 {
+   font-weight: 700;
+}
+
 /* Layout */
 .index {
    &.wrapper {
