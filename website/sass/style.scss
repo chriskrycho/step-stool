@@ -1,5 +1,27 @@
 @import "reset";
 
+// Modular scale on perfect fifth with 18px/256px
+// http://modularscale.com/scale/?px1=18&px2=512&ra1=1.5&ra2=0
+$size0: 1em;
+
+// Up
+$size1: 1.405rem;
+$size2: 1.5rem;
+$size3: 1.873rem;
+$size4: 2.107rem;
+$size5: 2.25rem;
+$size6: 3.161rem;
+$size7: 3.375rem;
+$size8: 4.741rem;
+$size9: 5.063rem;
+$size10: 7.111rem;
+$size11: 7.594rem;
+
+// Down
+$size-1: 0.936rem;
+$size-2: 0.667rem;
+
+
 // Fonts
 $jockey: 'Jockey One', monospace;
 $open: 'Open Sans', 'Century Gothic', sans-serif;
@@ -7,11 +29,10 @@ $open: 'Open Sans', 'Century Gothic', sans-serif;
 // Widths
 
 // Colors
-$blue: #3498db;
-$shadowBlue: #186189;
-$darkGray: #333333;
-$lightGray: #EEEEEE;
-$borderGray: #E4E7E8;
+$lightBlue: #3498db;
+$darkBlue: #186189;
+$darkGray: #444444;
+$lightGray: #F8F8F8;
 
 // Mixins
 @mixin vendorize($property, $value) {
@@ -26,14 +47,49 @@ $borderGray: #E4E7E8;
 body {
    font: {
       family: $open;
-      size: 18px;
+      size: 112.5%;
    }
-   line-height: 1.5em;
+   color: $darkGray;
+   line-height: 1.5;
+}
+
+a {
+   color: $lightGray;
+   border-bottom: 1px solid $darkBlue;
+   text-decoration: none;
+   @include vendorize(transition, all 0.644s);
+
+   &:hover, &:active {
+      color: $darkBlue;
+   }
+   &:visited {
+
+   }
+}
+
+ul {
+   list-style-type: square;
+   margin-left: $size0;
+}
+
+li {
+   padding: {
+      top: $size-2;
+      bottom: $size-2;
+   }
+}
+
+.microspaceBefore {
+   margin-left: 2px;
+}
+
+.microspaceAfter {
+   margin-right: 2px;
 }
 
 /* Generic classes */
 .blue {
-   color: $blue;
+   color: $lightBlue;
 }
 
 .gray {
@@ -45,18 +101,111 @@ body {
 }
 
 /* Layout */
+.index {
+   &.wrapper {
+      width: 100%;
+      overflow: hidden;
+   }
+
+   .left {
+      width: 56%;
+   }
+   
+   .right {
+      width: 44%;
+   }
+}
+
+.left, .right {
+   float: left;
+   padding-top: $size10;
+   margin-bottom: -99999px;
+   padding-bottom: 99999px;
+   overflow: hidden;
+}
+
+.left {
+   background: $darkGray;
+}
+
+.right {
+   color: $lightGray;
+   background: $lightBlue;
+}
+
+.logoWrapper, .descriptionWrapper {
+   height: $size11;
+}
+
 .logoWrapper {
-   height: 16em;
+   width: auto;
+   background: $lightGray;
+   border-right: 1px solid $darkBlue;
 
    h1 {
       font: {
          family: $jockey;
-         size: 3em;
+         size: $size8;
       }
+      text: {
+         align: right;
+      }
+      padding-right: $size3;
    }
 
    img {
+      vertical-align: -25%;
       max-height: 100%;
       max-width: 100%;
    }
+}
+
+.descriptionWrapper {
+   padding-left: $size3;
+   margin-top: $size6;
+   width: 400px;
+   width: auto;
+   background: $darkBlue;
+   h2 {
+      padding-top: 1.5rem;
+      font: {
+         weight: 300;
+      }
+   }
+}
+
+// Make sure the columns always go to the bottom of the screen
+@media screen {
+
+   @media (max-height: 1600px) {
+      .wrapper {
+         height: 1600px;
+      }
+   }
+
+   @media (max-height: 1200px) {
+      .wrapper {
+         height: 1200px;
+      }
+   }
+
+   @media (max-height: 1000px) {
+      .wrapper {
+         height: 1000px;
+      }
+   }
+
+   @media (max-height: 800px) {
+      .wrapper {
+         height: 800px;
+      }
+   }
+
+   @media (max-height: 600px) {
+      .wrapper {
+         max-height: 600px;
+      }
+   }
+
+
 }
