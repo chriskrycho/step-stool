@@ -44,7 +44,11 @@ h1 {
 }
 
 h2 {
-   font-size: $size3;
+   font: {
+      family: $open;
+      size: $size3;
+      weight: 300;
+   }
 }
 
 h3 {
@@ -67,10 +71,11 @@ a {
    color: $lightGray;
    border-bottom: 2px solid $darkBlue;
    text-decoration: none;
-   @include vendorize(transition, all 0.644s);
+   @include vendorize(transition, all 0.644s ease);
 
    &:hover, &:active {
       color: $darkBlue;
+      @include vendorize(transition, all 0.444s ease);
    }
    &:visited {
 
@@ -131,6 +136,11 @@ li {
 }
 
 /* Layout */
+.wrapper {
+   width: 100%;
+   overflow: hidden;
+}
+
 .left, .right {
    float: left;
 
@@ -151,7 +161,6 @@ li {
 }
 
 .logoWrapper {
-   width: auto;
    background: $lightGray;
    border-right: 1px solid $darkBlue;
 
@@ -167,23 +176,17 @@ li {
 }
 
 .descriptionWrapper {
-   width: 400px;
-   width: auto;
    background: $darkBlue;
-   h2 {
-      padding-top: 1.5rem;
-      font: {
-         weight: 300;
-      }
-   }
+}
+
+.content {
+   background: $lightGray;
+   color: $darkGray;
+   padding: $size-15 $size0;
 }
 
 /* Page-specific layouts */
 .index {
-   &.wrapper {
-      width: 100%;
-      overflow: hidden;
-   }
    .left, .right {
       padding-top: $size9;
    }
@@ -212,6 +215,7 @@ li {
    .descriptionWrapper {
       padding-left: $size3;
       h2 {
+         padding-top: 1.5rem;
          font-size: 1.688rem;
       }
    }
@@ -220,28 +224,32 @@ li {
 
 .page {
    .left {
-      width: 27%;
+      width: 30%;
    }
 
    .right {
-      width: 73%;
+      width: 70%;
    }
 
    .logoWrapper, .descriptionWrapper {
-      height: $size7;
+      height: $size8;
       margin-top: $size-2;
    }
 
    .logoWrapper {
       h1 {
          text-align: center;
-         font-size: $size5;
+         font-size: $size6;
       }
    }
 
    .descriptionWrapper {
       h2 {
-         font-size: $size1 - $size;
+         font-size: $size1;
+         padding: {
+            top: $size1;
+            left: $size1;
+         }
       }
    }
 
@@ -257,11 +265,17 @@ li {
       .wrapper {
          min-height: 1600px;
       }
+      .content {
+         min-height: 1500px;
+      }
    }
 
    @media (max-height: 1200px) {
       .wrapper {
          min-height: 1200px;
+      }
+      .content {
+         min-height: 1100px;
       }
    }
 
@@ -269,17 +283,26 @@ li {
       .wrapper {
          min-height: 1000px;
       }
+      .content {
+         min-height: 900px;
+      }
    }
 
    @media (max-height: 800px) {
       .wrapper {
          min-height: 800px;
       }
+      .content {
+         min-height: 700px;
+      }
    }
 
    @media (max-height: 600px) {
       .wrapper {
          min-max-height: 600px;
+      }
+      .content {
+         min-height: 500px;
       }
    }
 
