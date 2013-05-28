@@ -44,10 +44,13 @@ $lightGray: #F8F8F8;
 }
 
 /* Body defaults */
+html {
+   font-size: 112.5%;
+}
+
 body {
    font: {
       family: $open;
-      size: 112.5%;
    }
    color: $darkGray;
    line-height: 1.5;
@@ -121,24 +124,11 @@ li {
 }
 
 /* Layout */
-.index {
-   &.wrapper {
-      width: 100%;
-      overflow: hidden;
-   }
-
-   .left {
-      width: 56%;
-   }
-   
-   .right {
-      width: 44%;
-   }
-}
-
 .left, .right {
    float: left;
-   padding-top: $size10;
+   padding-top: $size9;
+
+   // Make columns full height
    margin-bottom: -99999px;
    padding-bottom: 99999px;
    overflow: hidden;
@@ -152,10 +142,6 @@ li {
 .right {
    color: $lightGray;
    background: $lightBlue;
-}
-
-.logoWrapper, .descriptionWrapper {
-   height: $size11;
 }
 
 .logoWrapper {
@@ -191,6 +177,58 @@ li {
       padding-top: 1.5rem;
       font: {
          weight: 300;
+      }
+   }
+}
+
+/* Page-specific layouts */
+.index {
+   &.wrapper {
+      width: 100%;
+      overflow: hidden;
+   }
+
+   .left {
+      width: 56%;
+   }
+   
+   .right {
+      width: 44%;
+   }
+
+   .logoWrapper, .descriptionWrapper {
+      height: $size11;
+   }
+
+   .descriptionWrapper {
+      h2 {
+         font-size: 1.688rem;
+      }
+   }
+}
+
+.content {
+   .left {
+
+   }
+
+   .right {
+
+   }
+
+   .logoWrapper, .descriptionWrapper {
+      height: $size8;
+   }
+
+   .logoWrapper {
+      h1 {
+         font-size: $size6;
+      }
+   }
+
+   .descriptionWrapper {
+      h2 {
+         font-size: 1.405rem;
       }
    }
 }
