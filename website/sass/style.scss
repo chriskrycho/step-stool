@@ -1,26 +1,5 @@
 @import "reset";
-
-// Modular scale on perfect fifth with 18px/256px
-// http://modularscale.com/scale/?px1=18&px2=128&ra1=1.5&ra2=0
-$size0: 1em;
-
-// Up
-$size1: 1.405rem;
-$size2: 1.5rem;
-$size3: 1.873rem;
-$size4: 2.107rem;
-$size5: 2.25rem;
-$size6: 3.161rem;
-$size7: 3.375rem;
-$size8: 4.741rem;
-$size9: 5.063rem;
-$size10: 7.111rem;
-$size11: 7.594rem;
-
-// Down
-$size-1: 0.936rem;
-$size-2: 0.667rem;
-
+@import "modular_scale";
 
 // Fonts
 $jockey: 'Jockey One', monospace;
@@ -58,6 +37,30 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
    margin: 0;
+}
+
+h1 {
+   font-size: $size4;
+}
+
+h2 {
+   font-size: $size3;
+}
+
+h3 {
+   font-size: $size2;
+}
+
+h4 {
+   font-size: $size1;
+}
+
+h5 {
+   font-size: $size0;
+}
+
+h6 {
+   font-size: $size-1;
 }
 
 a {
@@ -154,10 +157,6 @@ li {
 
    h1 {
       font-family: $jockey;
-      text: {
-         align: right;
-      }
-      padding-right: $size3;
    }
 
    img {
@@ -168,7 +167,6 @@ li {
 }
 
 .descriptionWrapper {
-   padding-left: $size3;
    width: 400px;
    width: auto;
    background: $darkBlue;
@@ -206,11 +204,13 @@ li {
    .logoWrapper {
       h1 {
          text-align: right;
+         padding-right: $size3;
          font-size: $size8;
       }
    }
 
    .descriptionWrapper {
+      padding-left: $size3;
       h2 {
          font-size: 1.688rem;
       }
@@ -218,7 +218,7 @@ li {
 
 }
 
-.content {
+.page {
    .left {
       width: 27%;
    }
@@ -228,20 +228,20 @@ li {
    }
 
    .logoWrapper, .descriptionWrapper {
-      height: $size8;
+      height: $size7;
       margin-top: $size-2;
    }
 
    .logoWrapper {
       h1 {
-         text-align: left;
-         font-size: $size6;
+         text-align: center;
+         font-size: $size5;
       }
    }
 
    .descriptionWrapper {
       h2 {
-         font-size: 1.405rem;
+         font-size: $size1 - $size;
       }
    }
 
