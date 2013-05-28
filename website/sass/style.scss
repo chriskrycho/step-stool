@@ -75,16 +75,12 @@ a {
 
    &:hover, &:active {
       color: $darkBlue;
+      border-bottom: 1px solid $lightGray;
       @include vendorize(transition, all 0.444s ease);
    }
    &:visited {
 
    }
-}
-
-ul {
-   list-style-type: square;
-   margin-left: $size0;
 }
 
 li {
@@ -136,6 +132,12 @@ li {
 }
 
 /* Layout */
+nav {
+   .mainNav {
+      list-style-type: none;
+   }
+}
+
 .wrapper {
    width: 100%;
    overflow: hidden;
@@ -153,11 +155,28 @@ li {
 .left {
    color: $lightGray;
    background: $darkGray;
+   a {
+      &:hover, &:active {
+         color: $lightBlue;
+         border-bottom: 2px solid $lightGray;
+      }
+   }
+   nav {
+      .mainNav {
+         text-align: right;
+         padding-right: $size3;
+      }
+   }
 }
 
 .right {
-   color: $lightGray;
    background: $lightBlue;
+   nav {
+      .mainNav {
+         padding-left: $size3;
+         margin-left: 0;
+      }
+   }
 }
 
 .logoWrapper {
@@ -176,13 +195,26 @@ li {
 }
 
 .descriptionWrapper {
+   color: $lightGray;
    background: $darkBlue;
 }
 
 .content {
    background: $lightGray;
    color: $darkGray;
-   padding: $size-15 $size0;
+   padding: $size-5 $size3;
+   p {
+      width: $size18;
+   }
+   a {
+      color: $lightBlue;
+      border-bottom: 2px solid $darkGray;
+
+      &:hover {
+         color: $darkGray;
+         border-bottom: 2px solid $lightBlue;
+      }
+   }
 }
 
 /* Page-specific layouts */
