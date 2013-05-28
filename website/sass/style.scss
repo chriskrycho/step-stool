@@ -56,6 +56,10 @@ body {
    line-height: 1.5;
 }
 
+h1, h2, h3, h4, h5, h6 {
+   margin: 0;
+}
+
 a {
    color: $lightGray;
    border-bottom: 2px solid $darkBlue;
@@ -126,7 +130,6 @@ li {
 /* Layout */
 .left, .right {
    float: left;
-   padding-top: $size9;
 
    // Make columns full height
    margin-bottom: -99999px;
@@ -150,10 +153,7 @@ li {
    border-right: 1px solid $darkBlue;
 
    h1 {
-      font: {
-         family: $jockey;
-         size: $size8;
-      }
+      font-family: $jockey;
       text: {
          align: right;
       }
@@ -169,7 +169,6 @@ li {
 
 .descriptionWrapper {
    padding-left: $size3;
-   margin-top: $size6;
    width: 400px;
    width: auto;
    background: $darkBlue;
@@ -187,6 +186,9 @@ li {
       width: 100%;
       overflow: hidden;
    }
+   .left, .right {
+      padding-top: $size9;
+   }
 
    .left {
       width: 56%;
@@ -198,6 +200,14 @@ li {
 
    .logoWrapper, .descriptionWrapper {
       height: $size11;
+      margin-top: $size6;
+   }
+
+   .logoWrapper {
+      h1 {
+         text-align: right;
+         font-size: $size8;
+      }
    }
 
    .descriptionWrapper {
@@ -205,23 +215,26 @@ li {
          font-size: 1.688rem;
       }
    }
+
 }
 
 .content {
    .left {
-
+      width: 27%;
    }
 
    .right {
-
+      width: 73%;
    }
 
    .logoWrapper, .descriptionWrapper {
       height: $size8;
+      margin-top: $size-2;
    }
 
    .logoWrapper {
       h1 {
+         text-align: left;
          font-size: $size6;
       }
    }
@@ -230,6 +243,10 @@ li {
       h2 {
          font-size: 1.405rem;
       }
+   }
+
+   .optionalBreak {
+      display: none;
    }
 }
 
