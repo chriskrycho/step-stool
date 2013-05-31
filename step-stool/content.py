@@ -6,6 +6,6 @@ from markdown import markdownFromFile as md_file
 
 
 def get_content_and_meta(file):
-    meta = md_file()
+    meta = ''
     content = ''
     return meta, content
