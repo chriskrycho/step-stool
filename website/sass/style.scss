@@ -69,7 +69,7 @@ h6 {
 
 a {
    color: $lightGray;
-   border-bottom: 2px solid $darkBlue;
+   border-bottom: 3px solid $darkBlue;
    text-decoration: none;
    @include vendorize(transition, all 0.644s ease);
 
@@ -159,12 +159,14 @@ nav {
 .left {
    color: $lightGray;
    background: $darkGray;
+
    a {
       &:hover, &:active {
          color: $lightBlue;
-         border-bottom: 2px solid $lightGray;
+         border-bottom: 3px solid $lightGray;
       }
    }
+
    nav {
       .mainNav {
          text-align: right;
@@ -207,16 +209,18 @@ nav {
    background: $lightGray;
    color: $darkGray;
    padding: $size-5 $size3;
+
    p {
       width: $size18;
    }
+
    a {
       color: $lightBlue;
-      border-bottom: 2px solid $darkGray;
+      border-bottom: 1px solid $darkGray;
 
       &:hover {
          color: $darkGray;
-         border-bottom: 2px solid $lightBlue;
+         border-bottom: 1px solid $lightBlue;
       }
    }
 }

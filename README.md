@@ -67,7 +67,15 @@ page][download] and run:
 
 #### The configuration file
 
-#### Templates
+#### Templating
+
+All article information is supplied to the template in the `article` object.
+Each `article` includes the following properties:
+
+- `content`: the HTML body of the article, based on the Markdown document
+- `meta`:
+
+You can then use the `article` objects 
 
 #### Pages and Posts
 
