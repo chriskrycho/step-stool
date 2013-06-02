@@ -1,3 +1,4 @@
 site-name: Step Stool Demo
 root: http://step-stool.io/demo
-
+content-source: ./source
+content-output: ./generated-site
