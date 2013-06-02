@@ -2,9 +2,9 @@ __author__ = 'Chris Krycho'
 __copyright__ = '2013 Chris Krycho'
 
 
-from yaml import dump, load
+from yaml import load
 
 
-def get_config(yaml_string):
-    config = dump(load(yaml_string))
+def get_config(document):
+    config = load(document)
     return config
