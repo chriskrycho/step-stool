@@ -1,4 +1,5 @@
 site-name: Step Stool Demo
 root: http://step-stool.io/demo
-content-source: ./source
-content-output: ./generated-site
+content-source: /Users/chris/development/personal_projects/step-stool/sample/source
+content-output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
+default-template: clean
