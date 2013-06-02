@@ -1,4 +1,4 @@
-__author__ = ''
+__author__ = 'Chris Krycho'
 __copyright__ = '2013 Chris Krycho'
 
 
