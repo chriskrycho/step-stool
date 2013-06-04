@@ -1,0 +1,38 @@
+/*
+ * Clean theme for Step Stool
+ * Copyright (c) 2013 Christopher Krycho
+ * License: MIT
+ *
+ * Modular scale: http://modularscale.com/scale/?px1=20&px2=28&ra1=1.5&ra2=0
+ */
+
+// Google WebFonts: PT Serif, PT Sans, and PT Mono
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Mono|PT+Serif:400,700,400italic,700italic);
+
+// Local includes
+@import "reset";
+@import "colors";
+@import "modular_scale";
+
+html {
+   font-size: 125%;
+   line-height: 1.4;
+   font-family: 'PT Sans', sans-serif;
+}
+
+body {
+   background: #f8f8f8;
+   color: #444444;
+}
+
+h1, h2, h3, h4 {
+   font-family: 'PT Serif', serif;
+}
+
+h5, h6 {
+   font-family: 'PT Sans', sans-serif;
+}
+
+code, pre {
+   font-family: 'PT Mono', monospace;
+}

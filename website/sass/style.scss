@@ -75,11 +75,8 @@ a {
 
    &:hover, &:active {
       color: $darkBlue;
-      border-bottom: 2px solid $lightGray;
+      border-bottom: 3px solid $lightGray;
       @include vendorize(transition, all 0.444s ease);
-   }
-   &:visited {
-
    }
 
    &.logoLink {
@@ -181,6 +178,12 @@ nav {
       .mainNav {
          padding-left: $size3;
          margin-left: 0;
+      }
+   }
+
+   a {
+      &:hover {
+         color: $darkGray;
       }
    }
 }

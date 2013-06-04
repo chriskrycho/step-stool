@@ -69,6 +69,8 @@ page][download] and run:
 
 #### Templating
 
+
+
 All article information is supplied to the template in the `article` object.
 Each `article` includes the following properties:
 

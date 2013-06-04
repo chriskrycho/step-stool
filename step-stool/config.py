@@ -10,5 +10,6 @@ def get_config(document):
     return config
 
 def gen_config():
-    ''' Generate a configuration file with default values. '''
+    ''' Generate a configuration file with default values.
+    '''
     pass
