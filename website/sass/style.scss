@@ -159,7 +159,7 @@ ul {
       }
    }
 
-   .nav {
+   ul.nav {
       text-align: right;
       padding-right: $gamma + rem;
    }
@@ -169,7 +169,7 @@ ul {
    float: right;
    background: $lightBlue;
 
-   .nav {
+   ul.nav {
       padding-left: $gamma + rem;
       margin-left: 0;
    }
@@ -288,10 +288,6 @@ ul {
          }
       }
    }
-
-   .optionalBreak {
-      display: none;
-   }
 }
 
 // Make sure the columns always go to the bottom of the screen
@@ -344,18 +340,72 @@ ul {
    }
 
    // Responsive reflow
-   @media (max-width: 36rem) {
-      // 648px
+   @media (max-width: 36rem) { // 648px
+      html {
+         font-size: 100%;
+      }
+
       .page, .index {
          .left, .right {
             width: 100%;
          }
+
+         .right {
+            margin-top: $c + rem;
+         }
+
+         #logoWrapper {
+            //height: $eta + rem;
+            margin-top: 0;
+
+            h1 {
+               //height: $zeta + rem;
+               //font-size: $epsilon + rem;
+            }
+         }
+
+         #descriptionWrapper {
+            margin-top: 0;
+
+            h2 {
+               text-align: center;
+               padding: 0;
+            }
+         }
+
+         ul.nav {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+
+            li {
+               display: inline-block;
+               padding: {
+                  right: $d + rem;
+                  left: $d + rem;
+               }
+            }
+         }
+      }
+
+      .textBlock {
+         article {
+            padding: $null + rem;
+
+            p {
+               width: 100%;
+            }
+         }
       }
    }
 
-   @media (min-width: 1rem) { // TODO: fix the width
+   @media (min-width: 36rem) { // TODO: fix the width
       #logoWrapper h1 {
          border-right: 1px solid $darkBlue;
+      }
+
+      .optionalBreak {
+         display: none;
       }
    }
 }
