@@ -1,9 +1,5 @@
 @import "reset";
-@import "modular_scale";
-
-// Fonts
-$jockey: 'Jockey One', monospace;
-$open: 'Open Sans', 'Century Gothic', sans-serif;
+@import "typography";
 
 // Widths
 
@@ -32,7 +28,7 @@ body {
       family: $open;
    }
    color: $darkGray;
-   line-height: 1.5;
+   line-height: $beta;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -40,31 +36,31 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-   font-size: $size4;
+   font-size: $delta + rem;
 }
 
 h2 {
    font: {
       family: $open;
-      size: $size3;
+      size: $gamma + rem;
       weight: 300;
    }
 }
 
 h3 {
-   font-size: $size2;
+   font-size: $beta + rem;
 }
 
 h4 {
-   font-size: $size1;
+   font-size: $alpha + rem;
 }
 
 h5 {
-   font-size: $size0;
+   font-size: $null;
 }
 
 h6 {
-   font-size: $size-1;
+   font-size: $a;
 }
 
 a {
@@ -86,8 +82,8 @@ a {
 
 li {
    padding: {
-      top: $size-2;
-      bottom: $size-2;
+      top: $b + rem;
+      bottom: $b + rem;
    }
 }
 
@@ -133,8 +129,8 @@ li {
 }
 
 /* Layout */
-nav {
-   .mainNav {
+ul {
+   &.nav {
       list-style-type: none;
    }
 }
@@ -144,9 +140,7 @@ nav {
    overflow: hidden;
 }
 
-.left, .right {
-   float: left;
-
+.column {
    // Make columns full height
    margin-bottom: -99999px;
    padding-bottom: 99999px;
@@ -154,6 +148,7 @@ nav {
 }
 
 .left {
+   float: left;
    color: $lightGray;
    background: $darkGray;
 
@@ -164,21 +159,19 @@ nav {
       }
    }
 
-   nav {
-      .mainNav {
-         text-align: right;
-         padding-right: $size3;
-      }
+   .nav {
+      text-align: right;
+      padding-right: $gamma + rem;
    }
 }
 
 .right {
+   float: right;
    background: $lightBlue;
-   nav {
-      .mainNav {
-         padding-left: $size3;
-         margin-left: 0;
-      }
+
+   .nav {
+      padding-left: $gamma + rem;
+      margin-left: 0;
    }
 
    a {
@@ -188,9 +181,9 @@ nav {
    }
 }
 
-.logoWrapper {
+#logoWrapper {
    background: $lightGray;
-   border-right: 1px solid $darkBlue;
+   color: $darkGray;
 
    h1 {
       font-family: $jockey;
@@ -203,18 +196,21 @@ nav {
    }
 }
 
-.descriptionWrapper {
-   color: $lightGray;
+#descriptionWrapper {
    background: $darkBlue;
+   color: $lightGray;
 }
 
-.content {
+.textBlock {
    background: $lightGray;
    color: $darkGray;
-   padding: $size-5 $size3;
+
+   article {
+      padding: $c + rem $gamma + rem;
+   }
 
    p {
-      width: $size18;
+      width: 36rem;
    }
 
    a {
@@ -230,10 +226,6 @@ nav {
 
 /* Page-specific layouts */
 .index {
-   .left, .right {
-      padding-top: $size9;
-   }
-
    .left {
       width: 56%;
    }
@@ -242,23 +234,24 @@ nav {
       width: 44%;
    }
 
-   .logoWrapper, .descriptionWrapper {
-      height: $size11;
-      margin-top: $size6;
+   #logoWrapper, #descriptionWrapper {
+      margin-top: 7.594rem;
+      height: 7.594rem;
    }
 
-   .logoWrapper {
+   #logoWrapper {
       h1 {
+         height: 7.594rem;
+         padding-right: $gamma + rem;
          text-align: right;
-         padding-right: $size3;
-         font-size: $size8;
+         font-size: $theta + rem;
       }
    }
 
-   .descriptionWrapper {
-      padding-left: $size3;
+   #descriptionWrapper {
       h2 {
          padding-top: 1.5rem;
+         padding-left: $gamma + rem;
          font-size: 1.688rem;
       }
    }
@@ -274,24 +267,24 @@ nav {
       width: 70%;
    }
 
-   .logoWrapper, .descriptionWrapper {
-      height: $size8;
-      margin-top: $size1;
+   #logoWrapper, #descriptionWrapper {
+      height: $theta + rem;
+      margin-top: $alpha + rem;
    }
 
-   .logoWrapper {
+   #logoWrapper {
       h1 {
          text-align: center;
-         font-size: $size6;
+         font-size: $zeta + rem;
       }
    }
 
-   .descriptionWrapper {
+   #descriptionWrapper {
       h2 {
-         font-size: $size1;
+         font-size: $alpha + rem;
          padding: {
-            top: $size1;
-            left: $size1;
+            top: $alpha + rem;
+            left: $alpha + rem;
          }
       }
    }
@@ -304,11 +297,12 @@ nav {
 // Make sure the columns always go to the bottom of the screen
 @media screen {
 
+   // Heights - make sure the backgrounds fill the page
    @media (max-height: 1600px) {
       .wrapper {
          min-height: 1600px;
       }
-      .content {
+      .textBlock {
          min-height: 1500px;
       }
    }
@@ -317,7 +311,7 @@ nav {
       .wrapper {
          min-height: 1200px;
       }
-      .content {
+      .textBlock {
          min-height: 1100px;
       }
    }
@@ -326,7 +320,7 @@ nav {
       .wrapper {
          min-height: 1000px;
       }
-      .content {
+      .textBlock {
          min-height: 900px;
       }
    }
@@ -335,7 +329,7 @@ nav {
       .wrapper {
          min-height: 800px;
       }
-      .content {
+      .textBlock {
          min-height: 700px;
       }
    }
@@ -344,10 +338,24 @@ nav {
       .wrapper {
          min-max-height: 600px;
       }
-      .content {
+      .textBlock {
          min-height: 500px;
       }
    }
 
+   // Responsive reflow
+   @media (max-width: 36rem) {
+      // 648px
+      .page, .index {
+         .left, .right {
+            width: 100%;
+         }
+      }
+   }
 
+   @media (min-width: 1rem) { // TODO: fix the width
+      #logoWrapper h1 {
+         border-right: 1px solid $darkBlue;
+      }
+   }
 }

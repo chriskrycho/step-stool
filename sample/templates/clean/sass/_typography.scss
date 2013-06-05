@@ -1,7 +1,8 @@
 // Google WebFonts: Merriweather, Open Sans, Inconsolata
+// TODO: move to <link>-style import
 @import url(http://fonts.googleapis.com/css?family=Merriweather:400,300italic,400italic,700,700italic,900italic,900,300|Open+Sans:300italic,600italic,800italic,300,800,600|Inconsolata);
 
-// Associated variables
+// Typefaces variables
 $serif: Merriweather, Times, 'Times New Roman', serif;
 $sans: 'Open Sans', 'Century Gothic', Helvetica, Arial, sans-serif;
 $mono: Inconsolata, monospace;

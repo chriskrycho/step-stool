@@ -6,7 +6,7 @@
    <title>Step Stool - a(nother) static site generator.</title>
 
    <link rel='stylesheet' type='text/css' href='/style.css' />
-   <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:300italic,400italic,700italic,400,300,700'>
+   <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Jockey+One|Open+Sans:300italic,400italic,700italic,400,300,700|Inconsolata'>
 
    <link rel='icon' type='image/png' href='/favicon.png' />
 
@@ -34,30 +34,28 @@
 </head>
 <body>
    <div class='index wrapper'>
-      <div class='left'>
-         <div class='logoWrapper'>
-            <h1>
-               <img src='/images/step-stool-256.png' alt='Step Stool logo' />
-               <span class='gray'>Step</span> <span class='blue'>Stool</span>
-            </h1>
-         </div>
+      <div class='left column'></div>
+      <div class='right column'></div>
+      <div class='content left' id='logoWrapper'>
+         <h1>
+            <img src='/images/step-stool-256.png' alt='Step Stool logo' />
+            <span class='gray'>Step</span> <span class='blue'>Stool</span>
+         </h1>
       </div>
-      <div class='right'>
-         <div class='descriptionWrapper'>
-            <h2>
-               A<span class='blue microspaceBefore w400'>(</span>nother<span class='blue w400'>)</span> static site generator.<br/>
-               <span class='microspaceAfter'>(</span><span class='blue italic'>This one is in Python.</span>)
-            </h2>
-         </div>
-         <nav>
-            <ul class="mainNav">
-               <li><a href='/about/'>about</a></li>
-               <li><a href=''>download</a></li>
-               <li><a href=''>docs</a></li>
-               <li><a href='http://bitbucket.org/chriskrycho/step-stool/'>source</a></li>
-            </ul>
-         </nav>
+      <div class='content right' id='descriptionWrapper'>
+         <h2>
+            A<span class='blue microspaceBefore w400'>(</span>nother<span class='blue w400'>)</span> static site generator.<br/>
+            <span class='microspaceAfter'>(</span><span class='blue italic'>This one is in Python.</span>)
+         </h2>
       </div>
+      <nav class='content right' id='mainNav'>
+         <ul class='nav'>
+            <li><a href='/about/'>about</a></li>
+            <li><a href=''>download</a></li>
+            <li><a href=''>docs</a></li>
+            <li><a href='http://bitbucket.org/chriskrycho/step-stool/'>source</a></li>
+         </ul>
+      </nav>
    </div>
 </body>
 </html>
