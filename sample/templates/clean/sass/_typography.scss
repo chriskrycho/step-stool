@@ -12,19 +12,38 @@ $mono: Inconsolata, monospace;
 //    30px @ 3:4 perfect fourth
 //    (C - F - G - C)
 
-.ginormous {font-size: 4.162rem}
+$ginormous: 4.162;
+$huge: 3.529rem;
+
+$theta: 3.129;
+$eta: 2.653;
+$zeta: 2.353;
+$epsilon: 1.995;
+$delta: 1.769;
+$gamma: 1.5;
+$beta: 1.33;
+$alpha: 1.128;
+
+$base: 1;
+
+$a: 0.848;
+$b: 0.752;
+$c: 0.638;
+$d: 0.565;
+
+.ginormous {font-size: 4.162rem;}
 .huge {font-size: 3.529rem;}
 
-.theta {font-size: 3.129rem}
-.eta {font-size: 2.653rem}
-.zeta {font-size: 2.353rem}
-.epsilon {font-size: 1.995rem}
-.delta {font-size: 1.769rem}
-.gamma {font-size: 1.5rem}
-.beta {font-size: 1.33rem}
-.alpha {font-size: 1.128rem}
+.theta {font-size: 3.129rem;}
+.eta {font-size: 2.653rem;}
+.zeta {font-size: 2.353rem;}
+.epsilon {font-size: 1.995rem;}
+.delta {font-size: 1.769rem;}
+.gamma {font-size: 1.5rem;}
+.beta {font-size: 1.33rem;}
+.alpha {font-size: 1.128rem;}
 
-.base {font-size: 1rem}
+.base {font-size: 1rem;}
 
 .a {font-size: 0.848rem;}
 .b {font-size: 0.752rem;}

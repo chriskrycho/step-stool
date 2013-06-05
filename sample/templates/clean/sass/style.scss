@@ -13,22 +13,19 @@
 
 
 html {
-   font-size: 125%;
-   line-height: 1.4;
+   font-size: 137.5%;
+   line-height: $beta;
    font-family: $sans;
 }
 
 body {
-   background: #f8f8f8;
-   color: #444444;
+   background: $offWhite;
+   color: $darkGray;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6 {
    font-family: $serif;
-}
-
-h5, h6 {
-   font-family: $sans;
+   color: $almostBlack;
 }
 
 code, pre {
