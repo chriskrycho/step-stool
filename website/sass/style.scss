@@ -1,24 +1,8 @@
-@import "reset";
-@import "typography";
+@import 'mixins';
+@import 'reset';
+@import 'typography_and_color';
 
-// Widths
-
-// Colors
-$lightBlue: #3498db;
-$darkBlue: #186189;
-$darkGray: #444444;
-$lightGray: #F8F8F8;
-
-// Mixins
-@mixin vendorize($property, $value) {
-    -webkit-#{$property}: $value;
-    -moz-#{$property}: $value;
-    -ms-#{$property}: $value;
-    -o-#{$property}: $value;
-    #{$property}: $value;
-}
-
-/* Body defaults */
+// Body defaults
 html {
    font-size: 112.5%;
 }
@@ -95,7 +79,7 @@ li {
    margin-right: 2px;
 }
 
-/* Generic classes */
+// Generic classes
 .blue {
    color: $lightBlue;
 }
@@ -128,7 +112,7 @@ li {
    font-weight: 700;
 }
 
-/* Layout */
+// Layout
 ul {
    &.nav {
       list-style-type: none;
@@ -224,7 +208,7 @@ ul {
    }
 }
 
-/* Page-specific layouts */
+// Page-specific layouts
 .index {
    .left {
       width: 56%;
@@ -235,13 +219,13 @@ ul {
    }
 
    #logoWrapper, #descriptionWrapper {
-      margin-top: 7.594rem;
-      height: 7.594rem;
+      margin-top: $huge + rem;
+      height: $huge + rem;
    }
 
    #logoWrapper {
       h1 {
-         height: 7.594rem;
+         height: $huge + rem;
          padding-right: $gamma + rem;
          text-align: right;
          font-size: $theta + rem;
@@ -250,9 +234,9 @@ ul {
 
    #descriptionWrapper {
       h2 {
-         padding-top: 1.5rem;
+         padding-top: $beta + rem;
          padding-left: $gamma + rem;
-         font-size: 1.688rem;
+         font-size: $beta + $micro + rem;
       }
    }
 
@@ -291,138 +275,5 @@ ul {
    }
 }
 
-// Make sure the columns always go to the bottom of the screen
-@media screen {
-
-   // Heights - make sure the backgrounds fill the page
-   @media (max-height: 1600px) {
-      .wrapper {
-         min-height: 1600px;
-      }
-      .textBlock {
-         min-height: 1500px;
-      }
-   }
-
-   @media (max-height: 1200px) {
-      .wrapper {
-         min-height: 1200px;
-      }
-      .textBlock {
-         min-height: 1100px;
-      }
-   }
-
-   @media (max-height: 1000px) {
-      .wrapper {
-         min-height: 1000px;
-      }
-      .textBlock {
-         min-height: 900px;
-      }
-   }
-
-   @media (max-height: 800px) {
-      .wrapper {
-         min-height: 800px;
-      }
-      .textBlock {
-         min-height: 700px;
-      }
-   }
-
-   @media (max-height: 600px) {
-      .wrapper {
-         min-max-height: 600px;
-      }
-      .textBlock {
-         min-height: 500px;
-      }
-   }
-
-   // Responsive reflow
-   @media (max-width: 36rem) { // 648px
-      html {
-         font-size: 100%;
-      }
-
-      .page, .index {
-         .left, .right {
-            width: 100%;
-         }
-
-         .right {
-            margin-top: $c + rem;
-         }
-
-         #logoWrapper, #descriptionWrapper {
-            height: $theta + rem;
-         }
-
-         #logoWrapper {
-            margin-top: 0;
-
-            h1 {
-               text-align: center;
-               height: $theta + rem;
-               font-size: $zeta + rem;
-               padding: 0;
-            }
-         }
-
-         #descriptionWrapper {
-            margin-top: 0;
-
-            h2 {
-               text-align: center;
-               font-size: $alpha + rem;
-               padding: {
-                  top: $f + rem;
-                  left: 0;
-               }
-            }
-         }
-
-         ul.nav {
-            text-align: center;
-            padding: 0;
-            margin: 0;
-
-            li {
-               display: inline-block;
-               padding: {
-                  right: $d + rem;
-                  left: $d + rem;
-               }
-            }
-         }
-      }
-
-      .textBlock {
-         article {
-            padding: $null + rem;
-
-            p {
-               width: 100%;
-            }
-         }
-      }
-   }
-
-   @media (min-width: 36rem) { // TODO: fix the width
-      #logoWrapper h1 {
-         border-right: 1px solid $darkBlue;
-      }
-
-      .optionalBreak {
-         display: none;
-      }
-   }
-}
-
-@supports (hyphens: auto) {
-   p {
-      text-align: justify;
-      @include vendorize(hyphens, auto);
-   }
-}
+@import 'heights';
+@import 'responsive';

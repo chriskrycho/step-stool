@@ -1,0 +1,112 @@
+// Make sure the columns always go to the bottom of the screen
+
+@import 'mixins';
+@import 'typography_and_color';
+
+@media screen {
+
+   @media (max-width: 650px) { // 648px
+      html {
+         font-size: 100%;
+      }
+
+      .page, .index {
+         .left, .right {
+            width: 100%;
+         }
+
+         .right {
+            margin-top: $c + rem;
+         }
+
+         #logoWrapper, #descriptionWrapper {
+            height: $theta + rem;
+         }
+
+         #logoWrapper {
+
+            h1 {
+               text-align: center;
+               height: $theta + rem;
+               font-size: $zeta + rem;
+               padding: 0;
+            }
+         }
+
+         #descriptionWrapper {
+            margin-top: 0;
+
+            h2 {
+               text-align: center;
+               font-size: $alpha + rem;
+               padding: {
+                  top: $f + rem;
+                  left: 0;
+               }
+            }
+         }
+
+         #mainNav {
+            margin-top: 0;
+         }
+
+         ul.nav {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+
+            li {
+               display: inline-block;
+               padding: {
+                  right: $d + rem;
+                  left: $d + rem;
+               }
+            }
+         }
+      }
+
+      .textBlock {
+         article {
+            padding: $null + rem;
+
+            p {
+               width: 100%;
+            }
+         }
+      }
+   }
+
+   @media (min-width: 650px) {
+      #logoWrapper h1 {
+         border-right: 1px solid $darkBlue;
+      }
+
+      .optionalBreak {
+         display: none;
+      }
+   }
+
+   @media (min-width: 1024px) {
+      .left, .right {
+         width: 100%;
+      }
+
+      .index {
+         #logoWrapper, #descriptionWrapper {
+            //height: + rem;
+         }
+
+         #logoWrapper {
+            h1 {
+               //height: + rem;
+            }
+         }
+
+         #descriptionWrapper {
+            h2 {
+               //height: + rem;
+            }
+         }
+      }
+   }
+}
