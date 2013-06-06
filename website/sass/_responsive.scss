@@ -24,7 +24,6 @@
          }
 
          #logoWrapper {
-
             h1 {
                text-align: center;
                height: $theta + rem;
@@ -71,6 +70,14 @@
 
             p {
                width: 100%;
+            }
+         }
+      }
+
+      @media (max-height: 400px) {
+         .index {
+            #logoWrapper {
+               margin-top: $delta + rem;
             }
          }
       }
