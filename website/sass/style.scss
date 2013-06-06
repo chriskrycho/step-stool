@@ -51,7 +51,7 @@ a {
    color: $lightGray;
    border-bottom: 3px solid $darkBlue;
    text-decoration: none;
-   @include vendorize(transition, all 0.644s ease);
+   @include vendorize(transition, 'color 0.644s ease, border 0.644s ease');
 
    &:hover, &:active {
       color: $darkBlue;
