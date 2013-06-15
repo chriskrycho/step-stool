@@ -6,6 +6,16 @@ content-output: /Users/chris/development/personal_projects/step-stool/sample/gen
 default-template: clean
 
 # Publication configuration
+remote:
+  - push: true
+
+github:
+  - push: false
+  - repository:
+
+bitbucket:
+  - push: false
+  - repository:
 
 # Detailed configuration
 archives:
