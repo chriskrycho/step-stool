@@ -1,9 +1,13 @@
 from setuptools import setup
 
-requires = ['Markdown', 'PyRSS2Gen', 'Pygments', 'PyYAML >= 3.10']
-extras_require = ['mdx-smartypants']
-packages = ['step-stool']
-entry_points = {}
+requires = ['Markdown', 'PyRSS2Gen', 'Pygments', 'PyYAML >= 3.10', 'typogrify']
+packages = ['step_stool']
+entry_points = {
+    'console_scripts': [
+        'step-stool = step_stool:main'
+    ]
+}
+
 classifiers = [
     'Environment :: Console',
     'Development Status :: 1 - Planning',
@@ -34,7 +38,6 @@ setup(
     packages=packages,
     install_requires=requires,
     entry_points=entry_points,
-    extras_require=extras_require,
     classifiers=classifiers
 )
 

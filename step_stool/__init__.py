@@ -16,8 +16,8 @@ def main():
     Either configure the project initially or (re)generate the site.
     '''
     args = process_args()
-    # if args.setup or not config.configured(args.cwd):
-    #     config.setup()
+    if not config.configured(args.cwd) or args.setup:
+        config.setup()
 
 
 def process_args():
@@ -32,7 +32,6 @@ def process_args():
                         action='store_true')
 
     args = parser.parse_args()
-    print(args.cwd)
     return args
 
 

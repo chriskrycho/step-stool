@@ -22,8 +22,7 @@ def configured(directory):
 
 
 def get_config(document):
-    config = load(document)
-    return config
+    return load(document)
 
 
 def gen_config():
