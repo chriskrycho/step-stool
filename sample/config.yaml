@@ -8,20 +8,21 @@ default_template: clean
 # Publication configuration
 remote:
   - push: true
+  - push_method: # must be one of ssh, sftp, or ftp-ssl
 
-github:
+git:
   - push: false
   - repository:
-  - ssh_or_https: ssh
-  - https_username:
-  - https_password:
+  - push_method: # must be one of local, ssh, or https
+  - https_username: # only required if pushing via https - NOT RECOMMENDED
+  - https_password: # only required if pushing via https - NOT RECOMMENDED
 
-bitbucket:
+hg:
   - push: false
   - repository:
-  - ssh_or_https: ssh
-  - https_username:
-  - https_password:
+  - push_method: # must be either local, ssh, or https
+  - https_username: # only required if pushing via https - NOT RECOMMENDED
+  - https_password: # only required if pushing via https - NOT RECOMMENDED
 
 # Detailed configuration
 archives:
