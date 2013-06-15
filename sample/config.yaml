@@ -1,6 +1,3 @@
-# Should the automatic setup tool be run?
-run-setup: true
-
 # Basic site configuration
 site-name: Step Stool Demo
 root: http://step-stool.io/demo
