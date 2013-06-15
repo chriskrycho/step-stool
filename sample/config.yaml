@@ -1,5 +1,18 @@
+# Should the automatic setup tool be run?
+run-setup: true
+
+# Basic site configuration
 site-name: Step Stool Demo
 root: http://step-stool.io/demo
 content-source: /Users/chris/development/personal_projects/step-stool/sample/source
 content-output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
 default-template: clean
+
+# Publication configuration
+
+# Detailed configuration
+archives:
+  - generate: true
+  - categories: true
+  - tags: true
+  - author: false

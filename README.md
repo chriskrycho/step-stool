@@ -38,14 +38,14 @@ when you install the package.)
 The easiest way to install Step Stool is using `pip`, which also installs
 all dependencies for using Step Stool:
 
-    :::bash
+    :::sh
     $ pip install step-stool
 
 I recommend using a virtual environment for this install, to keep it separate
 from your other (system or project) Python setups. If you have
 [virtualenvwrapper][vw] installed:
 
-    :::bash
+    :::sh
     $ mkvirtualenv step-stool
     $ setvirtualenvproject /path/where/you/want/to/build/your/site
     $ pip install step-stool
@@ -53,23 +53,43 @@ from your other (system or project) Python setups. If you have
 Otherwise, since we're running Python 3, you can just do (preferably in a
 virtual environments directory somewhere in your home folder or some such):
 
-    :::bash
+    :::sh
     $ pyvenv step-stool
     $ pip install step-stool
 
 Alternatively, you can download the package manually from the [downloads
 page][download] and run:
 
-    :::bash
+    :::sh
     $ python setup.py
 
 ### Configuration
 
+Once Step Stool has been installed, you can simply run it from the command line:
+
+    $ step-stool
+
+By default, Step Stool will set up a project in the directory where you run it,
+but you can run it anywhere and tell it the directory in which to run (see
+options below).
+
+#### Configuration Tool Options
+
+The following options can be passed to the configuration tool:
+
+- `-d`, `--working-dir`: Set the installation directory
+- `-m`, `--config-manually`: Configure the project manually (see below for
+  detailed information on the configuration file). With this option set, Step
+  Stool will generate a default (unconfigured) configure file in the root for
+  the project and then exit.
+
 #### The configuration file
 
+All the settings are stored in a [YAML][yaml] file in the directory where you
+initialized the project (either by running Step Stool in that directory or by
+passing it as an argument with the `-d` flag).
+
 #### Templating
-
-
 
 All article information is supplied to the template in the `article` object.
 Each `article` includes the following properties:
@@ -104,3 +124,5 @@ step stool.
 [python]: http://www.python.org/download/ "Download Python 3 for your platform"
 
 [vw]: https://bitbucket.org/dhellmann/virtualenvwrapper "Extensions to Ian Bickings virtualenv tool"
+
+[yaml]: http://www.yaml.org/
