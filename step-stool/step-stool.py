@@ -15,7 +15,7 @@ def main():
     Either configure the project initially or (re)generate the site.
     '''
     args = process_args()
-    if not config.configured(args['working-dir']):
+    if not config.configured(args['working-dir']) or args['setup']:
         config.setup()
 
 
@@ -29,3 +29,7 @@ def process_args():
 
     args = parser.parse_args()
     return args
+
+
+if __name__ == '__main__':
+    main()
