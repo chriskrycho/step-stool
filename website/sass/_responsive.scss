@@ -5,11 +5,7 @@
 
 @media screen {
 
-   @media (max-width: 650px) { // 648px
-      html {
-         font-size: 100%;
-      }
-
+   @media (max-width: 690px) { // 648px
       .page, .index {
          .left, .right {
             width: 100%;
@@ -83,13 +79,48 @@
       }
    }
 
-   @media (min-width: 650px) {
+   @media (min-width: 690px) {
       .optionalBreak {
          display: none;
       }
+
+      @media (max-width: 900px) {
+         .index {
+            #logoWrapper {
+               height: $iota + rem;
+
+               h1 {
+                  height: $iota + rem;
+                  font-size: $eta + rem;
+               }
+            }
+
+            #descriptionWrapper {
+               height: $iota + rem;
+
+               h2 {
+                  padding: {
+                     top: $f + rem;
+                     left: $null + rem;
+                  }
+                  font-size: $alpha + $micro + rem;
+               }
+            }
+
+            .left, .right {
+               width: 50%;
+            }
+         }
+      }
    }
 
-   @media (min-width: 1024px) {
+   @media (max-width: 1038px) {
+      html {
+         font-size: 100%;
+      }
+   }
+
+   @media (min-width: 1038px) {
       .left, .right {
          width: 100%;
       }
