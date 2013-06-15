@@ -111,6 +111,42 @@
                width: 50%;
             }
          }
+
+         .page {
+            #logoWrapper, #descriptionWrapper {
+               height: $eta + rem;
+            }
+
+            #logoWrapper {
+               h1 {
+                  height: $eta + rem;
+                  font-size: $epsilon + rem;
+               }
+            }
+
+            #descriptionWrapper {
+               h2 {
+                  font-size: $null + $micro + rem;
+                  padding: {
+                     top: $null + rem;
+                     left: $null + rem;
+                  }
+               }
+            }
+
+            .textBlock {
+               article {
+                  padding: {
+                     left: $null + rem;
+                     right: $null + rem;
+                  }
+
+                  p {
+                     width: 100%;
+                  }
+               }
+            }
+         }
       }
    }
 
