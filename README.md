@@ -82,6 +82,7 @@ The following options can be passed to the configuration tool:
   detailed information on the configuration file). With this option set, Step
   Stool will generate a default (unconfigured) configure file in the root for
   the project and then exit.
+- `setup`: Re-run the initial setup sequence. (Ignored if )
 
 #### The configuration file
 
