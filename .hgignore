@@ -39,3 +39,6 @@ atlassian-ide-plugin.xml
 # SASS cache
 .sass-cache
 .sass-cache/
+
+# Generated version of site
+sample/generated-site

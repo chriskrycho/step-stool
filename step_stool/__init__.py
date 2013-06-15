@@ -18,6 +18,19 @@ def main():
     args = process_args()
     if not config.configured(args.cwd) or args.setup:
         config.setup()
+    else:
+        generate_site()
+
+
+def generate_site():
+    '''
+    Generate the site:
+
+    - Get the site configuration
+    - Get all the content from the content directory
+    - Render the content
+    '''
+    pass
 
 
 def process_args():

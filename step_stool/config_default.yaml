@@ -3,7 +3,6 @@ site_name: Step Stool Demo
 root: http://step-stool.io/demo
 content_source: /Users/chris/development/personal_projects/step-stool/sample/source
 content_output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
-template_directory: /Users/chris/development/personal_projects/step-stool/sample/templates
 default_template: clean
 
 # Publication configuration
