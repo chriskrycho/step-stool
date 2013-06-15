@@ -1,9 +1,9 @@
 # Basic site configuration
-site-name: Step Stool Demo
+site_name: Step Stool Demo
 root: http://step-stool.io/demo
-content-source: /Users/chris/development/personal_projects/step-stool/sample/source
-content-output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
-default-template: clean
+content_source: /Users/chris/development/personal_projects/step-stool/sample/source
+content_output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
+default_template: clean
 
 # Publication configuration
 remote:
@@ -12,10 +12,16 @@ remote:
 github:
   - push: false
   - repository:
+  - ssh_or_https: ssh
+  - https_username:
+  - https_password:
 
 bitbucket:
   - push: false
   - repository:
+  - ssh_or_https: ssh
+  - https_username:
+  - https_password:
 
 # Detailed configuration
 archives:
