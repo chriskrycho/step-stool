@@ -8,27 +8,38 @@ import os.path as path
 from yaml import load
 
 
-def configured(directory):
-    '''
-    Check whether the directory has a configuration file already. If the file
-    exists, assume it has been configured.
-    '''
-    full_path = path.join(directory, 'config.yaml')
-    if path.exists(full_path):
-        return True
-    else:
-        return False
+class Configurator():
+    def __init__(self, directory):
+        self.directory = directory
+        self.file_name = ''
 
+    def configured(self):
+        '''
+        Check whether the directory has a configuration file already. If the file
+        exists, assume it has been configured.
+        '''
+        full_path = path.join(self.directory, 'config.yaml')
+        if path.exists(full_path):
+            self.file_name = full_path
+            return True
+        else:
+            return False
 
-def get_config(directory):
-    document = path.join(directory, 'config.yaml')
-    return load(document)
+    def gen_config(self):
+        ''' Generate a configuration file with default values.
+        '''
+        return load(self.default_config)
 
+    def get_config(self):
+        try:
+            return load(self.file_name)
+        except FileNotFoundError:
+            pass
 
-def gen_config(directory):
-    ''' Generate a configuration file with default values.
-    '''
-    default = '''\
+    def setup(self):
+        config = self.gen_config()
+
+    default_config = '''\
 # Basic site configuration
 site_name: Step Stool Demo
 root: http://step-stool.io/demo
@@ -62,14 +73,3 @@ archives:
   - tags: true
   - author: false
 '''
-
-    file_path = path.join(directory, 'config.yaml')
-    file = open(file_path, 'w')
-    file.write(default)
-    file.close()
-    pass
-
-
-def setup(directory):
-    gen_config(directory)
-    pass

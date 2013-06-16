@@ -7,7 +7,7 @@ import argparse
 
 # Step Stool modules
 import content
-import config
+from config import Configurator
 import render
 
 
@@ -16,11 +16,11 @@ def main():
     Either configure the project initially or (re)generate the site.
     '''
     args = process_args()
-    if not config.configured(args.directory) or args.setup:
-        config.setup(args.directory)
+    config = Configurator(args.directory)
+    if not config.configured() or args.setup:
+        config.setup()
     else:
-        config.get_config(args.directory)
-        generate_site(config)
+        generate_site(config.get_config())
 
 
 def generate_site(config):
