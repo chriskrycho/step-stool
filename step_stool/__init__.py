@@ -18,7 +18,7 @@ def main():
     args = process_args()
     config = Configurator(args.directory)
     if not config.configured() or args.setup:
-        config.setup()
+        config.setup(args.manual_config)
     else:
         generate_site(config.get_config())
 
@@ -41,7 +41,8 @@ def process_args():
 
     parser.add_argument('-d', '--working-dir', help='Set the working directory for Step Stool',
                         metavar='<working directory>', dest='directory', default=getcwd())
-    parser.add_argument('-m', '--config-manually', help='Configure the site manually', action='store_true')
+    parser.add_argument('-m', '--manual-config', help='Configure the site manually',
+                        action='store_true', dest='manual_config')
     parser.add_argument('--setup', help='Re-run the setup command (ignored if first run in directory)',
                         action='store_true')
 

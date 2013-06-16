@@ -25,19 +25,25 @@ class Configurator():
         else:
             return False
 
-    def gen_config(self):
-        ''' Generate a configuration file with default values.
-        '''
-        return load(self.default_config)
-
     def get_config(self):
         try:
             return load(self.file_name)
         except FileNotFoundError:
             pass
 
-    def setup(self):
-        config = self.gen_config()
+    def setup(self, manual_config):
+        '''
+        Set up an instance of Step Stool
+
+        - Generate a configuration file
+        - Populate the configuration file:
+            * with defaults, if manual configuration specified
+            * with user inputs, otherwise
+        '''
+
+        config = load(self.default_config)
+        if not manual_config:
+            pass
 
     default_config = '''\
 # Basic site configuration
