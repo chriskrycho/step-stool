@@ -43,6 +43,13 @@ class Configurator():
 
         config = load(self.default_config)
         if not manual_config:
+            # TODO: Input `m` at any time to finish configuration manually
+            # TODO: Site name
+            # TODO: Website URL
+            # TODO: Content source
+            # TODO: Where to store generated content
+            # TODO: Friendly message!
+            # TODO: Remote publishing: y/n
             pass
 
     default_config = '''\
