@@ -13,14 +13,14 @@ remote:
 
 git:
   - push: false
-  - repository:
+  - repository: # ignored if push = false
   - push_method: # must be one of local, ssh, or https
   - https_username: # only required if pushing via https - NOT RECOMMENDED
   - https_password: # only required if pushing via https - NOT RECOMMENDED
 
 hg:
   - push: false
-  - repository:
+  - repository: # ignored if push = false
   - push_method: # must be either local, ssh, or https
   - https_username: # only required if pushing via https - NOT RECOMMENDED
   - https_password: # only required if pushing via https - NOT RECOMMENDED

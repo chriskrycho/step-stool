@@ -16,11 +16,11 @@ def main():
     Either configure the project initially or (re)generate the site.
     '''
     args = process_args()
-    config = Configurator(args.directory)
-    if not config.configured() or args.setup:
-        config.setup(args.manual_config)
+    configurator = Configurator(args.directory)
+    if not configurator.configured() or args.setup:
+        configurator.setup(args.manual_config)
     else:
-        generate_site(config.get_config())
+        generate_site(configurator.get_config())
 
 
 def generate_site(config):
@@ -31,7 +31,9 @@ def generate_site(config):
     - Get all the content from the content directory
     - Render the content
     '''
-    pass
+    print(config)
+    source = config['content_source']
+    destination = config['content_output']
 
 
 def process_args():

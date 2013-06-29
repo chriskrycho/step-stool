@@ -2,7 +2,8 @@ __author__ = 'Chris Krycho'
 __copyright__ = 'Copyright © 2013 Chris Krycho'
 
 # System modules
-import os.path as path
+from os import path
+from sys import exit
 
 # Dependency modules
 from yaml import load
@@ -27,9 +28,10 @@ class Configurator():
 
     def get_config(self):
         try:
-            return load(self.file_name)
-        except FileNotFoundError:
-            pass
+            stream = open(self.file_name, 'r')
+            return load(stream)
+        except FileNotFoundError as file_not_found:
+            exit('Could not find your configuration file. Is it missing?')
 
     def setup(self, manual_config):
         '''
