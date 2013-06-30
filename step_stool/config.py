@@ -13,16 +13,21 @@ class Configurator():
     ''' Configure the site. '''
 
     DEFAULT_CONFIG = '''\
-# Basic site configuration
-site:
-  site_name: Step Stool Demo
-  root: http://step-stool.io/demo
-  content_source: /Users/chris/development/personal_projects/step_stool/sample/source
-  content_output: /Users/chris/development/personal_projects/step_stool/sample/generated-site
-  template_directory: /Users/chris/development/personal_projects/step_stool/sample/templates
-  default_template: clean
+# Site configuration. Note that indentation matters to YAML - don't change the
+# indentation of existing values! If you extend the file, you can of course
+# supply whatever data you like. Note that PyYAML currently only supports the
+# YAML 1.1 standard, not YAML 1.2.
 
-# Publication configuration
+site:
+  name: Step Stool Demo
+  root: http://step-stool.io/demo
+  content:
+    source: /Users/chris/development/personal_projects/step_stool/sample/source
+    destination: /Users/chris/development/personal_projects/step_stool/sample/generated-site
+  template:
+    directory: /Users/chris/development/personal_projects/step_stool/sample/templates
+    default: clean
+
 publication:
   remote:
     push: true
@@ -77,7 +82,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         try:
             stream = open(self.file_name, 'r')
             return load(stream)
-        except FileNotFoundError as file_not_found:
+        except FileNotFoundError:
             exit('Could not find your configuration file. Is it missing?')
 
     def setup(self, manual_config):
@@ -102,5 +107,20 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             pass
 
     def validate(self, config):
-        pass
+        if not config.site.name:
+            self.missing_value('site name')
+        if not config.site.root:
+            self.missing_value('site root')
+        if not config.site.content.source:
+            self.missing_value('site content source')
+        if not config.site.content.destination:
+            self.missing_value('site content destination')
+        if not config.site.template.directory:
+            self.missing_value('site template directory')
+        if not config.stie.template.default:
+            self.missing_value('site template default')
 
+    def missing_value(self, message):
+        base = 'You must supply a value for'
+        print(base, message + '.')
+        exit()

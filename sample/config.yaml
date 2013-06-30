@@ -1,13 +1,18 @@
-# Basic site configuration
-site:
-  site_name: Step Stool Demo
-  root: http://step-stool.io/demo
-  content_source: /Users/chris/development/personal_projects/step_stool/sample/source
-  content_output: /Users/chris/development/personal_projects/step_stool/sample/generated-site
-  template_directory: /Users/chris/development/personal_projects/step_stool/sample/templates
-  default_template: clean
+# Site configuration. Note that indentation matters to YAML - don't change the
+# indentation of existing values! If you extend the file, you can of course
+# supply whatever data you like. Note that PyYAML currently only supports the
+# YAML 1.1 standard, not YAML 1.2.
 
-# Publication configuration
+site:
+  name: Step Stool Demo
+  root: http://step-stool.io/demo
+  content:
+    source: /Users/chris/development/personal_projects/step_stool/sample/source
+    destination: /Users/chris/development/personal_projects/step_stool/sample/generated-site
+  template:
+    directory: /Users/chris/development/personal_projects/step_stool/sample/templates
+    default: clean
+
 publication:
   remote:
     push: true

@@ -16,13 +16,9 @@ def generate_site(config):
     - Get all the content from the content directory
     - Render the content
     '''
-    site_config = config['site']
-    # source = config['site']['content_source']
-    # destination = config['site']['content_output']
-    # md_extensions = config['site']['markdown_extensions']
-    #
-    # for root, dirs, files in walk(source):
-    #     converted_files = get_content_and_meta(files, md_extensions)
+
+    for root, dirs, files in walk(config.site.content.source):
+        converted_files = get_content_and_meta(files, config.markdown_extensions)
         # for file in converted_files:
         #     if file.meta.template:
         #         template = file.meta.template

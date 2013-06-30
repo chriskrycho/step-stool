@@ -19,9 +19,8 @@ def main():
     if not configurator.configured() or args.setup:
         configurator.setup(args.manual_config)
     else:
-        config = configurator.get_config()
-        config_alt = DictAsMember(config)
-        configurator.validate(config_alt)
+        config = DictAsMember(configurator.get_config())
+        configurator.validate(config)
         content.generate_site(config)
 
 
