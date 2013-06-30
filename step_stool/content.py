@@ -37,23 +37,31 @@ def convert_source(config):
 
 
 def generate_site(config, content):
-    pass
+    archive = generate_archive(config, content)
+    categories = generate_categories(config, content) if config.render_options.use_categories else None
+    tags = generate_tags(config, content) if config.render_options.use_tags else None
+
+    index = archive if config.render_options.home.blog else generate_index(config, content)
+
+
+def generate_archive(config, content):
+    return content
 
 
 def generate_index(config, content):
-    pass
+    return content
 
 
-def generate_categories(content):
-    pass
+def generate_categories(config, content):
+    return content
 
 
-def generate_tags(content):
-    pass
+def generate_tags(config, content):
+    return content
 
 
 def paginate(posts_per_page, content):
-    pass
+    return content
 
 
 class Page():

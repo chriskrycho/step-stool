@@ -33,7 +33,13 @@ site:
   template:
     directory: /Users/chris/development/personal_projects/step_stool/sample/templates
     default: clean
-  posts_per_page: 5 # used on archive, categories, and tags pages
+  render_options:
+    use_categories: true
+    use_tags: true
+    posts_per_page: 5 # used on archive, categories, and tags pages
+    home:
+      blog: true
+      slug: # ignored if `blog` is `true`
 
 publication:
   remote:
