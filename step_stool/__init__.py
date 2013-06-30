@@ -20,7 +20,15 @@ except ImportError as import_error:
 
 
 def main():
-    ''' Either configure the project initially or (re)generate the site. '''
+    '''
+    Generate the site:
+
+    - Get the site configuration
+        + Configure the project initially, or
+        + Pull in the existing site configuration
+    - Get and convert any/all content in the content directory
+    - Render the content
+    '''
     args = process_args()
     configurator = Configurator(directory=args.directory, run_setup=args.setup)
     content.convert_source(configurator.config)

@@ -16,12 +16,10 @@ except ImportError as import_error:
 
 def convert_source(config):
     '''
-    Generate the site:
-
-    - Get the site configuration
-    - Get all the content from the content directory
-    - Render the content
+    Convert all Markdown pages to HTML and metadata pairs. Pairs are keyed to
+    file names slugs (without the original file extension).
     '''
+
     md = Markdown(extensions=config.markdown_extensions, output_format='html5')
     converted = {}
     for root, dirs, file_names in walk(config.site.content.source):
@@ -29,6 +27,8 @@ def convert_source(config):
             file_path = path.join(root, file_name)
             md_text = open(file_path, 'r').read()
             content = md.convert(md_text)
-            converted[file_name] = {'content': content, 'meta': md.Meta}
+
+            plain_slug, extension = path.splitext(file_name)
+            converted[plain_slug] = {'content': content, 'meta': md.Meta}
 
     return DictAsMember(converted)
