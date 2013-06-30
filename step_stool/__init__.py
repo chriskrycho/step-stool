@@ -7,7 +7,7 @@ import argparse
 
 # Step Stool modules
 import content
-from config import Configurator
+from config import Configurator, validate
 from render import render_template
 from mixins import DictAsMember
 
@@ -20,7 +20,7 @@ def main():
         configurator.setup(args.manual_config)
     else:
         config = DictAsMember(configurator.get_config())
-        configurator.validate(config)
+        validate(config)
         content.generate_site(config)
 
 

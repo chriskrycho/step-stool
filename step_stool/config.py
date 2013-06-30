@@ -83,7 +83,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             stream = open(self.file_name, 'r')
             return load(stream)
         except FileNotFoundError:
-            exit('Could not find your configuration file. Is it missing?')
+            exit('Could not find your configuration file (config.yaml). Is it missing?')
 
     def setup(self, manual_config):
         '''
@@ -106,23 +106,25 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             # TODO: Remote publishing: y/n
             pass
 
-    def validate(self, config):
-        ''' Check whether the required site configuration elements are set. '''
-        if not config.site.name:
-            self.missing_value('site name')
-        if not config.site.root:
-            self.missing_value('site root')
-        if not config.site.content.source:
-            self.missing_value('site content source')
-        if not config.site.content.destination:
-            self.missing_value('site content destination')
-        if not config.site.template.directory:
-            self.missing_value('site template directory')
-        if not config.stie.template.default:
-            self.missing_value('site template default')
 
-    def missing_value(self, value):
-        ''' Handle missing values required for site configuration.  '''
-        base = 'You must supply a value for'
-        print(base, value + '.')
-        exit()
+def validate(config):
+    ''' Check whether the required site configuration elements are set. '''
+    if not config.site.name:
+        __missing_value('site name')
+    if not config.site.root:
+        __missing_value('site root')
+    if not config.site.content.source:
+        __missing_value('site content source')
+    if not config.site.content.destination:
+        __missing_value('site content destination')
+    if not config.site.template.directory:
+        __missing_value('site template directory')
+    if not config.stie.template.default:
+        __missing_value('site template default')
+
+
+def __missing_value(value):
+    ''' Handle missing values required for site configuration.  '''
+    base = 'You must supply a value for'
+    print(base, value + '.')
+    exit()
