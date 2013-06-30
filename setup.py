@@ -4,6 +4,7 @@ requires = ['Markdown', 'PyRSS2Gen', 'Pygments', 'PyYAML >= 3.10', 'typogrify']
 packages = ['step_stool']
 entry_points = {
     'console_scripts': [
+        'stepstool = step_stool:main',
         'step-stool = step_stool:main'
     ]
 }
