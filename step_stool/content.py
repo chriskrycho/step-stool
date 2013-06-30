@@ -38,3 +38,24 @@ def convert_source(config):
 
 def generate_site(config, content):
     pass
+
+
+def generate_index(config, content):
+    pass
+
+
+def generate_categories(content):
+    pass
+
+
+def generate_tags(content):
+    pass
+
+
+def paginate(posts_per_page, content):
+    pass
+
+
+class Page():
+    def __init__(self):
+        pass

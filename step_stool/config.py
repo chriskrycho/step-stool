@@ -33,6 +33,7 @@ site:
   template:
     directory: /Users/chris/development/personal_projects/step_stool/sample/templates
     default: clean
+  posts_per_page: 5 # used on archive, categories, and tags pages
 
 publication:
   remote:
