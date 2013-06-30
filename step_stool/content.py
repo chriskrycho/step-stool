@@ -25,10 +25,11 @@ def convert_source(config):
     for root, dirs, file_names in walk(config.site.content.source):
         for file_name in file_names:
             file_path = path.join(root, file_name)
-            md_text = open(file_path, 'r').read()
-            content = md.convert(md_text)
-
             plain_slug, extension = path.splitext(file_name)
-            converted[plain_slug] = {'content': content, 'meta': md.Meta}
+
+            with open(file_path) as file:
+                md_text = file.read()
+                content = md.convert(md_text)
+                converted[plain_slug] = {'content': content, 'meta': md.Meta}
 
     return DictAsMember(converted)
