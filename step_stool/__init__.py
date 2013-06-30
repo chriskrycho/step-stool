@@ -31,7 +31,8 @@ def main():
     '''
     args = process_args()
     configurator = Configurator(directory=args.directory, run_setup=args.setup)
-    content.convert_source(configurator.config)
+    converted_content = content.convert_source(configurator.config)
+    content.generate_site(configurator.config, converted_content)
 
 
 def process_args():

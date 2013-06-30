@@ -21,7 +21,7 @@ def convert_source(config):
     '''
 
     md = Markdown(extensions=config.markdown_extensions, output_format='html5')
-    converted = {}
+    converted_content = {}
     for root, dirs, file_names in walk(config.site.content.source):
         for file_name in file_names:
             file_path = path.join(root, file_name)
@@ -29,8 +29,12 @@ def convert_source(config):
 
             with open(file_path) as file:
                 md_text = file.read()
-                content = md.convert(md_text)
-                converted[plain_slug] = {'content': content, 'meta': md.Meta}
+                html = md.convert(md_text)
+                converted_content[plain_slug] = {'html': html, 'meta': md.Meta}
                 md.reset()
 
-    return DictAsMember(converted)
+    return DictAsMember(converted_content)
+
+
+def generate_site(config, content):
+    pass
