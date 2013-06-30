@@ -31,5 +31,6 @@ def convert_source(config):
                 md_text = file.read()
                 content = md.convert(md_text)
                 converted[plain_slug] = {'content': content, 'meta': md.Meta}
+                md.reset()
 
     return DictAsMember(converted)
