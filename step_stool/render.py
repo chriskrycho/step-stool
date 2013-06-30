@@ -5,5 +5,5 @@ __copyright__ = '2013 Chris Krycho'
 from jinja2 import Template
 
 
-def renderTemplate(template, content):
+def render_template(template, content):
     pass

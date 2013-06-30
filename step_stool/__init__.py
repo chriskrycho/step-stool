@@ -2,38 +2,27 @@ __author__ = 'Chris Krycho'
 __copyright__ = 'Copyright © 2013 Chris Krycho'
 
 # System modules
-from os import getcwd
+from os import getcwd, walk
 import argparse
 
 # Step Stool modules
 import content
 from config import Configurator
-import render
+from render import render_template
+from mixins import DictAsMember
 
 
 def main():
-    '''
-    Either configure the project initially or (re)generate the site.
-    '''
+    ''' Either configure the project initially or (re)generate the site. '''
     args = process_args()
     configurator = Configurator(args.directory)
     if not configurator.configured() or args.setup:
         configurator.setup(args.manual_config)
     else:
-        generate_site(configurator.get_config())
-
-
-def generate_site(config):
-    '''
-    Generate the site:
-
-    - Get the site configuration
-    - Get all the content from the content directory
-    - Render the content
-    '''
-    print(config)
-    source = config['content_source']
-    destination = config['content_output']
+        config = configurator.get_config()
+        config_alt = DictAsMember(config)
+        configurator.validate(config_alt)
+        content.generate_site(config)
 
 
 def process_args():

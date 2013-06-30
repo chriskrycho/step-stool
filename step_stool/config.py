@@ -10,6 +10,53 @@ from yaml import load
 
 
 class Configurator():
+    ''' Configure the site. '''
+
+    DEFAULT_CONFIG = '''\
+# Basic site configuration
+site:
+  site_name: Step Stool Demo
+  root: http://step-stool.io/demo
+  content_source: /Users/chris/development/personal_projects/step_stool/sample/source
+  content_output: /Users/chris/development/personal_projects/step_stool/sample/generated-site
+  template_directory: /Users/chris/development/personal_projects/step_stool/sample/templates
+  default_template: clean
+
+# Publication configuration
+publication:
+  remote:
+    push: true
+    push_method: # must be one of ssh, sftp, or ftp-ssl
+
+  git:
+    push: false
+    repository: # ignored if push = false
+    push_method: # must be one of local, ssh, or https
+    https_username: # only required if pushing via https - NOT RECOMMENDED
+    https_password: # only required if pushing via https - NOT RECOMMENDED
+
+  hg:
+    push: false
+    repository: # ignored if push = false
+    push_method: # must be either local, ssh, or https
+    https_username: # only required if pushing via https - NOT RECOMMENDED
+    https_password: # only required if pushing via https - NOT RECOMMENDED
+
+# Detailed configuration
+archives:
+  generate: true
+  categories: true
+  tags: true
+  author: false
+
+markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.html for a list of extensions
+  codehilite: # depends on Pygments (installed by default with
+  extra: # includes a number of modules corresponding to the PHP Extra Markdown syntax
+  headerid: # adds an ID attribute to header elements in HTML
+  meta: # returns metadata from the top of Markdown files (like in MultiMarkdown)
+  smartypants: # Smartypants typography
+'''
+
     def __init__(self, directory):
         self.directory = directory
         self.file_name = ''
@@ -43,7 +90,7 @@ class Configurator():
             * with user inputs, otherwise
         '''
 
-        config = load(self.default_config)
+        config = load(self.DEFAULT_CONFIG)
         if not manual_config:
             # TODO: Input `m` at any time to finish configuration manually
             # TODO: Site name
@@ -54,37 +101,6 @@ class Configurator():
             # TODO: Remote publishing: y/n
             pass
 
-    default_config = '''\
-# Basic site configuration
-site_name: Step Stool Demo
-root: http://step-stool.io/demo
-content_source: /Users/chris/development/personal_projects/step-stool/sample/source
-content_output: /Users/chris/development/personal_projects/step-stool/sample/generated-site
-default_template: clean
+    def validate(self, config):
+        pass
 
-# Publication configuration
-remote:
-  - push: true
-  - push_method: # must be one of ssh, sftp, or ftp-ssl
-
-git:
-  - push: false
-  - repository:
-  - push_method: # must be one of local, ssh, or https
-  - https_username: # only required if pushing via https - NOT RECOMMENDED
-  - https_password: # only required if pushing via https - NOT RECOMMENDED
-
-hg:
-  - push: false
-  - repository:
-  - push_method: # must be either local, ssh, or https
-  - https_username: # only required if pushing via https - NOT RECOMMENDED
-  - https_password: # only required if pushing via https - NOT RECOMMENDED
-
-# Detailed configuration
-archives:
-  - generate: true
-  - categories: true
-  - tags: true
-  - author: false
-'''
