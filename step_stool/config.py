@@ -2,11 +2,17 @@ __author__ = 'Chris Krycho'
 __copyright__ = 'Copyright © 2013 Chris Krycho'
 
 # System modules
+from logging import error
 from os import path
 from sys import exit
 
-# Dependency modules
-from yaml import load
+try:
+    from yaml import load
+    from mixins import DictAsMember
+
+except ImportError as import_error:
+    error(import_error)
+    exit()
 
 
 class Configurator():
@@ -62,16 +68,20 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
   smartypants: # Smartypants typography
 '''
 
-    def __init__(self, directory):
-        self.directory = directory
-        self.file_name = ''
+    def __init__(self, directory, run_setup=False, manual_config=False):
+        if run_setup or not self.configured(directory):
+            self.config = self.__config_setup(manual_config)
+        else:
+            self.config = self.get_config()
 
-    def configured(self):
+        self.__validate()
+
+    def configured(self, directory):
         '''
         Check whether the directory has a configuration file already. If the file
         exists, assume it has been configured.
         '''
-        full_path = path.join(self.directory, 'config.yaml')
+        full_path = path.join(directory, 'config.yaml')
         if path.exists(full_path):
             self.file_name = full_path
             return True
@@ -81,11 +91,13 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
     def get_config(self):
         try:
             stream = open(self.file_name, 'r')
-            return load(stream)
+            yaml = load(stream)
+            return DictAsMember(yaml)
+
         except FileNotFoundError:
             exit('Could not find your configuration file (config.yaml). Is it missing?')
 
-    def setup(self, manual_config):
+    def __config_setup(self, manual_config):
         '''
         Set up an instance of Step Stool
 
@@ -106,25 +118,25 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             # TODO: Remote publishing: y/n
             pass
 
+        return config
 
-def validate(config):
-    ''' Check whether the required site configuration elements are set. '''
-    if not config.site.name:
-        __missing_value('site name')
-    if not config.site.root:
-        __missing_value('site root')
-    if not config.site.content.source:
-        __missing_value('site content source')
-    if not config.site.content.destination:
-        __missing_value('site content destination')
-    if not config.site.template.directory:
-        __missing_value('site template directory')
-    if not config.stie.template.default:
-        __missing_value('site template default')
+    def __validate(self):
+        ''' Check whether the required site configuration elements are set. '''
+        if not self.config.site.name:
+            self.__missing_value('site name')
+        if not self.config.site.root:
+            self.__missing_value('site root')
+        if not self.config.site.content.source:
+            self.__missing_value('site content source')
+        if not self.config.site.content.destination:
+            self.__missing_value('site content destination')
+        if not self.config.site.template.directory:
+            self.__missing_value('site template directory')
+        if not self.config.site.template.default:
+            self.__missing_value('site template default')
 
-
-def __missing_value(value):
-    ''' Handle missing values required for site configuration.  '''
-    base = 'You must supply a value for'
-    print(base, value + '.')
-    exit()
+    def __missing_value(self, value):
+        ''' Handle missing values required for site configuration.  '''
+        base = 'You must supply a value for'
+        print(base, value + '.')
+        exit()

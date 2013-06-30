@@ -1,14 +1,20 @@
-from jinja2 import debug
-
 __author__ = 'Chris Krycho'
 __copyright__ = '2013 Chris Krycho'
 
-
+from logging import error
 from os import path, walk
-from markdown import Markdown
+from sys import exit
+
+try:
+    from markdown import Markdown
+    from mixins import DictAsMember
+
+except ImportError as import_error:
+    error(import_error)
+    exit()
 
 
-def generate_site(config):
+def convert_source(config):
     '''
     Generate the site:
 
@@ -16,22 +22,13 @@ def generate_site(config):
     - Get all the content from the content directory
     - Render the content
     '''
+    md = Markdown(extensions=config.markdown_extensions, output_format='html5')
+    converted = {}
+    for root, dirs, file_names in walk(config.site.content.source):
+        for file_name in file_names:
+            file_path = path.join(root, file_name)
+            md_text = open(file_path, 'r').read()
+            content = md.convert(md_text)
+            converted[file_name] = {'content': content, 'meta': md.Meta}
 
-    for root, dirs, files in walk(config.site.content.source):
-        converted_files = get_content_and_meta(files, config.markdown_extensions)
-        # for file in converted_files:
-        #     if file.meta.template:
-        #         template = file.meta.template
-        #     else:
-        #         template = config['default_template']
-
-
-def get_content_and_meta(files, extensions):
-    md = Markdown(extensions=extensions, output_format='html5')
-
-    converted_files = {}
-    for file in files:
-        content = md.convert(file)
-        converted_files[file] = {'content': content, 'meta': md.Meta}
-
-    return converted_files
+    return DictAsMember(converted)
