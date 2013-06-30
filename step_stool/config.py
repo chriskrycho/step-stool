@@ -107,6 +107,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             pass
 
     def validate(self, config):
+        ''' Check whether the required site configuration elements are set. '''
         if not config.site.name:
             self.missing_value('site name')
         if not config.site.root:
@@ -120,7 +121,8 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         if not config.stie.template.default:
             self.missing_value('site template default')
 
-    def missing_value(self, message):
+    def missing_value(self, value):
+        ''' Handle missing values required for site configuration.  '''
         base = 'You must supply a value for'
-        print(base, message + '.')
+        print(base, value + '.')
         exit()
