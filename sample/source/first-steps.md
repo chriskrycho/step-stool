@@ -2,7 +2,7 @@ Title:      First Steps
 Author:     Chris Krycho
 Published:  true
 Type:       post
-Date:       2012-06-02 18:30 EST
+Date:       2013-06-02 18:30 EST
 Category:   History
 
 I build Step Stool using [README-driven development][rdd], a concept I first

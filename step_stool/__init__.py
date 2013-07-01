@@ -48,7 +48,7 @@ def parse_args():
     parser.add_argument('--setup', help='Re-run the setup command (same as first run in directory)',
                         action='store_true', default=False)
     parser.add_argument('--copy_defaults', action='store', metavar='<filename>',
-                        help='Generate a copy of the default configuration file for reference')
+                        help='Generate a copy of the default configuration file for reference, then exit.')
 
     args = parser.parse_args()
     return args

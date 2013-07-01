@@ -30,7 +30,7 @@ README = open('README.md').read()
 
 setup(
     name='step-stool',
-    version='0.1',
+    version='1.0a',
     url='http://step-stool.io',
     description='A(nother) static site generator in Python',
     author='Chris Krycho',

@@ -41,6 +41,7 @@ site:
     categories:
       use: true
       slug: # defaults to 'categories'
+      restrict: # if left blank and with no children, categories can be named arbitrarily
     tags:
       use: true
       slug: # defaults to 'tags'
@@ -157,5 +158,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
 
 def print_default_config(file_path):
+    ''' Print a copy of the default configuration and then exit. '''
     with open(file_path, 'w') as file:
         file.write(Configurator.DEFAULT_CONFIG)
+        exit()

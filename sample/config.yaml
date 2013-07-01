@@ -23,6 +23,8 @@ site:
     categories:
       use: true
       slug: # defaults to 'categories'
+      restrict: # if left blank and with no children, categories can be named arbitrarily
+        - History
     tags:
       use: true
       slug: # defaults to 'tags'
