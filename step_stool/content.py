@@ -9,6 +9,7 @@ from sys import exit
 try:
     from markdown import Markdown
     from mixins import DictAsMember
+    import render
 
 except ImportError as import_error:
     error(import_error)
@@ -79,8 +80,10 @@ def generate_pages(config, content):
     exists, or if none is specified in the meta, the default is used.
     '''
     pages = {}
+    renderer = render.Renderer(config)
     for page in content:
-        pass
+        template = renderer.render_page(content[page])
+
     return pages
 
 

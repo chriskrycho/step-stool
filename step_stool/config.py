@@ -9,6 +9,7 @@ from sys import exit
 try:
     from yaml import load
     from mixins import DictAsMember
+    from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 except ImportError as import_error:
     error(import_error)
@@ -31,8 +32,8 @@ site:
     source: # required! cannot be blank
     destination: # required! cannot be blank
   template:
-    directory: # required! cannot be blank
-    default: # required! cannot be blank
+    directory: # required! should be the path to the template directory
+    default: # required! should be the name of the default template *file*
   render_options:
     posts_per_page: 5 # used on archive, categories, and tags pages
     blog:
@@ -150,10 +151,26 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         if not self.configuration.site.template.default:
             self.__missing_value('site template default')
 
+        if not path.exists(self.configuration.site.template.directory):
+            self.__bad_path(self.configuration.site.template.directory)
+
+        try:
+            directory = self.configuration.site.template.directory
+            environment = Environment(loader=FileSystemLoader(directory))
+            environment.get_template(self.configuration.site.template.default)
+        except TemplateNotFound:
+            print('Default template not found.')
+            print('Template name supplied:', self.configuration.site.template.default)
+            print('Template directory supplied:', self.configuration.site.template.directory)
+            exit()
+
     def __missing_value(self, value):
         ''' Handle missing values required for site configuration.  '''
-        base = 'You must supply a value for'
-        print(base, value + '.')
+        print('You must supply a value for', value + '.')
+        exit()
+
+    def __bad_path(self, path):
+        print('Sorry, the path', path, 'does not appear to be valid!')
         exit()
 
 

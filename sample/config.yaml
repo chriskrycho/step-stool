@@ -13,8 +13,8 @@ site:
     source: /Users/chris/development/personal_projects/step_stool/sample/source
     destination: /Users/chris/development/personal_projects/step_stool/sample/generated-site
   template:
-    directory: /Users/chris/development/personal_projects/step_stool/sample/templates
-    default: clean
+    directory: /Users/chris/development/personal_projects/step_stool/sample/templates/clean
+    default: base.html
   render_options:
     posts_per_page: 5 # used on archive, categories, and tags pages
     blog:
