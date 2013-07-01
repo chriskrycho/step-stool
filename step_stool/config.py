@@ -28,18 +28,25 @@ site:
   name: Step Stool Demo
   root: http://step-stool.io/demo
   content:
-    source: /Users/chris/development/personal_projects/step_stool/sample/source
-    destination: /Users/chris/development/personal_projects/step_stool/sample/generated-site
+    source: # required! cannot be blank
+    destination: # required! cannot be blank
   template:
-    directory: /Users/chris/development/personal_projects/step_stool/sample/templates
-    default: clean
+    directory: # required! cannot be blank
+    default: # required! cannot be blank
   render_options:
-    use_categories: true
-    use_tags: true
     posts_per_page: 5 # used on archive, categories, and tags pages
+    blog:
+      use: true
+      slug: # defaults to 'blog'
+    categories:
+      use: true
+      slug: # defaults to 'categories'
+    tags:
+      use: true
+      slug: # defaults to 'tags'
     home:
-      blog: true
-      slug: # ignored if `blog` is `true`
+      use: false
+      page: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the page
 
 publication:
   remote:
@@ -77,9 +84,9 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
     def __init__(self, directory, run_setup=False, manual_config=False):
         if run_setup or not self.configured(directory):
-            self.config = self.__config_setup(manual_config)
+            self.configuration = self.__config_setup(manual_config)
         else:
-            self.config = self.get_config()
+            self.configuration = self.get_config()
 
         self.__validate()
 
@@ -129,17 +136,17 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
     def __validate(self):
         ''' Check whether the required site configuration elements are set. '''
-        if not self.config.site.name:
+        if not self.configuration.site.name:
             self.__missing_value('site name')
-        if not self.config.site.root:
+        if not self.configuration.site.root:
             self.__missing_value('site root')
-        if not self.config.site.content.source:
+        if not self.configuration.site.content.source:
             self.__missing_value('site content source')
-        if not self.config.site.content.destination:
+        if not self.configuration.site.content.destination:
             self.__missing_value('site content destination')
-        if not self.config.site.template.directory:
+        if not self.configuration.site.template.directory:
             self.__missing_value('site template directory')
-        if not self.config.site.template.default:
+        if not self.configuration.site.template.default:
             self.__missing_value('site template default')
 
     def __missing_value(self, value):
@@ -147,3 +154,8 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         base = 'You must supply a value for'
         print(base, value + '.')
         exit()
+
+
+def print_default_config(file_path):
+    with open(file_path, 'w') as file:
+        file.write(Configurator.DEFAULT_CONFIG)

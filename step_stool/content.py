@@ -27,7 +27,7 @@ def convert_source(config):
             file_path = path.join(root, file_name)
             plain_slug, extension = path.splitext(file_name)
 
-            with open(file_path) as file:
+            with open(file_path, 'r') as file:
                 md_text = file.read()
                 html = md.convert(md_text)
                 converted_content[plain_slug] = {'html': html, 'meta': md.Meta}
@@ -38,17 +38,21 @@ def convert_source(config):
 
 def generate_site(config, content):
     archive = generate_archive(config, content)
-    categories = generate_categories(config, content) if config.render_options.use_categories else None
-    tags = generate_tags(config, content) if config.render_options.use_tags else None
+    categories = generate_categories(config, content) if config.site.render_options.categories.use else None
+    tags = generate_tags(config, content) if config.site.render_options.tags.use else None
 
-    index = archive if config.render_options.home.blog else generate_index(config, content)
+    home = generate_home(config, content) if config.site.render_options.home.use else archive
 
 
 def generate_archive(config, content):
     return content
 
 
-def generate_index(config, content):
+def generate_home(config, content):
+    '''
+    Generate the index page based on the settings in config. If the site is set
+    to
+    '''
     return content
 
 

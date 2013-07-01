@@ -3,15 +3,15 @@ __copyright__ = 'Copyright © 2013 Chris Krycho'
 
 # System modules
 from logging import error
-from os import getcwd, walk
+from os import getcwd, path, walk
 from sys import exit
 import argparse
 
 # Step Stool modules
 try:
     import content
-    from config import Configurator
-    from render import render_template
+    import config
+    import render
     from mixins import DictAsMember
 
 except ImportError as import_error:
@@ -29,13 +29,14 @@ def main():
     - Get and convert any/all content in the content directory
     - Render the content
     '''
-    args = process_args()
-    configurator = Configurator(directory=args.directory, run_setup=args.setup)
-    converted_content = content.convert_source(configurator.config)
-    content.generate_site(configurator.config, converted_content)
+    args = parse_args()
+    process_args(args)
+    configurator = config.Configurator(directory=args.directory, run_setup=args.setup)
+    converted_content = content.convert_source(configurator.configuration)
+    content.generate_site(configurator.configuration, converted_content)
 
 
-def process_args():
+def parse_args():
     program_desc = 'Configure a new Step Stool site or (re)build an existing site.'
     program_name = 'Step Stool'
     parser = argparse.ArgumentParser(prog=program_name, description=program_desc)
@@ -46,9 +47,18 @@ def process_args():
                         action='store_true', dest='manual_config')
     parser.add_argument('--setup', help='Re-run the setup command (same as first run in directory)',
                         action='store_true', default=False)
+    parser.add_argument('--copy_defaults', action='store', metavar='<filename>',
+                        help='Generate a copy of the default configuration file for reference')
 
     args = parser.parse_args()
     return args
+
+
+def process_args(args):
+    if args.copy_defaults:
+        file_name = args.copy_defaults
+        file_path = path.join(getcwd(), file_name) if path.isabs(file_name) else file_name
+        config.print_default_config(file_path)
 
 
 if __name__ == '__main__':
