@@ -25,7 +25,7 @@ class Renderer():
         else:
             template = self.__get_template()
 
-        return template.render(site=self.site_info, meta=page.meta, content=page.html)
+        return template.render(site=self.site_info, page=page)
 
     def __get_template(self, template_name='default'):
         '''

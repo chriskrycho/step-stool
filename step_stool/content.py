@@ -16,7 +16,8 @@ except ImportError as import_error:
     exit()
 
 
-Content_Pair = namedtuple('Content_Pair', ['html', 'meta'])
+Content_Pair = namedtuple('Content_Pair', ['content', 'meta'])
+OUTPUT_EXTENSION = '.html'
 
 
 def convert_source(config):
@@ -33,9 +34,9 @@ def convert_source(config):
             plain_slug, extension = path.splitext(file_name)
 
             with open(file_path, 'r') as file:
-                md_text = file.read()
-                html = md.convert(md_text)
-                converted_documents[plain_slug] = Content_Pair(html, md.Meta)
+                md_document = file.read()
+                html_document = md.convert(md_document)
+                converted_documents[plain_slug] = Content_Pair(html_document, md.Meta)
                 md.reset()
 
     return converted_documents
@@ -43,24 +44,30 @@ def convert_source(config):
 
 def generate_site(config, documents):
     pages = generate_pages(config, documents)
-    archive = generate_archive(config, documents)
+    blog = generate_blog(config, documents) if config.site.options.blog.use else None
     categories = generate_categories(config, documents) if config.site.options.categories.use else None
     tags = generate_tags(config, documents) if config.site.options.tags.use else None
 
-    home = generate_home(config, documents) if config.site.options.home.use else archive
+    home = generate_home(config, documents) if config.site.options.home.use else blog
+
+    for slug in pages:
+        # print(slug)
+        output_path = path.join(config.site.content.destination, slug + OUTPUT_EXTENSION)
+        with open(output_path, 'w') as file:
+            file.write(pages[slug])
 
 
-def generate_archive(config, content):
-    for page in content:
+def generate_blog(config, documents):
+    for page in documents:
         pass
-    return content
+    return documents
 
 
-def generate_categories(config, content):
-    return content
+def generate_categories(config, documents):
+    return documents
 
 
-def generate_home(config, content):
+def generate_home(config, documents):
     '''
     Generate the index page based on the settings in config. If the site is set
     to use a home page and supplied a home page slug, it will attempt to use a
@@ -72,7 +79,7 @@ def generate_home(config, content):
         return None
 
 
-def generate_pages(config, content):
+def generate_pages(config, documents):
     '''
     Generate each of the standalone pages. Pages are rendered using a template
     specified in the file's meta, if (1) a template is specified there and (2)
@@ -80,20 +87,20 @@ def generate_pages(config, content):
     exists, or if none is specified in the meta, the default is used. Note that
     a 'page' is *any* page on the site, not just standalone, non-blog pages.
     '''
-    pages = []
+    pages = {}
     renderer = render.Renderer(config.site)
-    for page in content:
-        pages.append(renderer.render_page(content[page]))
+    for slug in documents:
+        pages[slug] = renderer.render_page(documents[slug])
 
     return pages
 
 
-def generate_tags(config, content):
-    return content
+def generate_tags(config, documents):
+    return documents
 
 
-def paginate(posts_per_page, content):
-    return content
+def paginate(posts_per_page, documents):
+    return documents
 
 
 class Page():

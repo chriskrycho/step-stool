@@ -47,7 +47,7 @@ site:
       use: true
       slug: # defaults to 'tags'
     home:
-      use: false
+      use: false # use a standalone home page, rather than the latest blog posts(s)
       page: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the page
 
 publication:
