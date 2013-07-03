@@ -15,7 +15,7 @@ site:
   template:
     directory: /Users/chris/development/personal_projects/step_stool/sample/templates/clean
     default: base.html
-  render_options:
+  options:
     posts_per_page: 5 # used on archive, categories, and tags pages
     blog:
       use: true

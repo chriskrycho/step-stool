@@ -13,10 +13,11 @@ except ImportError as import_error:
 
 
 class Renderer():
-    def __init__(self, config):
-        self.template_path = config.site.template.directory
+    def __init__(self, site_info):
+        self.site_info = site_info
+        self.template_path = site_info.template.directory
         self.environment = Environment(loader=FileSystemLoader(searchpath=self.template_path))
-        self.default_template = self.environment.get_template(config.site.template.default)
+        self.templates = {'default': self.environment.get_template(site_info.template.default)}
 
     def render_page(self, page):
         if 'template' in page.meta:
@@ -24,17 +25,23 @@ class Renderer():
         else:
             template = self.__get_template()
 
-        pass
+        return template.render(site=self.site_info, meta=page.meta, content=page.html)
 
-    def __get_template(self, template_name=None):
-        if template_name:
+    def __get_template(self, template_name='default'):
+        '''
+        Retrieve the template for rendering using Environment::get_template.
+        Start by checking templates already stored by previous calls to this
+        method (minimizing calls to the file system).
+        '''
+        if template_name in self.templates:
+            template = self.templates[template_name]
+        else:
             try:
                 template = self.environment.get_template(template_name)
+                self.templates[template_name] = template
             except TemplateNotFound:
-                template = self.default_template
+                template = self.templates['default']
                 warning_msg = "Specified template {} not found.'".format(template_name)
                 warning(warning_msg)
-        else:
-            template = self.default_template
 
         return template
