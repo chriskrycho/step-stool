@@ -3,7 +3,7 @@ __copyright__ = '2013 Chris Krycho'
 
 from collections import namedtuple
 from logging import error
-from os import path, walk, remove
+from os import path, walk
 from shutil import copytree, copy, rmtree
 import errno
 from sys import exit
