@@ -51,13 +51,6 @@ publication:
     https_username: # only required if pushing via https - NOT RECOMMENDED
     https_password: # only required if pushing via https - NOT RECOMMENDED
 
-# Detailed configuration
-archives:
-  generate: true
-  categories: true
-  tags: true
-  author: false
-
 markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.html for a list of extensions
   codehilite: # depends on Pygments (installed by default with
   extra: # includes a number of modules corresponding to the PHP Extra Markdown syntax

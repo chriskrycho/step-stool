@@ -51,7 +51,6 @@ def generate_site(config, documents):
     home = generate_home(config, documents) if config.site.options.home.use else blog
 
     for slug in pages:
-        # print(slug)
         output_path = path.join(config.site.content.destination, slug + OUTPUT_EXTENSION)
         with open(output_path, 'w') as file:
             file.write(pages[slug])
