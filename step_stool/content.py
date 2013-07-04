@@ -25,7 +25,6 @@ def convert_source(config):
     Convert all Markdown pages to HTML and metadata pairs. Pairs are keyed to
     file names slugs (without the original file extension).
     '''
-
     md = Markdown(extensions=config.markdown_extensions, output_format='html5')
     converted_documents = {}
     for root, dirs, file_names in walk(config.site.content.source):

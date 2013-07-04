@@ -5,7 +5,7 @@ Type:       post
 Date:       2013-06-02 18:30 EST
 Category:   History
 
-I build Step Stool using [README-driven development][rdd], a concept I first
+I built Step Stool using [README-driven development][rdd], a concept I first
 heard of late last year. The first thing I did was put together the basic
 README. (Truth be told, I still need to finish it, as of the time I'm writing.
 But I got distracted by needing to get my fingers dirty in a little code. I'll
