@@ -61,9 +61,6 @@ def __process_args(args):
         file_path = path.join(getcwd(), file_name) if path.isabs(file_name) else file_name
         config.print_default_config(file_path)
 
-    if args.setup:
-        configurator = config.Configurator(directory=args.directory, run_setup=True)
-
 
 if __name__ == '__main__':
     main()
