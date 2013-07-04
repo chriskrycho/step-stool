@@ -2,7 +2,7 @@ __author__ = 'Chris Krycho'
 __copyright__ = 'Copyright © 2013 Chris Krycho'
 
 # System modules
-from logging import error
+from logging import error, warning
 from os import path
 from sys import exit
 
@@ -49,8 +49,8 @@ site:
       use: true
       slug: # defaults to 'tags'
     home:
-      use: false # use a standalone home page, rather than the latest blog posts(s)
-      page: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the page
+      use: # use a standalone home page, rather than the latest blog posts(s)
+      slug: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the basis
 
 publication:
   remote:
@@ -133,30 +133,37 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
     def __validate(self):
         ''' Check whether the required site configuration elements are set. '''
-        if not self.configuration.site.name:
+        site = self.configuration.site
+        if not site.name:
             self.__missing_value('site name')
-        if not self.configuration.site.root:
+        if not site.root:
             self.__missing_value('site root')
-        if not self.configuration.site.content.source:
+        if not site.content.source:
             self.__missing_value('site content source')
-        if not self.configuration.site.content.destination:
+        if not site.content.destination:
             self.__missing_value('site content destination')
-        if not self.configuration.site.template.directory:
+        if not site.template.directory:
             self.__missing_value('site template directory')
-        if not self.configuration.site.template.default:
+        if not site.template.default:
             self.__missing_value('site template default')
 
-        if not path.exists(self.configuration.site.template.directory):
-            self.__bad_path(self.configuration.site.template.directory)
+        if site.options.home.use and not site.options.home.slug:
+            error('Configuration specified using a home page but no slug provided.')
+            exit()
+
+        if not path.exists(site.template.directory):
+            self.__bad_path(site.template.directory)
+
+        # TODO: Add handling for missing directories required in template copy
 
         try:
-            directory = self.configuration.site.template.directory
+            directory = site.template.directory
             environment = Environment(loader=FileSystemLoader(directory))
-            environment.get_template(self.configuration.site.template.default)
+            environment.get_template(site.template.default)
         except TemplateNotFound:
-            print('Default template not found.')
-            print('Template name supplied:', self.configuration.site.template.default)
-            print('Template directory supplied:', self.configuration.site.template.directory)
+            warning('Default template not found.')
+            print('Template name supplied:', site.template.default)
+            print('Template directory supplied:', site.template.directory)
             exit()
 
     def __missing_value(self, value):

@@ -31,8 +31,8 @@ site:
       use: true
       slug: # defaults to 'tags'
     home:
-      use: false # use a standalone home page, rather than the latest blog posts(s)
-      page: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the page
+      use: # use a standalone home page, rather than the latest blog posts(s)
+      slug: # ignored unless 'use' is 'true'; otherwise, the slug (with no extension) for the basis document
 
 publication:
   remote:

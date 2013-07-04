@@ -3,7 +3,9 @@ __copyright__ = '2013 Chris Krycho'
 
 from collections import namedtuple
 from logging import error
-from os import path, walk
+from os import path, walk, remove
+from shutil import copytree, copy, rmtree
+import errno
 from sys import exit
 
 try:
@@ -57,12 +59,19 @@ def build_site(site_config, documents):
 
 
 def write_site(site_config, output):
+    '''
+    Write all the content in output to files by slug with extension `.html`,
+    then copy any necessary files from the template directory (e.g. Javascript
+    or CSS) to the output directory.
+    '''
     for element in output:
         if output[element]:
             for slug in output[element]:
                 output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
                 with open(output_path, 'w') as file:
                     file.write(output['pages'][slug])
+
+    __copy_required_template_elements(site_config)
 
 
 def __build_blog(documents, renderer):
@@ -86,10 +95,12 @@ def __build_home(home_options, documents, renderer):
     function returns immediately.
     '''
     pages = {}
-    if home_options.use and not home_options.slug:
-        pass  # TODO: print error message
-    else:  # TODO: generate the home page from the relevant slug
+    if home_options.use and home_options.slug not in documents:
+            error('Specified slug {} not in list of documents supplied. Could not build home page.'.format(
+                home_options.slug))
+    else:
         slug = home_options.slug
+
 
 
 def __build_pages(documents, renderer):
@@ -110,6 +121,24 @@ def __build_pages(documents, renderer):
 
 def __build_tags(documents, renderer):
     return None
+
+
+def __copy_required_template_elements(site_config):
+    copy_names = site_config.template.copy_elements
+    copy_sources = [path.join(site_config.template.directory, copy_name) for copy_name in copy_names]
+    copy_destinations = [path.join(site_config.content.destination, copy_name) for copy_name in copy_names]
+    copy_pairs = zip(copy_sources, copy_destinations)
+    for source, destination in copy_pairs:
+        if path.exists(destination):
+            rmtree(destination)
+
+        try:
+            copytree(source, destination)
+        except OSError as exc:
+            if exc.errno == errno.ENOTDIR:
+                copy(source, destination)
+            else:
+                raise
 
 
 def __paginate(posts_per_page, documents):
