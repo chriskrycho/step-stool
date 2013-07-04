@@ -16,7 +16,7 @@ focusing on getting the configuration pieces in place and getting the
 conversion working properly. With both of those in place and much of the
 initialization and argument-handling done, the next step is to start actually
 generating content and building out the default template (as well as,
-eventually, a template for the Step Stool [site][http://step-stool.io/ so that
+eventually, a template for the Step Stool [site](http://step-stool.io/) so that
 it can be built using Step Stool).
 
 Some of the biggest pieces I still need to set up in terms of configuration are

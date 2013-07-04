@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
    {% block head %}
-   <title>{% if page.meta.title %}{{ page.meta.title }} &mdash; {% endif %}{{ site.name }}</title>
+   <title>{% if page.meta.title %}{{ page.meta.title[0] }} &mdash; {% endif %}{{ site.name }}</title>
    <meta charset='UTF-8' />
 
    <link rel='stylesheet' href='css/style.css' />
