@@ -34,6 +34,8 @@ site:
   template:
     directory: # required! should be the path to the template directory
     default: # required! should be the name of the default template *file*
+    copy_elements:
+      - css
   options:
     posts_per_page: 5 # used on archive, categories, and tags pages
     blog:

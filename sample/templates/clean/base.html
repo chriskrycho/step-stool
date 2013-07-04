@@ -16,14 +16,14 @@
    <article>
       {% if page.meta.title or page.meta.subtitle %}
       <header>
-         <h1>{{ page.meta.title }}</h1>
-         {% if page.meta.subtitle %}<h2>{{ page.meta.subtitle }}</h2>{% endif %}
+         <h1>{{ page.meta.title[0] }}</h1>
+         {% if page.meta.subtitle %}<h2>{{ page.meta.subtitle[0] }}</h2>{% endif %}
       </header>
       {% endif %}
       {% if page.content %}
-         {{ page.content }}
+      {{ page.content }}
       {% else %}
-         Whoops! Looks like the content for this page went missing somehow.
+      Whoops! Looks like the content for this page went missing somehow.
       {% endif %}
    </article>
    {% endblock %}
