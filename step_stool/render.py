@@ -15,9 +15,9 @@ except ImportError as import_error:
 class Renderer():
     def __init__(self, site_info):
         self.site_info = site_info
-        self.template_path = site_info.template.directory
+        self.template_path = self.site_info.template.directory
         self.environment = Environment(loader=FileSystemLoader(searchpath=self.template_path))
-        self.templates = {'default': self.environment.get_template(site_info.template.default)}
+        self.templates = {'default': self.environment.get_template(self.site_info.template.default)}
 
     def render_page(self, page):
         if 'template' in page.meta:

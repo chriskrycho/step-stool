@@ -2,19 +2,30 @@
 <html lang='en'>
 <head>
    {% block head %}
-   <title>{{ site.name }}</title>
+   <title>{% if page.meta.title %}{{ page.meta.title }} &mdash; {% endif %}{{ site.name }}</title>
    <meta charset='UTF-8' />
 
    <link rel='stylesheet' href='css/style.css' />
    {% endblock %}
 </head>
 <body>
+   {% block site_header %}
    <header><h1>{{ site.name }}</h1></header>
+   {% endblock %}
+   {% block site_content %}
    <article>
+      {% if page.meta.title or page.meta.subtitle %}
       <header>
          <h1>{{ page.meta.title }}</h1>
+         {% if page.meta.subtitle %}<h2>{{ page.meta.subtitle }}</h2>{% endif %}
       </header>
-      {{ page.content }}
+      {% endif %}
+      {% if page.content %}
+         {{ page.content }}
+      {% else %}
+         Whoops! Looks like the content for this page went missing somehow.
+      {% endif %}
    </article>
+   {% endblock %}
 </body>
 </html>

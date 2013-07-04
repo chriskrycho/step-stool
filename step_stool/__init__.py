@@ -33,7 +33,8 @@ def main():
     process_args(args)
     configurator = config.Configurator(directory=args.directory, run_setup=args.setup)
     converted_documents = content.convert_source(configurator.configuration)
-    content.generate_site(configurator.configuration, converted_documents)
+    site = content.build_site(configurator.configuration.site, converted_documents)
+    content.write_site(configurator.configuration.site, site)
 
 
 def parse_args():

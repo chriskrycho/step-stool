@@ -41,31 +41,43 @@ def convert_source(config):
     return converted_documents
 
 
-def generate_site(config, documents):
-    pages = generate_pages(config, documents)
-    blog = generate_blog(config, documents) if config.site.options.blog.use else None
-    categories = generate_categories(config, documents) if config.site.options.categories.use else None
-    tags = generate_tags(config, documents) if config.site.options.tags.use else None
+def build_site(site_config, documents):
+    renderer = render.Renderer(site_config)
+    options = site_config.options
 
-    home = generate_home(config, documents) if config.site.options.home.use else blog
+    output = {
+        'pages': __build_pages(documents, renderer),
+        'blog': __build_blog(documents, renderer) if options.blog.use else None,
+        'categories': __build_categories(documents, renderer) if options.categories.use else None,
+        'tags': __build_tags(documents, renderer) if options.tags.use else None}
 
-    for slug in pages:
-        output_path = path.join(config.site.content.destination, slug + OUTPUT_EXTENSION)
-        with open(output_path, 'w') as file:
-            file.write(pages[slug])
+    output['home'] = __build_home(options.home, documents, renderer) if options.home.use else output['blog']
+
+    return output
 
 
-def generate_blog(config, documents):
+def write_site(site_config, output):
+    for element in output:
+        if output[element]:
+            for slug in output[element]:
+                output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
+                with open(output_path, 'w') as file:
+                    file.write(output['pages'][slug])
+
+
+def __build_blog(documents, renderer):
+    pages = {}
     for page in documents:
         pass
-    return documents
+    return pages
 
 
-def generate_categories(config, documents):
-    return documents
+def __build_categories(documents, renderer):
+    pages = {}
+    return pages
 
 
-def generate_home(config, documents):
+def __build_home(home_options, documents, renderer):
     '''
     Generate the index page based on the settings in config. If the site is set
     to use a home page and supplied a home page slug, it will attempt to use a
@@ -73,11 +85,14 @@ def generate_home(config, documents):
     exists, an error is printed. If the site is not set to use a home page, the
     function returns immediately.
     '''
-    if not config.site.options.home.use:
-        return None
+    pages = {}
+    if home_options.use and not home_options.slug:
+        pass  # TODO: print error message
+    else:  # TODO: generate the home page from the relevant slug
+        slug = home_options.slug
 
 
-def generate_pages(config, documents):
+def __build_pages(documents, renderer):
     '''
     Generate each of the standalone pages. Pages are rendered using a template
     specified in the file's meta, if (1) a template is specified there and (2)
@@ -86,21 +101,16 @@ def generate_pages(config, documents):
     a 'page' is *any* page on the site, not just standalone, non-blog pages.
     '''
     pages = {}
-    renderer = render.Renderer(config.site)
+
     for slug in documents:
         pages[slug] = renderer.render_page(documents[slug])
 
     return pages
 
 
-def generate_tags(config, documents):
+def __build_tags(documents, renderer):
+    return None
+
+
+def __paginate(posts_per_page, documents):
     return documents
-
-
-def paginate(posts_per_page, documents):
-    return documents
-
-
-class Page():
-    def __init__(self):
-        pass
