@@ -20,14 +20,11 @@ class Renderer():
         self.templates = {'default': self.environment.get_template(self.site_info.template.default)}
 
     def render_page(self, page):
-        if 'template' in page.meta:
-            template = self.__get_template(page.meta['template'])
-        else:
-            template = self.__get_template()
-
+        template_name = page.meta['template'] if 'template' in page.meta else 'default'
+        template = self.__get_template(template_name)
         return template.render(site=self.site_info, page=page)
 
-    def __get_template(self, template_name='default'):
+    def __get_template(self, template_name):
         '''
         Retrieve the template for rendering using Environment::get_template.
         Start by checking templates already stored by previous calls to this
