@@ -47,11 +47,10 @@ def build_site(site_config, documents):
     renderer = render.Renderer(site_config)
     options = site_config.options
 
-    output = {
-        'pages': __build_pages(documents, renderer),
-        'blog': __build_blog(documents, renderer) if options.blog.use else None,
-        'categories': __build_categories(documents, renderer) if options.categories.use else None,
-        'tags': __build_tags(documents, renderer) if options.tags.use else None}
+    output = {'pages': __build_pages(documents, renderer),
+              'blog': __build_blog(documents, renderer) if options.blog.use else None,
+              'categories': __build_categories(documents, renderer) if options.categories.use else None,
+              'tags': __build_tags(documents, renderer) if options.tags.use else None}
 
     output['home'] = __build_home(options.home, documents, renderer) if options.home.use else output['blog']
 
@@ -83,6 +82,11 @@ def __build_blog(documents, renderer):
 
 def __build_categories(documents, renderer):
     pages = {}
+    categories = []
+    for doc in documents:
+        if 'category' in documents[doc].meta:
+            for category in documents[doc].meta['category']:
+                categories.append(category) if category not in categories else None
     return pages
 
 
@@ -102,7 +106,6 @@ def __build_home(home_options, documents, renderer):
         slug = home_options.slug
 
 
-
 def __build_pages(documents, renderer):
     '''
     Generate each of the standalone pages. Pages are rendered using a template
@@ -120,6 +123,12 @@ def __build_pages(documents, renderer):
 
 
 def __build_tags(documents, renderer):
+    tags = []
+    for doc in documents:
+        if 'tags' in documents[doc].meta:
+            for tag in documents[doc].meta['tags']:
+                tags.append(tag) if tag not in tags else None
+
     return None
 
 
@@ -142,4 +151,8 @@ def __copy_required_template_elements(site_config):
 
 
 def __paginate(posts_per_page, documents):
+    return documents
+
+
+def __sort_by_date(documents):
     return documents
