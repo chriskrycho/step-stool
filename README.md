@@ -3,8 +3,10 @@ Step Stool
 
 A static website generator (in Python).
 
+Current Version: 0.0.1
+
 Introduction
-------------
+============
 
 Step Stool is a simple static site generator. You write your content in
 [Markdown][md], run a quick command line script, and it gets published to the
@@ -19,9 +21,12 @@ choose. If you want to have nested categories, go for it. If you want an
 entirely flat structure with an ever-growing list of tags, you can do that, too.
 
 Setup
------
-### Installation
-#### Dependencies
+=====
+
+Installation
+------------
+
+### Dependencies
 
 To install Step Stool, you'll need at least [Python 3.0][python]. If you
 don't have it, you'll need to get it:
@@ -33,7 +38,7 @@ don't have it, you'll need to get it:
 That's it. (All the Python package dependencies will take care of themselves
 when you install the package.)
 
-#### Walkthrough
+### Walkthrough
 
 The easiest way to install Step Stool is using `pip`, which also installs
 all dependencies for using Step Stool:
@@ -63,7 +68,8 @@ page][download] and run:
     :::sh
     $ python setup.py
 
-### Configuration
+Configuration
+-------------
 
 Once Step Stool has been installed, you can simply run it from the command line:
 
@@ -73,7 +79,7 @@ By default, Step Stool will set up a project in the directory where you run it,
 but you can run it anywhere and tell it the directory in which to run (see
 options below).
 
-#### Configuration Tool Options
+### Configuration Tool Options
 
 The following options can be passed to the configuration tool:
 
@@ -84,13 +90,61 @@ The following options can be passed to the configuration tool:
   the project and then exit.
 - `setup`: Re-run the initial setup sequence. (Ignored if )
 
-#### The configuration file
+### The configuration file
 
 All the settings are stored in a [YAML][yaml] file in the directory where you
 initialized the project (either by running Step Stool in that directory or by
 passing it as an argument with the `-d` flag).
 
-#### Templating
+#### Site
+
+##### Options
+
+Most of the options are fairly self-explanatory, but here are a few notes on
+each nonetheless.
+
+- `posts_per_page`:
+- `blog`: allows the user to set whether to create a specific page on which to
+  display the blog archives. If you're using Step Stool to manage a site for
+  which the blog is just one piece, for example, you'd set the `use` value to
+  `true` and supply whatever slug you like for `slug`. If you do not want a blog
+  at all, you can simply set `use` to `false`.
+
+- `categories`: allows the user to set whether or not category pages are
+  generated. If the user sets `use` to `false`, any category metadata in the
+  Markdown documents will simply be ignored. If the user sets `use` to `true`,
+  archive pages for each distinct category will be generated and can be linked
+  from the template at the user's convenience. If the user provides a value for
+  `slug`, that will be used as the root for the category archive pages;
+  otherwise the category archive pages will be located at
+  `<site>/categories/<category-name>`. For example, on the Step Stool site, the
+  history category is at <http://step-stool.io/categories/history/>.[^1]
+
+      use: true
+      slug: # defaults to 'categories'
+      restrict: # if left blank and with no children, categories can be named arbitrarily
+        - History
+
+- `tags`: exactly like `categories`, except that at present, there is no support
+  for restricting the list of tags -- that rather defeats the purpose of most
+  tagging systems.
+
+- `home`:
+      use: true
+      slug: home
+
+*Note:* If you do *not* choose to use the `home` page and you *do* choose to use the
+`blog` setting, Step Stool will generate a page at the slug specified (`blog` if
+you do not specify one yourself) that will be identical to the index page,
+listing all the blog archives.
+
+#### Publication
+
+#### Markdown Extensions
+
+For a full list of Markdown extensions you can enable, see [here][md-ext]
+
+### Templating
 
 All article information is supplied to the template in the `article` object.
 Each `article` includes the following properties:
@@ -98,14 +152,15 @@ Each `article` includes the following properties:
 - `content`: the HTML body of the article, based on the Markdown document
 - `meta`:
 
-You can then use the `article` objects 
+You can then use the `article` objects
 
-#### Pages and Posts
+### Pages and Posts
 
 Miscellanies
-------------
+============
 
-### Why "Step Stool"?
+Why "Step Stool"?
+-----------------
 
 A step stool helps you get just a little higher. It's not a ladder, and it's
 definitely not a powered lift to do work on street lamps. It just makes a
@@ -116,14 +171,22 @@ dynamically, or do much of anything other than turn Markdown into HTML. It's a
 step stool.
 
 
+
 [download]: /
 
 [jinja]: http://jinja.pocoo.org/ "Jinja 2 Python Templating Language"
 
 [md]: http://daringfireball.net/projects/markdown/
 
+[md-ext]: http://pythonhosted.org/Markdown/extensions/
+
 [python]: http://www.python.org/download/ "Download Python 3 for your platform"
 
 [vw]: https://bitbucket.org/dhellmann/virtualenvwrapper "Extensions to Ian Bickings virtualenv tool"
 
 [yaml]: http://www.yaml.org/
+
+
+
+[^1]: Well, it will be, anyway---once I get to the point where I can generate
+Step Stool itself with Step Stool.

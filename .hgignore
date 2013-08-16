@@ -42,3 +42,8 @@ atlassian-ide-plugin.xml
 
 # Generated version of site
 sample/generated-site
+
+# Python egg builds/dist/etc
+build
+dist
+*.egg-info

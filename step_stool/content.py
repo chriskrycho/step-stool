@@ -100,7 +100,8 @@ def build_home(options, documents, renderer):
     '''
     if options.home.use:
         if options.home.slug in documents:
-            return {options.home.slug: renderer.render_page(documents[options.home.slug])}
+            rendered_page = renderer.render_page(documents[options.home.slug])
+            return {'index': rendered_page}
 
         else:
             error('Specified slug {} not in list of documents supplied. Could not build home page.'.format(
