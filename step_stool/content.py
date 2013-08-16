@@ -47,12 +47,12 @@ def build_site(site_config, documents):
     renderer = render.Renderer(site_config)
     options = site_config.options
 
-    output = {'pages': __build_pages(documents, renderer),
-              'blog': __build_blog(documents, renderer) if options.blog.use else None,
-              'categories': __build_categories(documents, renderer) if options.categories.use else None,
-              'tags': __build_tags(documents, renderer) if options.tags.use else None}
+    output = {'pages': build_pages(documents, renderer),
+              'blog': build_blog(documents, renderer) if options.blog.use else None,
+              'categories': build_categories(documents, renderer) if options.categories.use else None,
+              'tags': build_tags(documents, renderer) if options.tags.use else None}
 
-    output['home'] = __build_home(options.home, documents, renderer) if options.home.use else output['blog']
+    output['home'] = build_home(options.home, documents, renderer) if options.home.use else output['blog']
 
     return output
 
@@ -64,23 +64,23 @@ def write_site(site_config, output):
     or CSS) to the output directory.
     '''
     for element in output:
-        if output[element]:
+        if output[element] is not None:
             for slug in output[element]:
                 output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
                 with open(output_path, 'w') as file:
                     file.write(output['pages'][slug])
 
-    __copy_required_template_elements(site_config)
+    copy_required_template_elements(site_config)
 
 
-def __build_blog(documents, renderer):
+def build_blog(documents, renderer):
     pages = {}
     for page in documents:
         pass
     return pages
 
 
-def __build_categories(documents, renderer):
+def build_categories(documents, renderer):
     pages = {}
     categories = []
     for doc in documents:
@@ -90,7 +90,7 @@ def __build_categories(documents, renderer):
     return pages
 
 
-def __build_home(home_options, documents, renderer):
+def build_home(home_options, documents, renderer):
     '''
     Generate the index page based on the settings in config. If the site is set
     to use a home page and supplied a home page slug, it will attempt to use a
@@ -106,7 +106,7 @@ def __build_home(home_options, documents, renderer):
         slug = home_options.slug
 
 
-def __build_pages(documents, renderer):
+def build_pages(documents, renderer):
     '''
     Generate each of the standalone pages. Pages are rendered using a template
     specified in the file's meta, if (1) a template is specified there and (2)
@@ -122,7 +122,7 @@ def __build_pages(documents, renderer):
     return pages
 
 
-def __build_tags(documents, renderer):
+def build_tags(documents, renderer):
     tags = []
     for doc in documents:
         if 'tags' in documents[doc].meta:
@@ -132,7 +132,7 @@ def __build_tags(documents, renderer):
     return None
 
 
-def __copy_required_template_elements(site_config):
+def copy_required_template_elements(site_config):
     copy_names = site_config.template.copy_elements
     copy_sources = [path.join(site_config.template.directory, copy_name) for copy_name in copy_names]
     copy_destinations = [path.join(site_config.content.destination, copy_name) for copy_name in copy_names]
@@ -150,9 +150,9 @@ def __copy_required_template_elements(site_config):
                 raise
 
 
-def __paginate(posts_per_page, documents):
+def paginate(posts_per_page, documents):
     return documents
 
 
-def __sort_by_date(documents):
+def sort_by_date(documents):
     return documents

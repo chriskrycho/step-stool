@@ -29,15 +29,15 @@ def main():
     - Get and convert any/all content in the content directory
     - Render the content
     '''
-    args = __parse_args()
-    __process_args(args)
+    args = parse_args()
+    process_args(args)
     configurator = config.Configurator(directory=args.directory, run_setup=args.setup)
     converted_documents = content.convert_source(configurator.configuration)
     site = content.build_site(configurator.configuration.site, converted_documents)
     content.write_site(configurator.configuration.site, site)
 
 
-def __parse_args():
+def parse_args():
     program_desc = 'Configure a new Step Stool site or (re)build an existing site.'
     program_name = 'Step Stool'
     parser = argparse.ArgumentParser(prog=program_name, description=program_desc)
@@ -55,7 +55,7 @@ def __parse_args():
     return args
 
 
-def __process_args(args):
+def process_args(args):
     if args.copy_defaults:
         file_name = args.copy_defaults
         file_path = path.join(getcwd(), file_name) if path.isabs(file_name) else file_name

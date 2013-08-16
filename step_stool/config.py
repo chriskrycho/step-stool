@@ -96,6 +96,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         if path.exists(full_path):
             self.file_name = full_path
             return True
+
         else:
             return False
 
@@ -136,14 +137,19 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         site = self.configuration.site
         if not site.name:
             self.__missing_value('site name')
+
         if not site.root:
             self.__missing_value('site root')
+
         if not site.content.source:
             self.__missing_value('site content source')
+
         if not site.content.destination:
             self.__missing_value('site content destination')
+
         if not site.template.directory:
             self.__missing_value('site template directory')
+
         if not site.template.default:
             self.__missing_value('site template default')
 
@@ -160,6 +166,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             directory = site.template.directory
             environment = Environment(loader=FileSystemLoader(directory))
             environment.get_template(site.template.default)
+
         except TemplateNotFound:
             warning('Default template not found.')
             print('Template name supplied:', site.template.default)
