@@ -52,7 +52,7 @@ def build_site(site_config, documents):
               'categories': build_categories(documents, renderer) if options.categories.use else None,
               'tags': build_tags(documents, renderer) if options.tags.use else None}
 
-    output['home'] = build_home(options.home, documents, renderer) if options.home.use else output['blog']
+    output['home'] = build_home(options, documents, renderer) if options.home.use else output['blog']
 
     return output
 
@@ -68,7 +68,7 @@ def write_site(site_config, output):
             for slug in output[element]:
                 output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
                 with open(output_path, 'w') as file:
-                    file.write(output['pages'][slug])
+                    file.write(output[element][slug])
 
     copy_required_template_elements(site_config)
 
@@ -90,7 +90,7 @@ def build_categories(documents, renderer):
     return pages
 
 
-def build_home(home_options, documents, renderer):
+def build_home(options, documents, renderer):
     '''
     Generate the index page based on the settings in config. If the site is set
     to use a home page and supplied a home page slug, it will attempt to use a
@@ -98,12 +98,13 @@ def build_home(home_options, documents, renderer):
     exists, an error is printed. If the site is not set to use a home page, the
     function returns immediately.
     '''
-    pages = {}
-    if home_options.use and home_options.slug not in documents:
+    if options.home.use:
+        if options.home.slug in documents:
+            return {options.home.slug: renderer.render_page(documents[options.home.slug])}
+
+        else:
             error('Specified slug {} not in list of documents supplied. Could not build home page.'.format(
-                home_options.slug))
-    else:
-        slug = home_options.slug
+                options.home.slug))
 
 
 def build_pages(documents, renderer):
@@ -115,7 +116,6 @@ def build_pages(documents, renderer):
     a 'page' is *any* page on the site, not just standalone, non-blog pages.
     '''
     pages = {}
-
     for slug in documents:
         pages[slug] = renderer.render_page(documents[slug])
 
