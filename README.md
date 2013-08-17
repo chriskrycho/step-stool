@@ -99,9 +99,11 @@ Site configuration is straightforward: simply supply the relevant values in each
 of the required fields, and any additional fields you desire. The default
 configuration has pretty sane options for most options that *have* defaults, and
 great big warning flag comments for the required options. If you don't put in
-the required fields, Step Stool will stop and yell at you when you try to run
-it. Or at least print error messages telling you that you need those fields
-filled in. The required options are:
+the required fields, Step Stool will stop and yell at you (or at least print
+error messages telling you that you need those fields filled in) when you try to
+run it.
+
+The required options are:
 
 - `name`: the name of the web site
 - `root`: the web address of the site you are generating. For example, in the
