@@ -6,7 +6,7 @@ A static website generator (in Python).
 Current Version: 0.0.1
 
 Introduction
-============
+------------
 
 Step Stool is a simple static site generator. You write your content in
 [Markdown][md], run a quick command line script, and it gets published to the
@@ -20,13 +20,11 @@ Step Stool also allows you to structure your site pretty much however you
 choose. If you want to have nested categories, go for it. If you want an
 entirely flat structure with an ever-growing list of tags, you can do that, too.
 
-Setup
-=====
+### Setup
 
-Installation
-------------
+### Installation
 
-### Dependencies
+#### Dependencies
 
 To install Step Stool, you'll need at least [Python 3.0][python]. If you
 don't have it, you'll need to get it:
@@ -38,7 +36,7 @@ don't have it, you'll need to get it:
 That's it. (All the Python package dependencies will take care of themselves
 when you install the package.)
 
-### Walkthrough
+#### Walkthrough
 
 The easiest way to install Step Stool is using `pip`, which also installs
 all dependencies for using Step Stool:
@@ -68,8 +66,7 @@ page][download] and run:
     :::sh
     $ python setup.py
 
-Configuration
--------------
+### Configuration
 
 Once Step Stool has been installed, you can simply run it from the command line:
 
@@ -79,7 +76,7 @@ By default, Step Stool will set up a project in the directory where you run it,
 but you can run it anywhere and tell it the directory in which to run (see
 options below).
 
-### Configuration Tool Options
+#### Configuration Tool Options
 
 The following options can be passed to the configuration tool:
 
@@ -90,15 +87,35 @@ The following options can be passed to the configuration tool:
   the project and then exit.
 - `setup`: Re-run the initial setup sequence. (Ignored if )
 
-### The configuration file
+#### The configuration file
 
 All the settings are stored in a [YAML][yaml] file in the directory where you
 initialized the project (either by running Step Stool in that directory or by
 passing it as an argument with the `-d` flag).
 
-#### Site
+##### Site
 
-##### Options
+Site configuration is straightforward: simply supply the relevant values in each
+of the required fields, and any additional fields you desire. The default
+configuration has pretty sane options for most options that *have* defaults, and
+great big warning flag comments for the required options. If you don't put in
+the required fields, Step Stool will stop and yell at you when you try to run
+it. Or at least print error messages telling you that you need those fields
+filled in. The required options are:
+
+- `name`: the name of the web site
+- `root`: the web address of the site you are generating. For example, in the
+  Step Stool website configuration, this is `http://step-stool.io/`
+- `content`: (not required, and in fact ignored... but its *children* are
+  required)
+    * `source`: the absolute address of the place you want to put the Markdown
+      files you write on your spiffy new site. When I say absolute address, I
+      mean something like `/Users/chris/Documents/writing/my-site` (on a Mac or
+      Linux system) or `C:\Users\chris\Documents\writing\my-site` (on Windows).
+    * `destination`: the absolute address of the palce you want the generated
+      content to go when Step Stool finishes with it.
+
+###### Options
 
 Most of the options are fairly self-explanatory, but here are a few notes on
 each nonetheless.
@@ -150,13 +167,13 @@ the `blog` setting, Step Stool will generate a page at the slug specified
 (`blog` if you do not specify one yourself) that will be identical to the index
 page, listing all the blog archives.
 
-#### Publication
+##### Publication
 
-#### Markdown Extensions
+##### Markdown Extensions
 
 For a full list of Markdown extensions you can enable, see [here][md-ext]
 
-### Templating
+#### Templating
 
 All article information is supplied to the template in the `article` object.
 Each `article` includes the following properties:
@@ -166,13 +183,12 @@ Each `article` includes the following properties:
 
 You can then use the `article` objects
 
-### Pages and Posts
+#### Pages and Posts
 
 Miscellanies
-============
+------------
 
-Why "Step Stool"?
------------------
+### Why "Step Stool"?
 
 A step stool helps you get just a little higher. It's not a ladder, and it's
 definitely not a powered lift to do work on street lamps. It just makes a
@@ -200,5 +216,5 @@ step stool.
 
 
 
-[^1]: Well, it will be, anyway---once I get to the point where I can generate
+[^1]: Well, it will be, anyway -- once I get to the point where I can generate
 Step Stool itself with Step Stool.

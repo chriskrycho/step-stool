@@ -26,9 +26,9 @@ class Configurator():
 # YAML 1.1 standard, not YAML 1.2.
 
 site:
-  name: Step Stool Demo
-  root: http://step-stool.io/demo
-  content:
+  name: # required! cannot be blank
+  root: # required! cannot be blank
+  content: # leave blank; any value will be ignored
     source: # required! cannot be blank
     destination: # required! cannot be blank
   template:
