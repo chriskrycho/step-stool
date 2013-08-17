@@ -122,18 +122,19 @@ The required options are:
 Most of the options are fairly self-explanatory, but here are a few notes on
 each nonetheless.
 
-- `posts_per_page`:
-- `blog`: allows the user to set whether to create a specific page on which to
-  display the blog archives. If you're using Step Stool to manage a site for
-  which the blog is just one piece, for example, you'd set the `use` value to
-  `true` and supply whatever slug you like for `slug`. If you do not want a blog
-  at all, you can simply set `use` to `false`.
+-   `posts_per_page`:
 
-- `categories`: allows the user to set whether or not category pages are
-  generated. If the user sets `use` to `false`, any category metadata in the
-  Markdown documents will simply be ignored. If the user sets `use` to `true`,
-  archive pages for each distinct category will be generated and can be linked
-  from the template at the user's convenience.
+-   `blog`: allows the user to set whether to create a specific page on which to
+    display the blog archives. If you're using Step Stool to manage a site for
+    which the blog is just one piece, for example, you'd set the `use` value to
+    `true` and supply whatever slug you like for `slug`. If you do not want a
+    blog at all, you can simply set `use` to `false`.
+
+-   `categories`: allows the user to set whether or not category pages are
+    generated. If the user sets `use` to `false`, any category metadata in the
+    Markdown documents will simply be ignored. If the user sets `use` to `true`,
+    archive pages for each distinct category will be generated and can be linked
+    from the template at the user's convenience.
 
     If the user provides a value for `slug`, that will be used as the root for
     the category archive pages; otherwise the category archive pages will be
@@ -146,23 +147,23 @@ each nonetheless.
     listed. The file will still be generated, but its category metadata will be
     stripped.
 
-- `tags`: exactly like `categories`, except that at present, there is no support
-  for restricting the list of tags -- that rather defeats the purpose of most
-  tagging systems.
+-   `tags`: exactly like `categories`, except that at present, there is no
+    support for restricting the list of tags -- that rather defeats the purpose
+    of most tagging systems.
 
-- `home`: allows the user to specify a page to display at the index of the site
-  distinct from the standard blog archive page. Step Stool will look for a file
-  with the slug specified in the `source` directory specified under the site
-  configuration. If it finds the slug, it will convert the contents of that
-  page using either the default template name supplied in the site
-  configuration or the template specified in the file metadata. The file
-  generated will be saved as `index.html`. (Otherwise, `index.html` has the
-  contents of the blog archive.)
+-   `home`: allows the user to specify a page to display at the index of the
+    site distinct from the standard blog archive page. Step Stool will look for
+    a file with the slug specified in the `source` directory specified under the
+    site configuration. If it finds the slug, it will convert the contents of
+    that page using either the default template name supplied in the site
+    configuration or the template specified in the file metadata. The file
+    generated will be saved as `index.html`. (Otherwise, `index.html` has the
+    contents of the blog archive.)
 
-  If you want a custom-build landing page, you can simply supply a Markdown file
-  with no content other than metadata specifying the template, and fill out the
-  template file with standard HTML. (Note that the same trick will work for
-  ordinary standalone pages, as well.)
+    If you want a custom-build landing page, you can simply supply a Markdown
+    file with no content other than metadata specifying the template, and fill
+    out the template file with standard HTML. (Note that the same trick will
+    work for ordinary standalone pages, as well.)
 
 *Note:* If you do *not* choose to use the `home` page and you *do* choose to use
 the `blog` setting, Step Stool will generate a page at the slug specified
@@ -173,7 +174,7 @@ page, listing all the blog archives.
 
 ##### Markdown Extensions
 
-For a full list of Markdown extensions you can enable, see [here][md-ext]
+For a full list of Markdown extensions you can enable, see [here][md-ext].
 
 #### Templating
 
