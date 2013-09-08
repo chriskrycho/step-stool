@@ -27,12 +27,15 @@ site:
       slug: # defaults to 'categories'
       restrict: # if left blank and with no children, categories can be named arbitrarily
         - History
+      template: # if left blank, the template.default option will be used
     tags:
       use: true
       slug: # defaults to 'tags'
+      template: # if left blank, the template.default option will be used
     home:
       use: # use a standalone home page, rather than a list of the latest blog posts(s)
       slug: # the slug (with no extension) from which to generate the index page. See documentation!
+      template: # if blank the template.default will be used; a page-specified template overrides this
 
 publication:
   remote:

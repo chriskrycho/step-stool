@@ -1,5 +1,5 @@
 Title:      First Steps
-Author:     Chris Krycho
+Authors:    Chris Krycho
 Published:  true
 Type:       post
 Date:       2013-06-02 18:30 EST

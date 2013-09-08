@@ -20,9 +20,14 @@ Step Stool also allows you to structure your site pretty much however you
 choose. If you want to have nested categories, go for it. If you want an
 entirely flat structure with an ever-growing list of tags, you can do that, too.
 
-### Setup
+Setup
+-----
 
 ### Installation
+
+Note: I hope in later versions to create a bundled app-style version of the
+software that can be used by non-technical folks. For the 1.0 series, however,
+my goal is simply to get this up and going at a level where *I* can use it.
 
 #### Dependencies
 
@@ -187,6 +192,72 @@ Each `article` includes the following properties:
 You can then use the `article` objects
 
 #### Pages and Posts
+
+Writing and Publishing
+----------------------
+
+### Blogging
+
+Step Stool works quite well for blogging (that is, in fact, what inspired me to
+write it: I wanted my own blogging platform, over which I had complete control.)
+To write blog posts, just include a piece of date metadata at the top of your
+Markdown file, like this:
+
+    Date: 2013-09-07
+
+    Here is my super great blog post---don't you love it?
+
+You can read more about metadata
+[here](https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-
+Guide). The default Step Stool theme makes use of the following pieces of
+metadata, if you supply them.
+
+- Authors: Fairly self-explanatory: the author (or authors) of the post in
+  question.
+
+- Category: Specify one or more categories in which to publish the post. Ignored
+  if categories or the blog functionality are not enabled.
+
+- Date: Specify the date the post is to be published. Ignored if the `Type`
+  field is included and set to anything other than `post`.
+
+- Published: Keep the page from being published. If the user supplies `no` or
+  `false` (regardless of capitalization), the page/post will not be published.
+  Any other value is simply ignored.
+
+- Tags: Specify one or more tags in which to publish the post. Ignored if tags
+  or the blog functionality are not enabled.
+
+- Template: Specify a template other than the default with which to render the
+  page.
+
+- Title: Just what it says---title for the post or page.[^blogging-title-note]
+
+[^blogging-title-note]: Note on themes: If you leave this off, the default theme
+will still render everything just fine, but if a theme depends on it and the
+post doesn't supply it, the renderer will fail (but it will tell you so).
+
+If you do not supply a date, the post simply won't be published. If you supply a
+date with no time, Step Stool will supply midnight in the time zone your
+computer uses as the full time for the post.
+
+Theming
+-------
+
+You can write your own themes for Step Stool fairly easily. The default template
+distributed with Step Stool shows a simple but thorough use of the facilities
+provided by the software, including how to use metadata, and how to create
+different templates for different kinds of pages. You can also look at the
+template for the Step Stool site to see a fairly different approach.[^theming]
+
+[^theming]: Well, you *will* be able to, anyway... once I get this sufficiently
+far along that I can generate Step Stool with it.
+
+For ordinary pages or posts, the renderer starts with any template specified in
+the file metadata, then falls back to the base template specified in the
+configuration file. For categories and tags pages, if you supply a template in
+the configuration, the renderer will look for that template; if it doesn't find
+it, it will fall back to the base template as well.
 
 Miscellanies
 ------------

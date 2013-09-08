@@ -46,7 +46,7 @@ def convert_source(config):
 def build_site(site_config, documents):
     renderer = render.Renderer(site_config)
     options = site_config.options
-
+    [print(documents[doc].meta['date'], "\n") for doc in documents]
     output = {'pages': build_pages(documents, renderer),
               'blog': build_blog(documents, renderer) if options.blog.use else None,
               'categories': build_categories(documents, renderer) if options.categories.use else None,
@@ -156,4 +156,12 @@ def paginate(posts_per_page, documents):
 
 
 def sort_by_date(documents):
-    return documents
+    '''
+    Returns the slugs as a list, sorted by date with the first entry being the
+    newest and the last entry being the oldest (as expected for blogs).
+    '''
+    # http://stackoverflow.com/questions/5055812/sort-python-list-of-objects-by-date
+    sorted_slugs = []
+    for doc in documents:
+        pass
+    return sorted_slugs
