@@ -283,7 +283,8 @@ brief example, consider the following (assume it is saved as `2013-09-08.md`):
 
     Instead, I will just call it good and end this sample right here.
 
-The result would be something like this (greatly simplified, of course):
+The result would be something like this (greatly simplified, of course, and note
+the slug for the "permalink" to the article in the header link):
 
     <html>
     <head>
