@@ -34,9 +34,9 @@ my goal is simply to get this up and going at a level where *I* can use it.
 To install Step Stool, you'll need at least [Python 3.0][python]. If you
 don't have it, you'll need to get it:
 
-- [Download it][python] and install it manually.
-- Use a package manager to install it (e.g. `brew install python`, `aptitude
-  install python`, etc.).
+  - [Download it][python] and install it manually.
+  - Use a package manager to install it (e.g. `brew install python`, `aptitude
+    install python`, etc.).
 
 That's it. (All the Python package dependencies will take care of themselves
 when you install the package.)
@@ -85,12 +85,12 @@ options below).
 
 The following options can be passed to the configuration tool:
 
-- `-d`, `--working-dir`: Set the installation directory
-- `-m`, `--config-manually`: Configure the project manually (see below for
-  detailed information on the configuration file). With this option set, Step
-  Stool will generate a default (unconfigured) configure file in the root for
-  the project and then exit.
-- `setup`: Re-run the initial setup sequence. (Ignored if )
+  - `-d`, `--working-dir`: Set the installation directory
+  - `-m`, `--config-manually`: Configure the project manually (see below for
+    detailed information on the configuration file). With this option set, Step
+    Stool will generate a default (unconfigured) configure file in the root for
+    the project and then exit.
+  - `setup`: Re-run the initial setup sequence. (Ignored if )
 
 #### The configuration file
 
@@ -110,32 +110,33 @@ run it.
 
 The required options are:
 
-- `name`: the name of the web site
-- `root`: the web address of the site you are generating. For example, in the
-  Step Stool website configuration, this is `http://step-stool.io/`
-- `content`: (not required, and in fact ignored... but its *children* are
-  required)
-    * `source`: the absolute address of the place you want to put the Markdown
-      files you write on your spiffy new site. When I say absolute address, I
-      mean something like `/Users/chris/Documents/writing/my-site` (on a Mac or
-      Linux system) or `C:\Users\chris\Documents\writing\my-site` (on Windows).
-    * `destination`: the absolute address of the palce you want the generated
-      content to go when Step Stool finishes with it.
+  - `name`: the name of the web site
+  - `root`: the web address of the site you are generating. For example, in the
+    Step Stool website configuration, this is `http://step-stool.io/`
+  - `content`: (not required, and in fact ignored... but its *children* are
+    required)
+      * `source`: the absolute address of the place you want to put the Markdown
+        files you write on your spiffy new site. When I say absolute address, I
+        mean something like `/Users/chris/Documents/writing/my-site` (on a Mac
+        or Linux system) or `C:\Users\chris\Documents\writing\my-site` (on
+        Windows).
+      * `destination`: the absolute address of the palce you want the generated
+        content to go when Step Stool finishes with it.
 
 ###### Options
 
 Most of the options are fairly self-explanatory, but here are a few notes on
 each nonetheless.
 
--   `posts_per_page`:
+  - `posts_per_page`:
 
--   `blog`: allows the user to set whether to create a specific page on which to
+  - `blog`: allows the user to set whether to create a specific page on which to
     display the blog archives. If you're using Step Stool to manage a site for
     which the blog is just one piece, for example, you'd set the `use` value to
     `true` and supply whatever slug you like for `slug`. If you do not want a
     blog at all, you can simply set `use` to `false`.
 
--   `categories`: allows the user to set whether or not category pages are
+  - `categories`: allows the user to set whether or not category pages are
     generated. If the user sets `use` to `false`, any category metadata in the
     Markdown documents will simply be ignored. If the user sets `use` to `true`,
     archive pages for each distinct category will be generated and can be linked
@@ -152,11 +153,11 @@ each nonetheless.
     listed. The file will still be generated, but its category metadata will be
     stripped.
 
--   `tags`: exactly like `categories`, except that at present, there is no
+  - `tags`: exactly like `categories`, except that at present, there is no
     support for restricting the list of tags -- that rather defeats the purpose
     of most tagging systems.
 
--   `home`: allows the user to specify a page to display at the index of the
+  - `home`: allows the user to specify a page to display at the index of the
     site distinct from the standard blog archive page. Step Stool will look for
     a file with the slug specified in the `source` directory specified under the
     site configuration. If it finds the slug, it will convert the contents of
@@ -186,8 +187,8 @@ For a full list of Markdown extensions you can enable, see [here][md-ext].
 All article information is supplied to the template in the `article` object.
 Each `article` includes the following properties:
 
-- `content`: the HTML body of the article, based on the Markdown document
-- `meta`:
+  - `content`: the HTML body of the article, based on the Markdown document
+  - `meta`:
 
 You can then use the `article` objects
 
@@ -209,37 +210,112 @@ Markdown file, like this:
 
 You can read more about metadata
 [here](https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-
-Guide). The default Step Stool theme makes use of the following pieces of
-metadata, if you supply them.
+Guide). Note that the first piece of metadata *has* to be on the first line of
+the file; otherwise the Markdown processor assumes it is regular content. As
+soon as you include a completely blank line, the Markdown processor assumes you
+are done with metadata and goes back to processing everything else normally---so
+the formatting on this first section matters quite a bit.
 
-- Authors: Fairly self-explanatory: the author (or authors) of the post in
-  question.
+The default Step Stool theme makes use of the following pieces of
+metadata, if you supply them. Note that the titles of the fields are case-
+sensitive (though the option values are not always).
 
-- Category: Specify one or more categories in which to publish the post. Ignored
-  if categories or the blog functionality are not enabled.
+  - Author(s): Fairly self-explanatory: the author (or authors) of the post in
+    question. You can supply `Author` or `Authors`; Step Stool will understand
+    either one and yield the same result.
 
-- Date: Specify the date the post is to be published. Ignored if the `Type`
-  field is included and set to anything other than `post`.
+  - Category: Specify one or more categories in which to publish the post.
+    Ignored if categories or the blog functionality are not enabled.
 
-- Published: Keep the page from being published. If the user supplies `no` or
-  `false` (regardless of capitalization), the page/post will not be published.
-  Any other value is simply ignored.
+  - Date: Specify the date the post is to be published. Ignored if the `Type`
+    field is included and set to anything other than `post`.
 
-- Tags: Specify one or more tags in which to publish the post. Ignored if tags
-  or the blog functionality are not enabled.
+  - Published: Keep the page from being published. If the user supplies `no` or
+    `false` (case insensitive), the page/post will not be published. Any other
+    value is simply ignored.
 
-- Template: Specify a template other than the default with which to render the
-  page.
+  - Slug: Specify a slug different from the file name with which the file is
+    saved to use as the link to the page. By default, Step Stool just assumes
+    the slug for your Markdown file should be the slug for the HTML file it
+    generates; this lets you change that. Thus, you could have a file named
+    `2013-09-08.md` but supply `my-first-post` as the value here and the
+    resulting HTML file would be named `my-first-post.html` instead of
+    `2013-09-08.html`.
 
-- Title: Just what it says---title for the post or page.[^blogging-title-note]
+  - Tags: Specify one or more tags in which to publish the post. Ignored if tags
+    or the blog functionality are not enabled.
+
+  - Template: Specify a template other than the default with which to render the
+    page.
+
+  - Title: Just what it says---title for the post or page.[^blogging-title-note]
+
+  - Type: Specify that the element is one of `page` or `post` (case
+    insensitive)---the default is `post` if no value is supplied.
 
 [^blogging-title-note]: Note on themes: If you leave this off, the default theme
 will still render everything just fine, but if a theme depends on it and the
 post doesn't supply it, the renderer will fail (but it will tell you so).
 
-If you do not supply a date, the post simply won't be published. If you supply a
-date with no time, Step Stool will supply midnight in the time zone your
-computer uses as the full time for the post.
+If you do not supply a date at all *and* you do not set the `Type` option to
+`page`, the post simply won't be published (even if you include `Published:
+True`). If you supply a date with no time, Step Stool will supply midnight in
+the time zone your computer uses as the full time for the post. This is
+important because Step Stool uses the date and time to sort posts for
+publication, as well any places it may be included in a theme, of course.
+
+#### Sample
+
+For a full-length sample of a blog post, see the source for the website. As a
+brief example, consider the following (assume it is saved as `2013-09-08.md`):
+
+    Title: My first blog post using Step Stool!
+    Date: September 8, 2013
+    Author: Chris Krycho
+    Category: Information/Demo
+    Tags: writeup, sample, infodump
+    Slug: my-first-post
+
+    Here, I might have the basic content of my first, extra-fun post using my
+    new blogging software. I would go on, and on, and on about how amazing it is
+    to be using software I wrote myself, and very soon I would bore you all to
+    tears.
+
+    Instead, I will just call it good and end this sample right here.
+
+The result would be something like this (greatly simplified, of course):
+
+    <html>
+    <head>
+        <title>My first blog post using Step Stool!</title>
+    </head>
+    <body>
+        <article>
+            <a href="my-first-post.html">
+                <h1>My first blog post using Step Stool!</h1>
+            </a>
+            <div class="meta">
+                <span class="author">by Chris Krycho</span>
+                <span class="date">September 8, 2013</span>
+                <span class="category">Information > Demo</span>
+                <span class="tags">writeup, sample, infodump</span>
+            </div>
+
+            <p>Here, I might have the basic content of my first, extra-fun post
+            using my new blogging software. I would go on, and on, and on about
+            how amazing it is to be using software I wrote myself, and very soon
+            I would bore you all to tears.</p>
+
+            <p>Instead, I will just call it good and end this sample right
+            here.</p>
+
+        </article>
+    </body>
+    </html>
+
+Different themes will do different things with those elements, but this gives a
+very basic idea of how the content might come out as you supply those different
+pieces of metadata.
 
 Theming
 -------
