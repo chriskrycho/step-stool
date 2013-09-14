@@ -144,13 +144,12 @@ def normalize_date(metadata):
 
     _parsedatetime: https://github.com/bear/parsedatetime/blob/master/examples/basic.py
     '''
-    if 'date' in metadata.keys() and metadata['type'] == 'post':
-        metadata['date'] = metadata['date'][0]
-
+    if metadata['type'] == 'post':
         try:
+            metadata['date'] = metadata['date'][0]
             metadata['sort_date'] = dt.strptime(metadata['date'], DATE_FORMAT)
 
-        except ValueError:
+        except (KeyError, ValueError):
             metadata['ignore'] = True
             error('Could not convert date for {}; ignoring file.'.format(metadata['slug']))
 
