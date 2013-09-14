@@ -44,6 +44,7 @@ def convert_source(config):
                 converted_docs.append(converted_doc)
                 md.reset()
 
+    converted_docs = [doc for doc in converted_docs if not doc.meta['ignore']]
     converted_docs.sort(key=lambda post: post.meta['sort_date'], reverse=True)
     return converted_docs
 
@@ -62,9 +63,7 @@ def build_site(site_config, documents):
 
 
 def build_blog(documents, renderer):
-    posts = [doc for doc in documents
-             if ('type' not in doc.meta.keys() or 'post' in doc.meta['type']) and 'date' in doc.meta.keys()]
-    posts.sort(key=lambda post: post.meta['sort_date'], reverse=True)
+    posts = [doc for doc in documents if (doc.meta['type'] == 'post') and 'date' in doc.meta.keys()]
     # return posts
     return
 
@@ -145,11 +144,18 @@ def normalize_date(metadata):
 
     _parsedatetime: https://github.com/bear/parsedatetime/blob/master/examples/basic.py
     '''
-    if 'date' in metadata:
+    if 'date' in metadata.keys() and metadata['type'] == 'post':
         metadata['date'] = metadata['date'][0]
-        metadata['sort_date'] = dt.strptime(metadata['date'], DATE_FORMAT)
+
+        try:
+            metadata['sort_date'] = dt.strptime(metadata['date'], DATE_FORMAT)
+
+        except ValueError:
+            metadata['ignore'] = True
+            error('Could not convert date for {}; ignoring file.'.format(metadata['slug']))
+
     else:
-        metadata['sort_date'] = None
+        metadata['sort_date'] = dt.now()
 
 
 def normalize_meta(metadata, file_slug):
@@ -160,11 +166,14 @@ def normalize_meta(metadata, file_slug):
     - date
     - sort_date
     - slug
+    - type
 
     Returns the correct slug.
     '''
-    normalize_date(metadata)
+    metadata['ignore'] = False
     metadata['slug'] = metadata['slug'][0] if 'slug' in metadata.keys() else file_slug
+    metadata['type'] = metadata['type'][0] if 'type' in metadata.keys() else 'post'
+    normalize_date(metadata)
 
 
 def paginate(posts_per_page, documents):
