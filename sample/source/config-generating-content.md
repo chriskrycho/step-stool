@@ -1,8 +1,7 @@
 Title:      Progress Update #1: Configuration and Generating Content
 Author:     Chris Krycho
 Published:  true
-Type:       post
-Date:       2013-06-30 21:00 EST
+Date:       2013-06-30 21:00
 Category:   History
 
 Courtesy of some extra free time I've had near the end of the month, I've been

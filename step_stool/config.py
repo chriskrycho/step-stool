@@ -72,7 +72,7 @@ publication:
     https_password: # only required if pushing via https - NOT RECOMMENDED
 
 markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.html for a list of extensions
-  codehilite: # depends on Pygments (installed by default with
+  codehilite: # depends on Pygments (installed by default with Python Markdown)
   extra: # includes a number of modules corresponding to the PHP Extra Markdown syntax
   headerid: # adds an ID attribute to header elements in HTML
   meta: # returns metadata from the top of Markdown files (like in MultiMarkdown)

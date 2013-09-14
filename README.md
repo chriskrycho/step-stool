@@ -217,8 +217,8 @@ are done with metadata and goes back to processing everything else normally---so
 the formatting on this first section matters quite a bit.
 
 The default Step Stool theme makes use of the following pieces of
-metadata, if you supply them. Note that the titles of the fields are case-
-sensitive (though the option values are not always).
+metadata, if you supply them. Note that neither the titles nor the option
+values of the fields are case-sensitive.
 
   - Author(s): Fairly self-explanatory: the author (or authors) of the post in
     question. You can supply `Author` or `Authors`; Step Stool will understand
@@ -228,7 +228,9 @@ sensitive (though the option values are not always).
     Ignored if categories or the blog functionality are not enabled.
 
   - Date: Specify the date the post is to be published. Ignored if the `Type`
-    field is included and set to anything other than `post`.
+    field is included and set to anything other than `post`. At present, this
+    must be of the form `YYYY-MM-DD HH:MM`, though I will increase the date
+    field's flexibility in the future.
 
   - Published: Keep the page from being published. If the user supplies `no` or
     `false` (case insensitive), the page/post will not be published. Any other

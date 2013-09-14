@@ -2,6 +2,7 @@ __author__ = 'Chris Krycho'
 __copyright__ = '2013 Chris Krycho'
 
 from collections import namedtuple
+from datetime import datetime as dt
 from logging import error
 from os import path, walk
 from shutil import copytree, copy, rmtree
@@ -20,6 +21,7 @@ except ImportError as import_error:
 
 Content_Pair = namedtuple('Content_Pair', ['content', 'meta'])
 OUTPUT_EXTENSION = '.html'
+DATE_FORMAT = '%Y-%m-%d %H:%M'
 
 
 def convert_source(config):
@@ -28,7 +30,7 @@ def convert_source(config):
     file names slugs (without the original file extension).
     '''
     md = Markdown(extensions=config.markdown_extensions, output_format='html5')
-    converted_documents = {}
+    converted_docs = {}
     for root, dirs, file_names in walk(config.site.content.source):
         for file_name in file_names:
             file_path = path.join(root, file_name)
@@ -37,16 +39,17 @@ def convert_source(config):
             with open(file_path, 'r') as file:
                 md_document = file.read()
                 html_document = md.convert(md_document)
-                converted_documents[plain_slug] = Content_Pair(html_document, md.Meta)
+                converted_doc = Content_Pair(html_document, md.Meta)
+                slug = normalize_meta(converted_doc.meta, plain_slug)
+                converted_docs[slug] = converted_doc
                 md.reset()
 
-    return converted_documents
+    return converted_docs
 
 
 def build_site(site_config, documents):
     renderer = render.Renderer(site_config)
     options = site_config.options
-    [print(documents[doc].meta['date'], "\n") for doc in documents]
     output = {'pages': build_pages(documents, renderer),
               'blog': build_blog(documents, renderer) if options.blog.use else None,
               'categories': build_categories(documents, renderer) if options.categories.use else None,
@@ -57,27 +60,12 @@ def build_site(site_config, documents):
     return output
 
 
-def write_site(site_config, output):
-    '''
-    Write all the content in output to files by slug with extension `.html`,
-    then copy any necessary files from the template directory (e.g. Javascript
-    or CSS) to the output directory.
-    '''
-    for element in output:
-        if output[element] is not None:
-            for slug in output[element]:
-                output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
-                with open(output_path, 'w') as file:
-                    file.write(output[element][slug])
-
-    copy_required_template_elements(site_config)
-
-
 def build_blog(documents, renderer):
-    pages = {}
-    for page in documents:
-        pass
-    return pages
+    posts = [doc for slug, doc in documents.items()
+             if ('type' not in doc.meta.keys() or 'post' in doc.meta['type']) and 'date' in doc.meta.keys()]
+    posts.sort(key=lambda post: post.meta['sort_date'], reverse=True)
+    # return posts
+    return
 
 
 def build_categories(documents, renderer):
@@ -116,10 +104,7 @@ def build_pages(documents, renderer):
     exists, or if none is specified in the meta, the default is used. Note that
     a 'page' is *any* page on the site, not just standalone, non-blog pages.
     '''
-    pages = {}
-    for slug in documents:
-        pages[slug] = renderer.render_page(documents[slug])
-
+    pages = {slug: renderer.render_page(documents[slug]) for slug in documents}
     return pages
 
 
@@ -151,17 +136,64 @@ def copy_required_template_elements(site_config):
                 raise
 
 
+def normalize_date(metadata):
+    '''
+    At present this simply adds a sort_date field to the metadata. In the
+    future, I plan to use the parsedatetime_ tool to convert dates fuzzily so
+    users can put in more flexible date formats.
+
+    _parsedatetime: https://github.com/bear/parsedatetime/blob/master/examples/basic.py
+    '''
+    if 'date' in metadata:
+        metadata['date'] = metadata['date'][0]
+        metadata['sort_date'] = dt.strptime(metadata['date'], DATE_FORMAT)
+
+
+def normalize_meta(metadata, plain_slug):
+    '''
+    Adjusts or sets the values for each of the following dictionary keys in the
+    Markdown metadata passed in:
+
+    - date
+    - sort_date
+    - slug
+
+    Returns the correct slug.
+    '''
+    normalize_date(metadata)
+    slug = normalize_slug(metadata, plain_slug)
+    return slug
+
+
+def normalize_slug(metadata, plain_slug):
+    if 'slug' in metadata.keys():
+        slug = metadata['slug'][0]
+        metadata['slug'] = slug
+    else:
+        slug = plain_slug
+        metadata['slug'] = plain_slug
+    return slug
+
+
 def paginate(posts_per_page, documents):
     return documents
 
 
-def sort_by_date(documents):
+def write_site(site_config, output):
     '''
-    Returns the slugs as a list, sorted by date with the first entry being the
-    newest and the last entry being the oldest (as expected for blogs).
+    Write all the content in output to files by slug with extension `.html`,
+    then copy any necessary files from the template directory (e.g. Javascript
+    or CSS) to the output directory.
     '''
-    # http://stackoverflow.com/questions/5055812/sort-python-list-of-objects-by-date
-    sorted_slugs = []
-    for doc in documents:
-        pass
-    return sorted_slugs
+
+    # Iterate over blog, home, categories, tags, etc.
+    for element in output:
+        if output[element] is not None:
+            for slug in output[element]:
+                output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
+                with open(output_path, 'w') as file:
+                    file.write(output[element][slug])
+
+    copy_required_template_elements(site_config)
+
+
