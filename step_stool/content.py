@@ -26,11 +26,11 @@ DATE_FORMAT = '%Y-%m-%d %H:%M'
 
 def convert_source(config):
     '''
-    Convert all Markdown pages to HTML and metadata pairs. Pairs are keyed to
-    file names slugs (without the original file extension).
+    Convert all Markdown pages to HTML and metadata pairs. Returns a list of
+    all the content pairs, sorted by date.
     '''
     md = Markdown(extensions=config.markdown_extensions, output_format='html5')
-    converted_docs = {}
+    converted_docs = []
     for root, dirs, file_names in walk(config.site.content.source):
         for file_name in file_names:
             file_path = path.join(root, file_name)
@@ -40,10 +40,11 @@ def convert_source(config):
                 md_document = file.read()
                 html_document = md.convert(md_document)
                 converted_doc = Content_Pair(html_document, md.Meta)
-                slug = normalize_meta(converted_doc.meta, plain_slug)
-                converted_docs[slug] = converted_doc
+                normalize_meta(converted_doc.meta, plain_slug)
+                converted_docs.append(converted_doc)
                 md.reset()
 
+    converted_docs.sort(key=lambda post: post.meta['sort_date'], reverse=True)
     return converted_docs
 
 
@@ -61,7 +62,7 @@ def build_site(site_config, documents):
 
 
 def build_blog(documents, renderer):
-    posts = [doc for slug, doc in documents.items()
+    posts = [doc for doc in documents
              if ('type' not in doc.meta.keys() or 'post' in doc.meta['type']) and 'date' in doc.meta.keys()]
     posts.sort(key=lambda post: post.meta['sort_date'], reverse=True)
     # return posts
@@ -72,8 +73,8 @@ def build_categories(documents, renderer):
     pages = {}
     categories = []
     for doc in documents:
-        if 'category' in documents[doc].meta:
-            for category in documents[doc].meta['category']:
+        if 'category' in doc.meta:
+            for category in doc.meta['category']:
                 categories.append(category) if category not in categories else None
     return pages
 
@@ -104,15 +105,15 @@ def build_pages(documents, renderer):
     exists, or if none is specified in the meta, the default is used. Note that
     a 'page' is *any* page on the site, not just standalone, non-blog pages.
     '''
-    pages = {slug: renderer.render_page(documents[slug]) for slug in documents}
+    pages = {doc.meta['slug']: renderer.render_page(doc) for doc in documents}
     return pages
 
 
 def build_tags(documents, renderer):
     tags = []
     for doc in documents:
-        if 'tags' in documents[doc].meta:
-            for tag in documents[doc].meta['tags']:
+        if 'tags' in doc.meta:
+            for tag in doc.meta['tags']:
                 tags.append(tag) if tag not in tags else None
 
     return None
@@ -147,9 +148,11 @@ def normalize_date(metadata):
     if 'date' in metadata:
         metadata['date'] = metadata['date'][0]
         metadata['sort_date'] = dt.strptime(metadata['date'], DATE_FORMAT)
+    else:
+        metadata['sort_date'] = None
 
 
-def normalize_meta(metadata, plain_slug):
+def normalize_meta(metadata, file_slug):
     '''
     Adjusts or sets the values for each of the following dictionary keys in the
     Markdown metadata passed in:
@@ -161,18 +164,7 @@ def normalize_meta(metadata, plain_slug):
     Returns the correct slug.
     '''
     normalize_date(metadata)
-    slug = normalize_slug(metadata, plain_slug)
-    return slug
-
-
-def normalize_slug(metadata, plain_slug):
-    if 'slug' in metadata.keys():
-        slug = metadata['slug'][0]
-        metadata['slug'] = slug
-    else:
-        slug = plain_slug
-        metadata['slug'] = plain_slug
-    return slug
+    metadata['slug'] = metadata['slug'][0] if 'slug' in metadata.keys() else file_slug
 
 
 def paginate(posts_per_page, documents):
