@@ -31,9 +31,13 @@ def main():
     '''
     args = parse_args()
     process_args(args)
+
     configurator = config.Configurator(directory=args.directory, run_setup=args.setup)
-    converted_documents = content.convert_source(configurator.configuration)
-    site = content.build_site(configurator.configuration.site, converted_documents)
+
+    builder = content.Builder(configurator.configuration)
+    converted_documents = builder.convert_source()
+    site = builder.build_site(converted_documents)
+
     content.write_site(configurator.configuration.site, site)
 
 

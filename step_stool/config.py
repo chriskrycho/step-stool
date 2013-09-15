@@ -41,16 +41,20 @@ site:
     blog:
       use: true
       slug: # defaults to 'blog'
+      template: # if left blank, the template.default option will be used
     categories:
       use: true
       slug: # defaults to 'categories'
       restrict: # if left blank and with no children, categories can be named arbitrarily
+      template: # if left blank, the template.default option will be used
     tags:
       use: true
       slug: # defaults to 'tags'
+      template: # if left blank, the template.default option will be used
     home:
       use: # use a standalone home page, rather than a list of the latest blog posts(s)
       slug: # the slug (with no extension) from which to generate the index page. See documentation!
+      template: # if left blank, the template.default option will be used
 
 publication:
   remote:

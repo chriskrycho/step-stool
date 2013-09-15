@@ -13,6 +13,8 @@ except ImportError as import_error:
 
 
 class Renderer():
+    DEFAULT_NAME = 'default'
+
     def __init__(self, site_info):
         self.site_info = site_info
         self.template_path = self.site_info.template.directory
@@ -20,9 +22,13 @@ class Renderer():
         self.templates = {'default': self.environment.get_template(self.site_info.template.default)}
 
     def render_page(self, page):
-        template_name = page.meta['template'] if 'template' in page.meta else 'default'
+        template_name = page.meta['template'] if 'template' in page.meta else self.DEFAULT_NAME
         template = self.__get_template(template_name)
-        return template.render(site=self.site_info, page=page)
+        return template.render(site=self.site_info, pages=[page])
+
+    def render_page_set(self, pages, template_name=DEFAULT_NAME):
+        template = self.__get_template(template_name)
+        return template.render(site=self.site_info, pages=pages)
 
     def __get_template(self, template_name):
         '''
