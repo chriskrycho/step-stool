@@ -70,80 +70,34 @@ class Builder():
         self.config = config
         self.options = self.config.site.options  # Shortcut for easy access to most commonly used elements
 
+
         self.renderer = render.Renderer(self.config.site)
         self.posts_per_page = self.options.posts_per_page
         self.ignored = []
 
-    def build_site(self, converted_documents):
-        self.documents = converted_documents
+    def build_site(self, documents):
+        output = {}
 
-        output = {'pages': self.build_pages(),
-                  'blog': self.build_blog() if self.options.blog.use else None,
-                  'categories': self.build_cats() if self.options.categories.use else None,
-                  'tags': self.build_tags() if self.options.tags.use else None}
+        self.documents = documents
 
-        output['home'] = self.build_home() if self.options.home.use else output['blog']
+        if self.options.blog.use:
+            output['archive_pages'], output['archive_paginated'] = \
+                self.__build_section(lambda doc: doc.meta['type'] == 'post')
+
+        if self.options.categories.use:
+            output['category_pages'], output['categories_paginated'] = \
+                self.__build_section(lambda doc: 'categories' in doc.meta and doc.meta['categories'])
+
+        if self.options.tags.use:
+            output['tag_pages'], output['tags_paginated'] = \
+                self.__build_section(lambda doc: 'tags' in doc.meta and doc.meta['tags'])
+
+        if self.options.home.use:
+            output['home'] = self.__build_home()
+
+        output['pages'] = self.__build_pages()
 
         return output
-
-    def build_blog(self):
-        posts = [doc for doc in self.documents if doc.meta['type'] == 'post']
-
-        pages = {}
-        counter = 0
-        for page_set in paginate(self.posts_per_page, posts):
-            counter += 1
-            pages[str(counter)] = self.renderer.render_page_set(page_set)
-
-        return pages
-
-    def build_cats(self):
-        pages = {}
-        categories = []
-        for doc in self.documents:
-            if 'category' in doc.meta:
-                for category in doc.meta['category']:
-                    categories.append(category) if category not in categories else None
-        return pages
-
-    def build_home(self):
-        '''
-        Generate the index page based on the settings in config. If the site is set
-        to use a home page and supplied a home page slug, it will attempt to use a
-        file with that slug. If the site is set to use a home page and no home slug
-        exists, an error is printed. If the site is not set to use a home page, the
-        function returns immediately.
-        '''
-        if self.options.home.use:
-            if self.options.home.slug in self.documents:
-                rendered_page = self.renderer.render_page(self.documents[self.options.home.slug])
-                return {'index': rendered_page}
-
-            else:
-                error_msg = 'Specified slug {} not in list of documents supplied. Could not build home page.'
-                error_msg = error_msg.format(self.options.home.slug)
-                error(error_msg)
-
-    def build_pages(self):
-        '''
-        Generate each of the standalone pages. Pages are rendered using a template
-        specified in the file's meta, if (1) a template is specified there and (2)
-        a template with that name is available. If no template file with that name
-        exists, or if none is specified in the meta, the default is used. Note that
-        a 'page' is *any* page on the site, not just standalone, non-blog pages.
-        '''
-        pages = {doc.meta['slug']: self.renderer.render_page(doc) for doc in self.documents}
-        return pages
-
-
-    def build_tags(self):
-        tags = []
-        for doc in self.documents:
-            if 'tags' in doc.meta:
-                for tag in doc.meta['tags']:
-                    tags.append(tag) if tag not in tags else None
-
-        return None
 
     def convert_source(self):
         '''
@@ -169,11 +123,66 @@ class Builder():
         converted_docs.sort(key=lambda post: post.meta['sort_date'], reverse=True)
         return converted_docs
 
+    def __build_section(self, is_in_section):
+        """
+        Build a section of the blog (archive, categories, tags). In each section,
+        applicable posts are sorted using the sort_rule, which requires the document in
+        question as its sole argument.
+
+        :param is_in_section: a function taking one document as a parameter and
+            returning whether the document should be part of the set.
+
+        :returns: individual posts and paginated sets of posts, as a tuple
+        """
+        posts = [doc for doc in self.documents if is_in_section(doc)]
+
+        pages = {post.meta['slug']: self.renderer.render_page(post) for post in posts}
+
+        if len(posts) > 0:
+            page_sets = {}
+            counter = 0
+            for page_set in paginate(self.posts_per_page, posts):
+                counter += 1
+                page_sets[str(counter)] = self.renderer.render_page_set(page_set)
+        else:
+            page_sets = None
+
+        return pages, page_sets
+
+    def __build_home(self):
+        '''
+        Generate the index page based on the settings in config. If the site is
+        set to use a home page and supplied a home page slug, it will attempt to
+        use a file with that slug. If the site is set to use a home page and no
+        home slug exists, an error is printed. If the site is not set to use a
+        home page, the function returns immediately.
+        '''
+        if self.options.home.slug in self.documents:
+            rendered_page = self.renderer.render_page(self.documents[self.options.home.slug])
+            return {'index': rendered_page}
+
+        else:
+            error_msg = 'Specified slug {} not in list of documents supplied. Could not build home page.'
+            error_msg = error_msg.format(self.options.home.slug)
+            error(error_msg)
+
+    def __build_pages(self):
+        '''
+        Generate each of the standalone pages. Pages are rendered using a
+        template specified in the file's meta, if (1) a template is specified
+        there and (2) a template with that name is available. If no template
+        file with that name exists, or if none is specified in the meta, the
+        default is used. Note that a 'page' is *any* page on the site, not just
+        standalone, non-blog pages.
+        '''
+        return {doc.meta['slug']: self.renderer.render_page(doc) for doc in self.documents
+                if doc.meta['type'] == 'page'}
+
     def __normalize_date(self, metadata):
         '''
         At present this simply adds a sort_date field to the metadata. In the
-        future, I plan to use the parsedatetime_ tool to convert dates fuzzily so
-        users can put in more flexible date formats.
+        future, I plan to use the parsedatetime_ tool to convert dates fuzzily
+        so users can put in more flexible date formats.
 
         _parsedatetime: https://github.com/bear/parsedatetime/blob/master/examples/basic.py
         '''
@@ -191,8 +200,8 @@ class Builder():
 
     def __normalize_meta(self, metadata, file_slug):
         '''
-        Adjusts or sets the values for each of the following dictionary keys in the
-        Markdown metadata passed in:
+        Adjusts or sets the values for each of the following dictionary keys in
+        the Markdown metadata passed in:
 
         - date
         - sort_date
@@ -205,5 +214,3 @@ class Builder():
         metadata['slug'] = metadata['slug'][0] if 'slug' in metadata.keys() else file_slug
         metadata['type'] = metadata['type'][0] if 'type' in metadata.keys() else 'post'
         self.__normalize_date(metadata)
-
-

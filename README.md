@@ -368,6 +368,5 @@ step stool.
 [yaml]: http://www.yaml.org/
 
 
-
 [^1]: Well, it will be, anyway -- once I get to the point where I can generate
 Step Stool itself with Step Stool.
