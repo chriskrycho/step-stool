@@ -17,9 +17,9 @@ except ImportError as import_error:
 
 
 class Configurator():
-    ''' Configure the site. '''
+    """ Configure the site. """
 
-    DEFAULT_CONFIG = '''\
+    DEFAULT_CONFIG = """\
 # Site configuration. Note that indentation matters to YAML - don't change the
 # indentation of existing values! If you extend the file, you can of course
 # supply whatever data you like. Note that PyYAML currently only supports the
@@ -81,7 +81,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
   headerid: # adds an ID attribute to header elements in HTML
   meta: # returns metadata from the top of Markdown files (like in MultiMarkdown)
   smartypants: # Smartypants typography
-'''
+"""
 
     def __init__(self, directory, run_setup=False, manual_config=False):
         if run_setup or not self.configured(directory):
@@ -89,13 +89,14 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         else:
             self.configuration = self.get_config()
 
+        self.__defaults()
         self.__validate()
 
     def configured(self, directory):
-        '''
+        """
         Check whether the directory has a configuration file already. If the file
         exists, assume it has been configured.
-        '''
+        """
         full_path = path.join(directory, 'config.yaml')
         if path.exists(full_path):
             self.file_name = full_path
@@ -114,14 +115,14 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             exit('Could not find your configuration file (config.yaml). Is it missing?')
 
     def __config_setup(self, manual_config):
-        '''
+        """
         Set up an instance of Step Stool
 
         - Generate a configuration file
         - Populate the configuration file:
             * with defaults, if manual configuration specified
             * with user inputs, otherwise
-        '''
+        """
 
         config = load(self.DEFAULT_CONFIG)
         if not manual_config:
@@ -136,8 +137,20 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
         return config
 
+    def __defaults(self):
+        """Set default values in the configuration for any terms the user left blank."""
+        site = self.configuration.site
+        site.options.blog.slug = self.__check_default(site.options.blog.slug, 'blog')
+        site.options.categories.slug = self.__check_default(site.options.categories.slug, 'categories')
+        site.options.tags.slug = self.__check_default(site.options.tags.slug, 'tags')
+        self.configuration.site = site
+
+    def __check_default(self, option, value):
+        """"""
+        return value if not option else option
+
     def __validate(self):
-        ''' Check whether the required site configuration elements are set. '''
+        """ Check whether the required site configuration elements are set. """
         site = self.configuration.site
         if not site.name:
             self.__missing_value('site name')
@@ -157,7 +170,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
         if not site.template.default:
             self.__missing_value('site template default')
 
-        if site.options.home.use and not site.options.home.slug:
+        if site.options.home.use and not site.options.home.source_slug:
             error('Configuration specified using a home page but no slug provided.')
             exit()
 
@@ -178,7 +191,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
             exit()
 
     def __missing_value(self, value):
-        ''' Handle missing values required for site configuration.  '''
+        """ Handle missing values required for site configuration.  """
         print('You must supply a value for', value + '.')
         exit()
 
@@ -188,7 +201,7 @@ markdown_extensions: # See http://pythonhosted.org/Markdown/extensions/index.htm
 
 
 def print_default_config(file_path):
-    ''' Print a copy of the default configuration and then exit. '''
+    """ Print a copy of the default configuration and then exit. """
     with open(file_path, 'w') as file:
         file.write(Configurator.DEFAULT_CONFIG)
         exit()

@@ -3,6 +3,7 @@ Author:     Chris Krycho
 Published:  true
 Date:       2013-06-30 21:00
 Category:   History
+Tags:       templates, plans
 
 Courtesy of some extra free time I've had near the end of the month, I've been
 able to make substantially more progress on Step Stool. Tonight, I'm hoping to

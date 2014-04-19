@@ -8,6 +8,7 @@ from os import path, walk
 from shutil import copytree, copy, rmtree
 import errno
 from sys import exit
+from pathlib import Path
 
 try:
     from markdown import Markdown
@@ -43,6 +44,11 @@ def copy_required_template_elements(site_config):
 
 
 def paginate(posts_per_page, documents):
+    """
+    :returns: a list of lists of documents, with each internal list being
+        posts_per_page long (possibly excepting the final, which will simply fill up
+        as many as remain).
+    """
     slices = len(documents) // posts_per_page + 1
     return [documents[n:((n+1)*posts_per_page)] for n in range(slices)]
 
@@ -58,6 +64,7 @@ def write_site(site_config, output):
     for element in output:
         if output[element] is not None:
             for slug in output[element]:
+                print(element, slug)
                 output_path = path.join(site_config.content.destination, slug + OUTPUT_EXTENSION)
                 with open(output_path, 'w') as file:
                     file.write(output[element][slug])
@@ -70,26 +77,27 @@ class Builder():
         self.config = config
         self.options = self.config.site.options  # Shortcut for easy access to most commonly used elements
 
-
         self.renderer = render.Renderer(self.config.site)
         self.posts_per_page = self.options.posts_per_page
         self.ignored = []
 
     def build_site(self, documents):
+        self.documents = documents
         output = {}
 
-        self.documents = documents
-
         if self.options.blog.use:
-            output['archive_pages'], output['archive_paginated'] = \
+            slug = self.options.blog.slug
+            output[slug], output[slug + 'paginated'] = \
                 self.__build_section(lambda doc: doc.meta['type'] == 'post')
 
         if self.options.categories.use:
-            output['category_pages'], output['categories_paginated'] = \
-                self.__build_section(lambda doc: 'categories' in doc.meta and doc.meta['categories'])
+            slug = self.options.categories.slug
+            output[slug], output[slug + 'paginated'] = \
+                self.__build_section(lambda doc: 'category' in doc.meta and doc.meta['category'])
 
         if self.options.tags.use:
-            output['tag_pages'], output['tags_paginated'] = \
+            slug = self.options.tags.slug
+            output[slug], output[slug + 'paginated'] = \
                 self.__build_section(lambda doc: 'tags' in doc.meta and doc.meta['tags'])
 
         if self.options.home.use:
@@ -138,14 +146,9 @@ class Builder():
 
         pages = {post.meta['slug']: self.renderer.render_page(post) for post in posts}
 
-        if len(posts) > 0:
-            page_sets = {}
-            counter = 0
-            for page_set in paginate(self.posts_per_page, posts):
-                counter += 1
-                page_sets[str(counter)] = self.renderer.render_page_set(page_set)
-        else:
-            page_sets = None
+        page_sets = {str(index + 1): self.renderer.render_page_set(item)
+                     for index, item in enumerate(paginate(self.posts_per_page, posts))
+                     if len(posts) > 0}
 
         return pages, page_sets
 
@@ -157,9 +160,8 @@ class Builder():
         home slug exists, an error is printed. If the site is not set to use a
         home page, the function returns immediately.
         '''
-        if self.options.home.slug in self.documents:
-            rendered_page = self.renderer.render_page(self.documents[self.options.home.slug])
-            return {'index': rendered_page}
+        if self.options.home.source_slug in self.documents:
+            return {'index': self.renderer.render_page(self.documents[self.options.home.source_slug])}
 
         else:
             error_msg = 'Specified slug {} not in list of documents supplied. Could not build home page.'
@@ -175,8 +177,8 @@ class Builder():
         default is used. Note that a 'page' is *any* page on the site, not just
         standalone, non-blog pages.
         '''
-        return {doc.meta['slug']: self.renderer.render_page(doc) for doc in self.documents
-                if doc.meta['type'] == 'page'}
+        return {doc.meta['slug']: self.renderer.render_page(doc)
+                for doc in self.documents if doc.meta['type'] == 'page'}
 
     def __normalize_date(self, metadata):
         '''

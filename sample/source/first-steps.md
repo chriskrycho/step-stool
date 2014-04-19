@@ -4,6 +4,7 @@ Published:  true
 Type:       post
 Date:       2013-06-02 18:30
 Category:   History
+Tags:       readme-driven development, test setup, plans
 
 I built Step Stool using [README-driven development][rdd], a concept I first
 heard of late last year. The first thing I did was put together the basic
