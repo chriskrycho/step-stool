@@ -1,0 +1,283 @@
+@import 'mixins';
+@import 'reset';
+@import 'typography_and_color';
+
+// Body defaults
+html {
+   font-size: 112.5%;
+}
+
+body {
+   font: {
+      family: $open;
+   }
+   color: $darkGray;
+   line-height: $beta;
+}
+
+h1, h2, h3, h4, h5, h6 {
+   margin: 0;
+}
+
+h1 {
+   font-size: $delta + rem;
+}
+
+h2 {
+   font: {
+      family: $open;
+      size: $gamma + rem;
+      weight: 300;
+   }
+}
+
+h3 {
+   font-size: $beta + rem;
+}
+
+h4 {
+   font-size: $alpha + rem;
+}
+
+h5 {
+   font-size: $null;
+}
+
+h6 {
+   font-size: $a;
+}
+
+a {
+   color: $lightGray;
+   border-bottom: 3px solid $darkBlue;
+   text-decoration: none;
+   @include vendorize(transition, 'color 0.644s ease, border 0.644s ease');
+
+   &:hover, &:active {
+      color: $darkBlue;
+      border-bottom: 3px solid $lightGray;
+      @include vendorize(transition, all 0.444s ease);
+   }
+
+   &.logoLink {
+      border: none;
+   }
+}
+
+li {
+   padding: {
+      top: $b + rem;
+      bottom: $b + rem;
+   }
+}
+
+.microspaceBefore {
+   margin-left: 2px;
+}
+
+.microspaceAfter {
+   margin-right: 2px;
+}
+
+// Generic classes
+.blue {
+   color: $lightBlue;
+}
+
+.gray {
+   color: $darkGray;
+}
+
+.jockey {
+   font-family: $jockey;
+}
+
+.open {
+   font-family: $open;
+}
+
+.italic {
+   font-style: italic;
+}
+
+.w300 {
+   font-weight: 300;
+}
+
+.w400 {
+   font-weight: 400;
+}
+
+.w600 {
+   font-weight: 700;
+}
+
+// Layout
+ul {
+   &.nav {
+      list-style-type: none;
+   }
+}
+
+.wrapper {
+   width: 100%;
+   overflow: hidden;
+}
+
+.column {
+   // Make columns full height
+   margin-bottom: -99999px;
+   padding-bottom: 99999px;
+   overflow: hidden;
+
+   &.right {
+      border-left: 1px solid;
+   }
+}
+
+.left {
+   float: left;
+   color: $lightGray;
+   background: $darkGray;
+
+   a {
+      &:hover, &:active {
+         color: $lightBlue;
+         border-bottom: 3px solid $lightGray;
+      }
+   }
+
+   ul.nav {
+      text-align: right;
+      padding-right: $gamma + rem;
+   }
+}
+
+.right {
+   float: right;
+   background: $lightBlue;
+
+   ul.nav {
+      padding-left: $gamma + rem;
+      margin-left: 0;
+   }
+
+   a {
+      &:hover {
+         color: $darkGray;
+      }
+   }
+}
+
+#logoWrapper {
+   background: $lightGray;
+   color: $darkGray;
+
+   h1 {
+      font-family: $jockey;
+   }
+
+   img {
+      vertical-align: -25%;
+      max-height: 100%;
+      max-width: 100%;
+   }
+}
+
+#descriptionWrapper {
+   background: $darkBlue;
+   color: $lightGray;
+}
+
+.textBlock {
+   background: $lightGray;
+   color: $darkGray;
+
+   article {
+      padding: $c + rem $gamma + rem;
+   }
+
+   p {
+      width: 36rem;
+   }
+
+   a {
+      color: $lightBlue;
+      border-bottom: 1px solid $darkGray;
+
+      &:hover {
+         color: $darkGray;
+         border-bottom: 1px solid $lightBlue;
+      }
+   }
+}
+
+// Page-specific layouts
+.index {
+   .left {
+      width: 56%;
+   }
+   
+   .right {
+      width: 44%;
+   }
+
+   #logoWrapper, #descriptionWrapper {
+      margin-top: $huge + rem;
+      height: $huge + rem;
+   }
+
+   #logoWrapper {
+      h1 {
+         height: $huge + rem;
+         padding-right: $gamma + rem;
+         text-align: right;
+         font-size: $theta + rem;
+      }
+   }
+
+   #descriptionWrapper {
+      h2 {
+         padding-top: $beta + rem;
+         padding-left: $gamma + rem;
+         font-size: $beta + $micro + rem;
+      }
+   }
+
+}
+
+.page {
+   .left {
+      width: 30%;
+   }
+
+   .right {
+      width: 70%;
+   }
+
+   #logoWrapper, #descriptionWrapper {
+      height: $theta + rem;
+      margin-top: $alpha + rem;
+   }
+
+   #logoWrapper {
+      h1 {
+         height: $theta + rem;
+         text-align: center;
+         font-size: $zeta + rem;
+      }
+   }
+
+   #descriptionWrapper {
+      h2 {
+         font-size: $alpha + rem;
+         padding: {
+            top: $alpha + rem;
+            left: $alpha + rem;
+         }
+      }
+   }
+}
+
+@import 'heights';
+@import 'responsive';

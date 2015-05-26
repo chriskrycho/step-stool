@@ -1,0 +1,110 @@
+// Colors
+$lightBlue: #3498db;
+$darkBlue: #186189;
+$darkGray: #444444;
+$lightGray: #F8F8F8;
+
+
+// Typefaces
+$jockey: 'Jockey One', monospace;
+$open: 'Open Sans', 'Century Gothic', sans-serif;
+
+
+// Hyphenation/justification
+@supports (hyphens: auto) {
+   p {
+      text-align: justify;
+      @include vendorize(hyphens, auto);
+   }
+}
+
+
+// Modular scale on perfect fifth with 18px/128px
+// http://modularscale.com/scale/?px1=18&px2=128&ra1=1.5&ra2=0
+
+$ginormous: 10.667;
+$huge: 7.594;
+$kappa: 7.111;
+$iota: 5.063;
+$theta: 4.741;
+$eta: 3.375;
+$zeta: 3.161;
+$epsilon: 2.25;
+$delta: 2.107;
+$gamma: 1.873;
+$beta: 1.5;
+$alpha: 1.405;
+
+$null: 1;
+
+$a: 0.936;
+$b: 0.667;
+$c: 0.624;
+$d: 0.444;
+$e: 0.416;
+$f: 0.296;
+
+$tiny: 0.185;
+$micro: 0.123;
+
+// Classes
+.ginormous {font-size: 10.667rem;}
+.huge {font-size: 7.594rem;}
+
+.kappa {font-size: 7.111rem;}
+.iota {font-size: 5.063rem;}
+.theta {font-size: 4.741rem;}
+.eta {font-size: 3.375rem;}
+.zeta {font-size: 3.161rem;}
+.epsilon {font-size: 2.25rem;}
+.delta {font-size: 2.107rem;}
+.gamma {font-size: 1.873rem;}
+.beta {font-size: 1.5rem;}
+.alpha {font-size: 1.405rem;}
+
+.null {font-size: 1rem;}
+
+.a {font-size: 0.936rem;}
+.b {font-size: 0.667rem;}
+.c {font-size: 0.936rem;}
+.c {font-size: 0.667rem;}
+
+.tiny {font-size: 0.185rem;}
+.micro {font-size: 0.123rem;}
+
+//    Pixels	   Ems	      Ems @ 16	   % of 13
+//    1,037.974	57.665	   64.873	   7,984.415
+//    972.000	   54	         60.75	      7,476.923
+//    691.983	   38.444	   43.249	   5,322.946
+//    648.000	   36	         40.5	      4,984.615
+//    461.322	   25.629	   28.833	   3,548.631
+//    432.000	   24	         27	         3,323.077
+//    307.548	   17.086	   19.222	   2,365.754
+//    288.000	   16	         18	         2,215.385
+//    205.032	   11.391	   12.815	   1,577.169
+//    192.000	   10.667	   12	         1,476.923
+//    136.688	   7.594	      8.543	      1,051.446
+//    128.000	   7.111	      8	         984.615
+//    91.125	   5.063	      5.695	      700.962
+//    85.333	   4.741	      5.333	      656.408
+//    60.750	   3.375	      3.797	      467.308
+//    56.889	   3.161	      3.556	      437.608
+//    40.500	   2.25	      2.531	      311.538
+//    37.926	   2.107	      2.37	      291.738
+//    27.000	   1.5	      1.688	      207.692
+//    25.284	   1.405	      1.58	      194.492
+//    18.000	   1	         1.125	      138.462
+//    16.856	   0.936	      1.054	      129.662
+//    12.000	   0.667	      0.75	      92.308
+//    11.237	   0.624	      0.702	      86.438
+//    8.000	      0.444	      0.5	      61.538
+//    7.491	      0.416	      0.468	      57.623
+//    5.333	      0.296	      0.333	      41.023
+//    4.994	      0.277	      0.312	      38.415
+//    3.555	      0.198	      0.222	      27.346
+//    3.329	      0.185	      0.208	      25.608
+//    2.370	      0.132	      0.148	      18.231
+//    2.219	      0.123	      0.139	      17.069
+//    1.580	      0.088	      0.099	      12.154
+//    1.479	      0.082	      0.092	      11.377
+//    1.053	      0.059	      0.066	      8.100

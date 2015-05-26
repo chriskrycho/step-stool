@@ -1,0 +1,182 @@
+// Make sure the columns always go to the bottom of the screen
+
+@import 'mixins';
+@import 'typography_and_color';
+
+@media screen {
+
+   @media (max-width: 690px) { // 648px
+      .page, .index {
+         .left, .right {
+            width: 100%;
+         }
+
+         .right {
+            margin-top: $c + rem;
+         }
+
+         #logoWrapper, #descriptionWrapper {
+            height: $theta + rem;
+         }
+
+         #logoWrapper {
+            h1 {
+               text-align: center;
+               height: $theta + rem;
+               font-size: $zeta + rem;
+               padding: 0;
+            }
+         }
+
+         #descriptionWrapper {
+            margin-top: 0;
+
+            h2 {
+               text-align: center;
+               font-size: $alpha + rem;
+               padding: {
+                  top: $f + rem;
+                  left: 0;
+               }
+            }
+         }
+
+         #mainNav {
+            margin-top: 0;
+         }
+
+         ul.nav {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+
+            li {
+               display: inline-block;
+               padding: {
+                  right: $d + rem;
+                  left: $d + rem;
+               }
+            }
+         }
+      }
+
+      .textBlock {
+         article {
+            padding: $null + rem;
+
+            p {
+               width: 100%;
+            }
+         }
+      }
+
+      @media (max-height: 400px) {
+         .index {
+            #logoWrapper {
+               margin-top: $delta + rem;
+            }
+         }
+      }
+   }
+
+   @media (min-width: 690px) {
+      .optionalBreak {
+         display: none;
+      }
+
+      @media (max-width: 900px) {
+         .index {
+            #logoWrapper {
+               height: $iota + rem;
+
+               h1 {
+                  height: $iota + rem;
+                  font-size: $eta + rem;
+               }
+            }
+
+            #descriptionWrapper {
+               height: $iota + rem;
+
+               h2 {
+                  padding: {
+                     top: $f + rem;
+                     left: $null + rem;
+                  }
+                  font-size: $alpha + $micro + rem;
+               }
+            }
+
+            .left, .right {
+               width: 50%;
+            }
+         }
+
+         .page {
+            #logoWrapper, #descriptionWrapper {
+               height: $eta + rem;
+            }
+
+            #logoWrapper {
+               h1 {
+                  height: $eta + rem;
+                  font-size: $epsilon + rem;
+               }
+            }
+
+            #descriptionWrapper {
+               h2 {
+                  font-size: $null + $micro + rem;
+                  padding: {
+                     top: $null + rem;
+                     left: $null + rem;
+                  }
+               }
+            }
+
+            .textBlock {
+               article {
+                  padding: {
+                     left: $null + rem;
+                     right: $null + rem;
+                  }
+
+                  p {
+                     width: 100%;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   @media (max-width: 1038px) {
+      html {
+         font-size: 100%;
+      }
+   }
+
+   @media (min-width: 1038px) {
+      .left, .right {
+         width: 100%;
+      }
+
+      .index {
+         #logoWrapper, #descriptionWrapper {
+            //height: + rem;
+         }
+
+         #logoWrapper {
+            h1 {
+               //height: + rem;
+            }
+         }
+
+         #descriptionWrapper {
+            h2 {
+               //height: + rem;
+            }
+         }
+      }
+   }
+}
